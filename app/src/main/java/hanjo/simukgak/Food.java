@@ -1,9 +1,5 @@
 package hanjo.simukgak;
 
-/**
- * Created by user on 2016-11-06.
- */
-
 public class Food {
     private String info_seller;
     private String food_name;
