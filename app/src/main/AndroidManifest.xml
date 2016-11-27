@@ -24,7 +24,8 @@
             android:label="Customer"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".order1"></activity>
+        <activity android:name=".order1" />
+        <activity android:name=".order2"></activity>
     </application>
 
 </manifest>
