@@ -33,6 +33,7 @@ public class CustomerActivity extends Activity {
     }
 
     public void onClickOrder(View view) {
+        startActivity(new Intent(CustomerActivity.this, order1.class));
     }
 
     public void onClickDutch(View view) {
