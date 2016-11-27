@@ -24,4 +24,16 @@ public class CustomerActivity extends Activity {
         setResult(RESULT_OK, returnIntent);
         finish();
     }
+
+    public void onClickMyPage(View view) {
+    }
+
+    public void onClickBoard(View view) {
+    }
+
+    public void onClickOrder(View view) {
+    }
+
+    public void onClickDutch(View view) {
+    }
 }
