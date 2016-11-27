@@ -106,7 +106,7 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
 
         //item.setIcon(icon);
         item.setTitle(title);
-        item.setPrice(price);
+        item.setPrice(Integer.parseInt(price));
         item.setName(name);
         item.setDate(date);
 

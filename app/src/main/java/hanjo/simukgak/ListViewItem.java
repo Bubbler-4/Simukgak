@@ -19,13 +19,13 @@ public class ListViewItem {
     public void setTitle(String title) {
         titleStr = title ;
     }
-    public void setPrice(String price) {
-        priceStr = Integer.parseInt(price) ;
+    public void setPrice(int price) {
+        priceStr = price ;
     }
     public void setName(String name) {
         nameStr = name ;
     }
-    public void setDate(String date) {
+    public void setDate(String date) { //형식 0000.00.00
         dateYear = Integer.parseInt(date.substring(0, 4)) ;
         dateMonth = Integer.parseInt(date.substring(5, 7)) ;
         dateDay = Integer.parseInt(date.substring(8, 10)) ;
