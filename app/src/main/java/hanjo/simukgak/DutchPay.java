@@ -55,7 +55,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
 
-                //startActivityForResult(new Intent(getApplicationContext(), AddItem.class), 1);
+                startActivityForResult(new Intent(getApplicationContext(), DutchAddItem.class), 1);
                 //TODO: 네트워크/액티비티로 값을 받아 추가
             }
         }) ;
