@@ -22,4 +22,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(onSelectCustomerIntent);
         //startActivityForResult(onSelectCustomerIntent, result);
     }
+
+    public void onSelectRestaurant(View view) {
+    }
 }
