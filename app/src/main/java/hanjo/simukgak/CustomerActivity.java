@@ -35,5 +35,6 @@ public class CustomerActivity extends Activity {
     }
 
     public void onClickDutch(View view) {
+        startActivity(new Intent(getApplicationContext(), DutchPay.class));
     }
 }
