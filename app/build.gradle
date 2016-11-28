@@ -30,4 +30,5 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
+    compile 'org.jsoup:jsoup:1.7.3'
 }
