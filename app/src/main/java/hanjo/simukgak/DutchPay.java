@@ -20,7 +20,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
 
     private FileManager fileManager;
 
-    final DutchListViewAdapter adapter = new DutchListViewAdapter(this, R.layout.listview_item, this);
+    final DutchListViewAdapter adapter = new DutchListViewAdapter(this, R.layout.dutch_listview_item, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             public void onClick(View v) {
 
                 startActivityForResult(new Intent(getApplicationContext(), DutchAddItem.class), 1);
-                //TODO: 네트워크/액티비티로 값을 받아 추가
+                //TODO: 추가 기능 삭제(로컬 데이터 사용중)
             }
         }) ;
 

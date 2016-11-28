@@ -19,9 +19,8 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-    final public static String TAG = "FileManager";
+    final private static String TAG = "FileManager";
     private  String fileName;
-    private String savePath;
     private File dataFile;
     private Context context;
 
@@ -31,19 +30,8 @@ public class FileManager {
         setFile();
     }
 
-    public void resetData() //덮어쓰기로 데이터 초기화
-    {
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream(dataFile);
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void setFile(){ //파일 세팅
-        savePath = context.getFilesDir() +"/datafiles/";
+        String savePath = context.getFilesDir() +"/datafiles/";
         File dir = makeDirectory(savePath);
         dataFile = makeFile(dir, (savePath+fileName));
     }
@@ -67,7 +55,7 @@ public class FileManager {
         boolean isSuccess = false;
         if(dir.isDirectory()){
             file = new File(file_path);
-            if(file!=null&&!file.exists()){
+            if(!file.exists()){
                 Log.i( TAG , "!file.exists" );
                 try {
                     isSuccess = file.createNewFile();
@@ -81,6 +69,17 @@ public class FileManager {
             }
         }
         return file;
+    }
+
+    public void resetData() //덮어쓰기로 데이터 초기화
+    {
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(dataFile);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void writeFile(String content){
