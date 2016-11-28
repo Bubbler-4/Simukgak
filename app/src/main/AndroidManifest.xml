@@ -28,7 +28,7 @@
         <activity android:name=".order2" />
         <activity android:name=".DutchPay" />
         <activity android:name=".DutchAddItem" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
     </application>
 
 </manifest>
