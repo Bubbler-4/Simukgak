@@ -26,9 +26,10 @@ public class ListViewItem {
         nameStr = name ;
     }
     public void setDate(String date) { //형식 0000.00.00
-        dateYear = Integer.parseInt(date.substring(0, 4)) ;
-        dateMonth = Integer.parseInt(date.substring(5, 7)) ;
-        dateDay = Integer.parseInt(date.substring(8, 10)) ;
+        String[] str = date.split("\\.");
+        dateYear = Integer.parseInt(str[0]) ;
+        dateMonth = Integer.parseInt(str[1]) ;
+        dateDay = Integer.parseInt(str[2]) ;
     }
 
     /*public Drawable getIcon() {
