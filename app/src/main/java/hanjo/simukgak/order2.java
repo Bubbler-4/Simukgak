@@ -17,7 +17,11 @@ public class order2 extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_order2);
 
-            ArrayAdapter adapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,LIST_MENU);
+            Intent parentIntent = getIntent();
+            String[] restaurantList = parentIntent.getStringArrayExtra("restaurantList");
+
+            ArrayAdapter adapter = new ArrayAdapter(
+                    this, R.layout.support_simple_spinner_dropdown_item, restaurantList);
 
             ListView listview =(ListView)findViewById(R.id.koreaList);
             listview.setAdapter(adapter);
