@@ -24,7 +24,8 @@ public class FileManager {
     private File dataFile;
     private Context context;
 
-    public FileManager(Context _context, String _fileName){ //생성자
+    public FileManager(Context _context, String _fileName) //생성자 (context, 파일 이름)
+    {
         context = _context;
         fileName = _fileName;
         setFile();
@@ -82,8 +83,8 @@ public class FileManager {
         }
     }
 
-    public void writeFile(String content){
-
+    public void writeFile(String content) //내용을 입력하면 그 내용을 파일에 입력 (한 줄 단위)
+    {
         FileOutputStream fos;
         File file = dataFile;
         try {
@@ -101,22 +102,23 @@ public class FileManager {
         }
     }
 
-    public ArrayList<String> readFile(){
+    public ArrayList<String> readFile() //파일에서 읽어 ArrayList<String>으로 반환 (한 줄씩 들어감)
+    {
         File file = dataFile;
         ArrayList<String> strList = new ArrayList<String>();
         try {
             // 파일에서 읽은 데이터를 저장하기 위해서 만든 변수
-            int i = 0;
-            //String[] values;
             FileInputStream fis = new FileInputStream(file);
             BufferedReader buffer = new BufferedReader(new InputStreamReader(fis));
+
             String str = buffer.readLine(); // 파일에서 한줄을 읽어옴
             while (str != null) {
                 strList.add(str);
                 str = buffer.readLine();
-                i++;
             }
+
             buffer.close();
+            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

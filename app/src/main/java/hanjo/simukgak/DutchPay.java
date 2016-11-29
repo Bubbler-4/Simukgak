@@ -64,7 +64,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             public void onClick(View v) {
 
                 startActivityForResult(new Intent(getApplicationContext(), DutchAddItem.class), 1);
-                //TODO: 추가 기능 삭제(로컬 데이터 사용중)
+                //TODO: 아이템 추가 기능 삭제(로컬 데이터 사용중)
             }
         }) ;
 
