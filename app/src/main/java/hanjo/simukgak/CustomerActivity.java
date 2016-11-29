@@ -26,6 +26,7 @@ public class CustomerActivity extends Activity {
     }
 
     public void onClickMyPage(View view) {
+        startActivity(new Intent(CustomerActivity.this, MypageActivity.class));
     }
 
     public void onClickBoard(View view) {
