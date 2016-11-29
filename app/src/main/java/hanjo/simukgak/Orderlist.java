@@ -1,5 +1,6 @@
 package hanjo.simukgak;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -70,5 +71,18 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
     }
 
     @Override
-    public void onListBtnClick(int position, View v) {}
+    public void onListBtnClick(int position, View v) {
+        switch(v.getId()) {
+            case R.id.dutchButton:
+                Intent intent = new Intent(getApplicationContext(), CreateDutch.class);
+                int n = position;
+                intent.putExtra("product", adapter.getItem(n).getTitle());
+                intent.putExtra("price", Integer.toString(adapter.getItem(n).getPrice()));
+                intent.putExtra("date", adapter.getItem(n).getDate());
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
 }

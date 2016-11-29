@@ -54,4 +54,11 @@ android:layout_height="70dp">
         android:textColor="#666666"
         android:layout_weight="1" />
 </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dutchButton"
+        android:text="Dutch"
+        android:onClick="onClickDutch"/>
 </LinearLayout>

@@ -10,13 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class OrderlistListViewAdapter extends BaseAdapter{
+public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
     public interface ListBtnClickListener {
         void onListBtnClick(int position, View v) ;
@@ -24,21 +25,21 @@ public class OrderlistListViewAdapter extends BaseAdapter{
 
     private int resourceId;
     private int listSortStatus = 0;
+    private ListBtnClickListener listBtnClickListener;
+    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
 
     // ListViewAdapter의 생성자
     public OrderlistListViewAdapter(Context context, int resource, ListBtnClickListener clickListener) {
         //super(context, resource);
 
+        this.listBtnClickListener = clickListener;
         this.resourceId = resource;
     }
 
-    // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
-
-    // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
-    @Override
-    public int getCount() {
-        return listViewItemList.size() ;
+    public void onClick(View v) {
+        if (this.listBtnClickListener != null) {
+            this.listBtnClickListener.onListBtnClick((int) v.getTag(), v);
+        }
     }
 
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
@@ -64,7 +65,18 @@ public class OrderlistListViewAdapter extends BaseAdapter{
         titleTextView.setText(listViewItem.getTitle());
         priceTextView.setText(Integer.toString(listViewItem.getPrice()) + "원");
         dateTextView.setText(listViewItem.getDate());
+
+        Button deleteButton = (Button) convertView.findViewById(R.id.dutchButton);
+        deleteButton.setTag(position);
+        deleteButton.setOnClickListener(this);
+
         return convertView;
+    }
+
+    // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
+    @Override
+    public int getCount() {
+        return listViewItemList.size() ;
     }
 
     // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현

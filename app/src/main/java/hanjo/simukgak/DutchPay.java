@@ -42,11 +42,6 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         String[] values;
 
         fileManager = new FileManager(getApplicationContext(), "dutch_info.txt");
-        //default 아이템 추가. Product, Price, Name, Date
-        fileManager.writeFile("맘스터치,5000,Alice,2016.10.13");
-        fileManager.writeFile("버거킹,5000,James,2016.10.20");
-        fileManager.writeFile("새천년,7000,Bob,2016.09.20");
-
         fileValues = fileManager.readFile();
         for(int i = 0; i < fileValues.size(); i++)
         {
