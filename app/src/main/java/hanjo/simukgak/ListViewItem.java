@@ -1,10 +1,12 @@
 package hanjo.simukgak;
 
+import java.io.Serializable;
+
 /**
  * Created by Kwon Ohhyun on 2016-11-27.
  */
 
-public class ListViewItem {
+public class ListViewItem implements Serializable {
     //private Drawable iconDrawable ;
     private String titleStr ;
     private int priceStr ;
@@ -16,6 +18,7 @@ public class ListViewItem {
     /*public void setIcon(Drawable icon) {
         iconDrawable = icon ;
     }*/
+
     public void setTitle(String title) {
         titleStr = title ;
     }
