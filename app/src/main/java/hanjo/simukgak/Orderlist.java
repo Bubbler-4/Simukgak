@@ -1,12 +1,10 @@
 package hanjo.simukgak;
 
 import android.support.v7.app.AppCompatActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,6 +50,23 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
             values = fileValues.get(i).split(",");
             adapter.addItem(values[0], values[1], values[2], values[3]);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fileManager.resetData();
+        String data;
+        for(int i = 0; i<adapter.getCount(); i++)
+        {
+            data = adapter.getItem(i).getTitle() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + adapter.getItem(i).getDate();
+            fileManager.writeFile(data);
+        }
+    }
+
+    public void onClickSort(View view)
+    {
+        adapter.sortItemByDate();
     }
 
     @Override

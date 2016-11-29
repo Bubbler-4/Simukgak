@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,8 +22,7 @@ public class OrderlistListViewAdapter extends BaseAdapter{
         void onListBtnClick(int position, View v) ;
     }
 
-    int resourceId;
-    private ListBtnClickListener listBtnClickListener;
+    private int resourceId;
     private int listSortStatus = 0;
 
     // ListViewAdapter의 생성자
@@ -32,7 +30,6 @@ public class OrderlistListViewAdapter extends BaseAdapter{
         //super(context, resource);
 
         this.resourceId = resource;
-        this.listBtnClickListener = clickListener;
     }
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
@@ -47,7 +44,6 @@ public class OrderlistListViewAdapter extends BaseAdapter{
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
         final Context context = parent.getContext();
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
@@ -96,7 +92,6 @@ public class OrderlistListViewAdapter extends BaseAdapter{
         listViewItemList.add(item);
     }
 
-    //TODO: 아이템 분류 기능 추가?
     public void sortItemByDate()
     {
         Comparator<ListViewItem> noAsc = new Comparator<ListViewItem>() {
