@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 public class Orderlist extends AppCompatActivity implements OrderlistListViewAdapter.ListBtnClickListener {
 
-    static final int REQUEST_CODE = 11;
+    static final int REQUEST_CODE = 1;
 
     final OrderlistListViewAdapter adapter = new OrderlistListViewAdapter(this, R.layout.orderlist_listview_item, this);
 
@@ -37,19 +38,29 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
         });
 
         ArrayList<String> fileValues;
+        ArrayList<String> productList;
         String[] values;
 
         fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
-        //default 아이템 추가. Product, Price, Name, Date
-        fileManager.writeFile("맘스터치,5000,Alice,2016.10.13");
-        fileManager.writeFile("버거킹,5000,James,2016.10.20");
-        fileManager.writeFile("새천년,7000,Bob,2016.09.20");
+        //TODO: 주문 메뉴에서 아이템 추가
+        fileManager.resetData();
+        fileManager.writeFile("참서리,2016.08.03,0,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
+        fileManager.writeFile("새천년,2016.11.30,0,보쌈대,20000,1,돼지고추장,6000,2");
+        fileManager.writeFile("치킨,2016.12.01,0,양념치킨,16000,1");
+        fileValues = fileManager.readFile(); //company, date, 0, product1, price1, amount1, product2, price2, amount2,...
 
-        fileValues = fileManager.readFile();
         for(int i = 0; i < fileValues.size(); i++)
         {
+            productList = new ArrayList<>();
             values = fileValues.get(i).split(",");
-            adapter.addItem(values[0], values[1], values[2], values[3]);
+            int[] priceList = new int[(values.length-3)/3];
+            int[] amountList = new int[(values.length-3)/3];
+            for(int j = 3; j < values.length; j = j + 3) {
+                productList.add(values[j]);
+                priceList[j/3 - 1] = Integer.parseInt(values[j+1]);
+                amountList[j/3 - 1] = Integer.parseInt(values[j+2]);
+            }
+            adapter.addItem(values[0], values[1], Integer.parseInt(values[2]), productList, priceList, amountList); //
         }
     }
 
@@ -60,7 +71,16 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
         String data;
         for(int i = 0; i<adapter.getCount(); i++)
         {
-            data = adapter.getItem(i).getTitle() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + adapter.getItem(i).getDate();
+            data = adapter.getItem(i).getCompany() + "," + adapter.getItem(i).getDate();
+            if(adapter.getItem(i).getDutch())
+                data = data + "," + "1";
+            else
+                data = data + "," + "0";
+            for(int j = 0; j < adapter.getItem(i).getProductList().size(); j++) {
+                data = data + "," + (adapter.getItem(i).getProductList()).get(j);
+                data = data + "," + Integer.toString(adapter.getItem(i).getPrice(j));
+                data = data + "," + Integer.toString(adapter.getItem(i).getAmount(j));
+            }
             fileManager.writeFile(data);
         }
     }
@@ -74,15 +94,36 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
     public void onListBtnClick(int position, View v) {
         switch(v.getId()) {
             case R.id.dutchButton:
-                Intent intent = new Intent(getApplicationContext(), CreateDutch.class);
-                int n = position;
-                intent.putExtra("product", adapter.getItem(n).getTitle());
-                intent.putExtra("price", Integer.toString(adapter.getItem(n).getPrice()));
-                intent.putExtra("date", adapter.getItem(n).getDate());
-                startActivity(intent);
+                if(!adapter.getItem(position).getDutch()) {
+                    Intent intent = new Intent(getApplicationContext(), CreateDutch.class);
+                    intent.putExtra("company", adapter.getItem(position).getCompany());
+                    intent.putExtra("product", adapter.getItem(position).getProductList());
+                    intent.putExtra("price", adapter.getItem(position).getPriceArr());
+                    intent.putExtra("amount", adapter.getItem(position).getAmountArr());
+                    intent.putExtra("date", adapter.getItem(position).getDate());
+                    intent.putExtra("index", position);
+                    startActivityForResult(intent, REQUEST_CODE);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "이미 더치페이를 했습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        //MainActivity에서 부여한 번호표를 비교
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) { //세컨드 액티비티에서 이 값을 반환하는 코드가 동작 됐을때
+                Toast.makeText(getApplicationContext(), "Dutch Pay Added", Toast.LENGTH_SHORT).show();
+                int n = intent.getExtras().getInt("index");
+                adapter.getItem(n).setDutch(true);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ package hanjo.simukgak;
  */
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,10 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
     private int resourceId;
     private int listSortStatus = 0;
     private ListBtnClickListener listBtnClickListener;
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
+    private ArrayList<OrderlistItem> listViewItemList = new ArrayList<>() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
 
     // ListViewAdapter의 생성자
     public OrderlistListViewAdapter(Context context, int resource, ListBtnClickListener clickListener) {
-        //super(context, resource);
 
         this.listBtnClickListener = clickListener;
         this.resourceId = resource;
@@ -53,17 +53,19 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
             convertView = inflater.inflate(this.resourceId/*R.layout.orderview*/, parent, false);
         }
 
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.productTe) ;
-        TextView priceTextView = (TextView) convertView.findViewById(R.id.priceTe) ;
-        TextView dateTextView = (TextView) convertView.findViewById(R.id.dateTe) ;
+        TextView companyTextView = (TextView) convertView.findViewById(R.id.CompanyText) ;
+        TextView productTextView = (TextView) convertView.findViewById(R.id.productText) ;
+        TextView priceTextView = (TextView) convertView.findViewById(R.id.priceText) ;
+        TextView dateTextView = (TextView) convertView.findViewById(R.id.dateText) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ListViewItem listViewItem = listViewItemList.get(position);
+        OrderlistItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        //iconImageView.setImageDrawable(listViewItem.getIcon());
-        titleTextView.setText(listViewItem.getTitle());
-        priceTextView.setText(Integer.toString(listViewItem.getPrice()) + "원");
+        companyTextView.setText(listViewItem.getCompany());
+        String products = listViewItem.getProductList().get(0) + " 외 " + Integer.toString(listViewItem.getTotAmount()-1) + "개";
+        productTextView.setText(products);
+        priceTextView.setText(Integer.toString(listViewItem.getTotPrice()) + "원");
         dateTextView.setText(listViewItem.getDate());
 
         Button deleteButton = (Button) convertView.findViewById(R.id.dutchButton);
@@ -87,28 +89,32 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
 
     // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
     @Override
-    public ListViewItem getItem(int position) {
+    public OrderlistItem getItem(int position) {
         return listViewItemList.get(position) ;
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String title, String price, String name, String date) {
-        ListViewItem item = new ListViewItem();
+    public void addItem(String company, String date, int dutch, ArrayList<String> product, int[] price, int[] amount) {
+        OrderlistItem item = new OrderlistItem();
 
-        //item.setIcon(icon);
-        item.setTitle(title);
-        item.setPrice(Integer.parseInt(price));
-        item.setName(name);
+        item.setCompany(company);
+        item.setProduct(product);
+        item.setPrice(price);
+        item.setAmount(amount);
         item.setDate(date);
+        if(dutch == 0)
+            item.setDutch(false);
+        else
+            item.setDutch(true);
 
         listViewItemList.add(item);
     }
 
     public void sortItemByDate()
     {
-        Comparator<ListViewItem> noAsc = new Comparator<ListViewItem>() {
+        Comparator<OrderlistItem> noAsc = new Comparator<OrderlistItem>() {
             @Override
-            public int compare(ListViewItem item1, ListViewItem item2) {
+            public int compare(OrderlistItem item1, OrderlistItem item2) {
                 int ret = 0;
                 if(listSortStatus == -2 || listSortStatus >= 0) {
                     if (item1.getDateYear() < item2.getDateYear())

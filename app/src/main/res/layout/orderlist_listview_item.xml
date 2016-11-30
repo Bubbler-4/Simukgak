@@ -14,27 +14,29 @@ android:layout_height="70dp">
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:layout_weight="7"
+    android:layout_weight="12.46"
     android:gravity="left">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Product"
-        android:id="@+id/productTe"
+        android:text="Company"
+        android:id="@+id/CompanyText"
         android:textSize="17dp"
         android:textColor="#000000"
         android:gravity="center_vertical"
         android:layout_weight="1" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Price"
-        android:id="@+id/priceTe"
+        android:layout_gravity="left"
+        android:text="Date"
+        android:id="@+id/dateText"
         android:textSize="15dp"
         android:textColor="#666666"
         android:layout_weight="1" />
+
 </LinearLayout>
 
 <LinearLayout
@@ -43,21 +45,33 @@ android:layout_height="70dp">
     android:layout_height="match_parent"
     android:layout_weight="4"
     android:gravity="right">
-
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Date"
-        android:gravity="left|center_vertical"
-        android:id="@+id/dateTe"
+        android:gravity="center_vertical"
+        android:layout_gravity="left"
+        android:text="Products"
+        android:id="@+id/productText"
         android:textSize="15dp"
         android:textColor="#666666"
         android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Price"
+        android:id="@+id/priceText"
+        android:textSize="15dp"
+        android:textColor="#666666"
+        android:layout_weight="1" />
+
 </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:id="@+id/dutchButton"
         android:text="Dutch"
         android:onClick="onClickDutch"/>
