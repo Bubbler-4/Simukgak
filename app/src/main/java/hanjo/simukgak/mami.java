@@ -56,7 +56,7 @@ public class mami extends AppCompatActivity {
     }
     public void orderk(View v)
     {
-        order_ListViewAdapter temp= new order_ListViewAdapter();
+        order_ListViewAdapter2 temp= new order_ListViewAdapter2();
 
         SparseBooleanArray checkedItem = listview.getCheckedItemPositions();
 

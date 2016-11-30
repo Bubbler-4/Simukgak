@@ -79,6 +79,7 @@ public class order_ListViewAdapter extends BaseAdapter implements Serializable {
         ListViewItem item = new ListViewItem();
         item.setTitle(title);
         item.setPrice(desc);
+        item.setcount(1);
         listViewItemList.add(item);
     }
 }

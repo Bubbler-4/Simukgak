@@ -14,10 +14,12 @@ public class ListViewItem implements Serializable{
     private int dateYear ;
     private int dateMonth ;
     private int dateDay ;
+    private int count;
 
     /*public void setIcon(Drawable icon) {
         iconDrawable = icon ;
     }*/
+    public void setcount(int countset){count =countset;}
     public void setTitle(String title) {
         titleStr = title ;
     }
@@ -36,6 +38,7 @@ public class ListViewItem implements Serializable{
     /*public Drawable getIcon() {
         return this.iconDrawable ;
     }*/
+    public int getcount(){return count;}
     public String getTitle() { return titleStr ; }
     public int getPrice() {
         return priceStr ;
@@ -46,7 +49,7 @@ public class ListViewItem implements Serializable{
     public String getDate() {
         String dateStr;
         dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) ;
-        return dateStr ;
+        return dateStr;
     }
     public int getDateYear() { return dateYear ; }
     public int getDateMonth() { return dateMonth ; }
