@@ -41,33 +41,38 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         fileManager = new FileManager(getApplicationContext(), "dutch_info.txt");
         //default 아이템 추가. Product, Price, Name, Date
-        final String product = getIntent().getExtras().getString("product");
-        final int price = Integer.parseInt(getIntent().getExtras().getString("price"));
+        final String company = getIntent().getExtras().getString("company");
         final String date = getIntent().getExtras().getString("date");
+        final int[] price = getIntent().getExtras().getIntArray("price");
+        final int[] amount = getIntent().getExtras().getIntArray("amount");
+        final ArrayList<String> product = getIntent().getExtras().getStringArrayList("product");
 
-        adapter.addItem("나", price);
+
+        adapter.addItem("나", price, product);
 
 
         TextView productText = (TextView) findViewById(R.id.productText);
         TextView dateText = (TextView) findViewById(R.id.dateText);
         Button addButton = (Button) findViewById(R.id.addButton);
+        Button setButton = (Button) findViewById(R.id.setButton);
         Button confirmButton = (Button) findViewById(R.id.confirmButton);
 
-        productText.setText(product);
+        productText.setText(company);
         dateText.setText(date);
 
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                int remains = price;
                 adapter.renewItem();
-                adapter.addItem("Name", 0);
-                for(int i=1; i<adapter.getCount(); i++)
-                {
-                    adapter.editItemPrice(i, price/adapter.getCount());
-                    remains = remains - price/adapter.getCount();
-                }
-                adapter.editItemPrice(0, remains);
+                adapter.addItem("Name", price, product);
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        setButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                adapter.renewItem();
+                adapter.notifyDataSetChanged();
+
             }
         });
 
@@ -77,7 +82,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                 adapter.renewItem();
                 for(int i = 1; i<adapter.getCount(); i++)
                 {
-                    data = product + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," +  adapter.getItem(i).getName() + "," + date;
+                    data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," +  adapter.getItem(i).getName() + "," + date;
                     fileManager.writeFile(data);
                 }
                 finish();

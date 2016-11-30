@@ -37,19 +37,28 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
         });
 
         ArrayList<String> fileValues;
+        ArrayList<String> productList;
         String[] values;
 
         fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
-        //default 아이템 추가. Product, Price, Name, Date
-        fileManager.writeFile("맘스터치,5000,Alice,2016.10.13");
-        fileManager.writeFile("버거킹,5000,James,2016.10.20");
-        fileManager.writeFile("새천년,7000,Bob,2016.09.20");
+        //TODO: 주문 메뉴에서 아이템 추가
+        //fileManager.writeFile("참서리,2016.08.03,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
+        //fileManager.writeFile("새천년,2016.11.30,보쌈대,20000,1,돼지고추장,6000,2");
+        //fileManager.writeFile("치킨,2016.12.01,양념치킨,16000,1");
+        fileValues = fileManager.readFile(); //company, date, product1, price1, product2, price2, ...
 
-        fileValues = fileManager.readFile();
         for(int i = 0; i < fileValues.size(); i++)
         {
+            productList = new ArrayList();
             values = fileValues.get(i).split(",");
-            adapter.addItem(values[0], values[1], values[2], values[3]);
+            int[] priceList = new int[(values.length-2)/3];
+            int[] amountList = new int[(values.length-2)/3];
+            for(int j = 2; j < values.length; j = j + 3) {
+                productList.add(values[j]);
+                priceList[(j-3)/2] = Integer.parseInt(values[j+1]);
+                amountList[(j-3)/2] = Integer.parseInt(values[j+2]);
+            }
+            adapter.addItem(values[0], values[1], productList, priceList, amountList); //
         }
     }
 
@@ -60,7 +69,12 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
         String data;
         for(int i = 0; i<adapter.getCount(); i++)
         {
-            data = adapter.getItem(i).getTitle() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + adapter.getItem(i).getDate();
+            data = adapter.getItem(i).getCompany() + "," + adapter.getItem(i).getDate();
+            for(int j = 0; j < adapter.getItem(i).getProductList().size(); j++) {
+                data = data + "," + (adapter.getItem(i).getProductList()).get(j);
+                data = data + "," + Integer.toString(adapter.getItem(i).getPrice(j));
+                data = data + "," + Integer.toString(adapter.getItem(i).getAmount(j));
+            }
             fileManager.writeFile(data);
         }
     }
@@ -76,8 +90,10 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
             case R.id.dutchButton:
                 Intent intent = new Intent(getApplicationContext(), CreateDutch.class);
                 int n = position;
-                intent.putExtra("product", adapter.getItem(n).getTitle());
-                intent.putExtra("price", Integer.toString(adapter.getItem(n).getPrice()));
+                intent.putExtra("company", adapter.getItem(n).getCompany());
+                intent.putExtra("product", adapter.getItem(n).getProductList());
+                intent.putExtra("price", adapter.getItem(n).getPriceArr());
+                intent.putExtra("amount", adapter.getItem(n).getAmountArr());
                 intent.putExtra("date", adapter.getItem(n).getDate());
                 startActivity(intent);
                 break;

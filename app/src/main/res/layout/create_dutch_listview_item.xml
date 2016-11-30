@@ -11,6 +11,17 @@
         android:layout_weight="1" />
     -->
 
+    <Spinner
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Product"
+        android:id="@+id/productSpin"
+        android:textSize="17dp"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2" />
+
     <EditText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -22,16 +33,16 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1" />
 
-    <EditText
+    <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:hint="Price"
         android:id="@+id/PriceEdit"
         android:textSize="17dp"
         android:textColor="#000000"
-        android:gravity="center_horizontal"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1" />
+        android:layout_weight="2" />
 
     <Button
         android:layout_width="34dp"
