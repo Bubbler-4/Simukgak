@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="90dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place"
+            android:text="Place"
+            android:textsize="30dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item"
+            android:text="Item"
+            android:textsize="30dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/number"
+            android:text="PhonNumber"
+            android:textsize="30dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
