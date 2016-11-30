@@ -28,6 +28,8 @@
         <activity android:name=".order2" />
         <activity android:name=".DutchPay" />
         <activity android:name=".DutchAddItem" />
+        <activity android:name=".order_last" />
+        <activity android:name=".mami"></activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
