@@ -20,14 +20,34 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class order_ListViewAdapter2 extends BaseAdapter implements Serializable {
+public class order_ListViewAdapter2 extends BaseAdapter implements Serializable,View.OnClickListener {
 
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
-
-
-    public order_ListViewAdapter2() {
-
+    //버튼 클릭 이벤트를 위한 Listener 인터페이스 정의
+    public interface ListBtnClickListener{
+        void onListBtnClick(int position, View v);
     }
+    int resourceId;
+    private ListBtnClickListener listBtnClickListener;
+    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
+    private int total_price;
+    TextView count;
+
+    public order_ListViewAdapter2(Context context, int resource,  ListBtnClickListener clickListener) {
+   // super(context, resource,list);
+
+        this.resourceId=resource;
+        this.listBtnClickListener =clickListener;
+    }
+
+    public void setTotal_price()
+    {   total_price=0;
+        for(int i=0;i<listViewItemList.size();i++) {
+            total_price +=(listViewItemList.get(i).getPrice() * listViewItemList.get(i).getcount());
+
+        }
+    }
+
+    public int getTotal_price(){return total_price;}
 
     @Override
     public int getCount() {
@@ -44,22 +64,31 @@ public class order_ListViewAdapter2 extends BaseAdapter implements Serializable 
 
         }
 
+
         TextView titleTextView = (TextView) convertView.findViewById(R.id.order_productText2);
         TextView descTextView = (TextView) convertView.findViewById(R.id.order_priceText2);
-        final TextView count = (TextView) convertView.findViewById(R.id.count_text);
+        count = (TextView) convertView.findViewById(R.id.count_text);
+
         Button minus = (Button) convertView.findViewById(R.id.btn_minus);
+        minus.setTag(position);
+        minus.setOnClickListener(this);
+
         Button plus = (Button) convertView.findViewById(R.id.btn_plus);
+        plus.setTag(position);
+        plus.setOnClickListener(this);
 
          ListViewItem listViewItem = listViewItemList.get(position);
+
         titleTextView.setText(listViewItem.getTitle());
         descTextView.setText("" + listViewItem.getPrice());
         count.setText("" + listViewItem.getcount());
 
-        View.OnClickListener listenerplus = new View.OnClickListener() {
+        /*View.OnClickListener listenerplus = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listViewItemList.get(position).setcount(listViewItemList.get(position).getcount() + 1);
                 count.setText(""+listViewItemList.get(position).getcount());
+                setTotal_price();
             }
         };
         plus.setOnClickListener(listenerplus);
@@ -72,13 +101,21 @@ public class order_ListViewAdapter2 extends BaseAdapter implements Serializable 
                 } else {
                     listViewItemList.get(position).setcount(listViewItemList.get(position).getcount() - 1);
                     count.setText(""+listViewItemList.get(position).getcount());
+                    setTotal_price();
+
                 }
             }
         };
         minus.setOnClickListener(listenerminus);
+        */
         return convertView;
     }
 
+    public void onClick(View v) {
+        if(this.listBtnClickListener != null) {
+            this.listBtnClickListener.onListBtnClick((int)v.getTag(),v);
+        }
+    }
     @Override
     public long getItemId(int position) {
         return position;
@@ -108,4 +145,22 @@ public class order_ListViewAdapter2 extends BaseAdapter implements Serializable 
         item.setcount(1);
         listViewItemList.add(item);
     }
+    public void count_plus(int position)
+    {
+        listViewItemList.get(position).setcount(listViewItemList.get(position).getcount() + 1);
+        count.setText(""+listViewItemList.get(position).getcount());
+        setTotal_price();
+    }
+    public void count_minus(int position)
+    {
+        if (listViewItemList.get(position).getcount() == 0) {
+
+        } else {
+            listViewItemList.get(position).setcount(listViewItemList.get(position).getcount() - 1);
+            count.setText(""+listViewItemList.get(position).getcount());
+            setTotal_price();
+
+        }
+    }
+
 }
