@@ -28,6 +28,9 @@
         <activity android:name=".order2" />
         <activity android:name=".DutchPay" />
         <activity android:name=".DutchAddItem" />
+        <activity android:name=".Mypage" />
+        <activity android:name=".Orderlist" />
+        <activity android:name=".CreateDutch"></activity>
         <activity android:name=".order_last" />
         <activity android:name=".mami"></activity>
         <activity

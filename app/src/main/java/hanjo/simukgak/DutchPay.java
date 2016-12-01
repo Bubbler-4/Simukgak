@@ -11,14 +11,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 
 public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.ListBtnClickListener {
 
-    static final int REQUEST_CODE = 1;
-    final DutchListViewAdapter adapter = new DutchListViewAdapter(this, R.layout.listview_item, this);
+    final public static int REQUEST_CODE = 1;
 
-    //TODO: 로컬 데이터 저장
+    private FileManager fileManager;
+
+    final DutchListViewAdapter adapter = new DutchListViewAdapter(this, R.layout.dutch_listview_item, this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +38,18 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             }
         });
 
-        //default 아이템 추가. Product, Price, Name, Date
-        adapter.addItem("맘스터치", "5000", "Alice", "2016.10.03") ;
-        adapter.addItem("버거킹", "5000", "James", "2016.10.20") ;
-        adapter.addItem("새천년", "7000", "Bob", "2016.10.09") ;
-        adapter.addItem("굽네치킨", "18000", "Tom", "2016.10.30") ;
-        adapter.addItem("참서리", "3000", "Bob", "2016.10.10") ;
-        adapter.addItem("야식장", "4500", "Alice", "2016.10.21") ;
-        adapter.addItem("윈드벨", "8000", "Bob", "2016.09.21") ;
-        adapter.addItem("스낵바", "2700", "Jack", "2015.07.21") ;
-        adapter.addItem("아아아", "3000", "김민수", "2013.12.30") ;
-        adapter.addItem("아아앙ㅇ아아", "8000", "최영희", "2013.01.01") ;
-        adapter.addItem("가아아아아", "8000", "김민수", "2013.05.10") ;
+        ArrayList<String> fileValues;
+        String[] values;
+
+        fileManager = new FileManager(getApplicationContext(), "dutch_info.txt");
+        fileValues = fileManager.readFile();
+        for(int i = 0; i < fileValues.size(); i++)
+        {
+            values = fileValues.get(i).split(",");
+            adapter.addItem(values[0], values[1], values[2], values[3]);
+        }
+
+
 
         Button addButton = (Button)findViewById(R.id.addSequence) ;
         Button sortByDate = (Button)findViewById(R.id.sortByDateButton) ;
@@ -56,7 +59,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             public void onClick(View v) {
 
                 startActivityForResult(new Intent(getApplicationContext(), DutchAddItem.class), 1);
-                //TODO: 네트워크/액티비티로 값을 받아 추가
+                //TODO: 아이템 추가 기능 삭제(로컬 데이터 사용중)
             }
         }) ;
 
@@ -88,6 +91,18 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        fileManager.resetData();
+        String data;
+        for(int i = 0; i<adapter.getCount(); i++)
+        {
+            data = adapter.getItem(i).getTitle() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + adapter.getItem(i).getDate();
+            fileManager.writeFile(data);
+        }
     }
 
     @Override
@@ -151,11 +166,11 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
     public void noticeDutch(final int position)
     {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(DutchPay.this);
-        alert_confirm.setMessage(adapter.getName(position) + "에게 " + adapter.getTotalPrice(position) + "원을 요청하시겠습니까?").setCancelable(false).setPositiveButton("확인",
+        alert_confirm.setMessage(adapter.getItem(position).getName() + "에게 " + adapter.getTotalPrice(position) + "원을 요청하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), adapter.getName(position) + ": " + adapter.getTotalPrice(position), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), adapter.getItem(position).getName() + ": " + adapter.getTotalPrice(position), Toast.LENGTH_SHORT).show();
                         //TODO: 네트워크로 메시지 전송
                     }
                 }).setNegativeButton("취소",
