@@ -27,7 +27,6 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_last);
 
-
         Intent intent = getIntent();
         itemList = (ArrayList<ListViewItem>) intent.getSerializableExtra("order");
 
@@ -76,7 +75,8 @@ public void onListBtnClick(int position, View v)
     t.setText("총 가격:"+ adapter.getTotal_price());
 
 }
-public void send_order() {
+public void send_order()
+{
 
 }
 }

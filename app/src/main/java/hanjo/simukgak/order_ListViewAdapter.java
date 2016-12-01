@@ -22,6 +22,11 @@ public class order_ListViewAdapter extends BaseAdapter implements Serializable {
 
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
 
+    public interface ListBtnClickListener{
+        void onListBtnClick(int position, View v);
+    }
+    int resourceId;
+    private ListBtnClickListener listBtnClickListener;
 
     public order_ListViewAdapter(){
 
@@ -45,17 +50,18 @@ public class order_ListViewAdapter extends BaseAdapter implements Serializable {
         TextView descTextView = (TextView) convertView.findViewById(R.id.order_priceText);
         final CheckBox selected = (CheckBox) convertView.findViewById(R.id.checkBox1);
 
-        ListViewItem listViewItem = listViewItemList.get(position);
+        final ListViewItem listViewItem = listViewItemList.get(position);
         titleTextView.setText(listViewItem.getTitle());
         descTextView.setText(""+listViewItem.getPrice());
         selected.setChecked(false);
 
-        selected.setChecked(((ListView)parent).isItemChecked(position));
+        //selected.setChecked(((ListView)parent).isItemChecked(position));
+
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ListView)parent).setItemChecked(position,!((ListView)parent).isItemChecked(position));
+
             }
         };
         selected.setOnClickListener(listener);
