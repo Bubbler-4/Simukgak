@@ -30,4 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ManageButton" />
+
+    <Button
+        android:text="Address Change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddressButton"
+        android:onClick="onClickAddress"/>
 </LinearLayout>

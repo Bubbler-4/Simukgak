@@ -18,4 +18,8 @@ public class Mypage extends AppCompatActivity {
     {
         startActivity(new Intent(getApplicationContext(), Orderlist.class));
     }
+    public void onClickAddress(View view)
+    {
+        startActivity(new Intent(getApplicationContext(), AddressChange.class));
+    }
 }
