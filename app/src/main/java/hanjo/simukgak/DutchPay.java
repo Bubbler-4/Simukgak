@@ -146,6 +146,8 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String nameTo = adapter.getItem(position).getName();
+                        SocketWrapper.object().sendDutchDismiss(nameTo);
                         adapter.deleteItem(position);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(), "Item deleted", Toast.LENGTH_SHORT).show();
@@ -170,14 +172,15 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), adapter.getItem(position).getName() + ": " + adapter.getTotalPrice(position), Toast.LENGTH_SHORT).show();
-                        //TODO: 네트워크로 메시지 전송
+                        String nameTo = adapter.getItem(position).getName();
+                        String price = adapter.getTotalPrice(position);
+                        Toast.makeText(getApplicationContext(), nameTo + ": " + price, Toast.LENGTH_SHORT).show();
+                        SocketWrapper.object().sendDutch(nameTo, price);
                     }
                 }).setNegativeButton("취소",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        return;
                     }
                 });
         AlertDialog alert = alert_confirm.create();

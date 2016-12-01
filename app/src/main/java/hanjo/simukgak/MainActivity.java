@@ -23,8 +23,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SocketWrapper.object().initSocket();
+        SocketWrapper.object().initSocket(this);
         initFirebase();
+        init();
+    }
+
+    private void init() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("username", "ExampleUser");
+        editor.commit();
     }
 
     private void initFirebase() {
@@ -52,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        String token = pref.getString("regId", null);
+        SocketWrapper.object().sendFBToken(token);
     }
 
     @Override
@@ -68,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 new IntentFilter(FBConfig.PUSH_NOTIFICATION));
 
         // clear the notification area when the app is opened
-        FBPushUtil.clearNotifications(getApplicationContext());
+        // FBPushUtil.clearNotifications(getApplicationContext());
     }
 
     @Override

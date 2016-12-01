@@ -1,6 +1,9 @@
 package hanjo.simukgak;
 
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -21,6 +24,7 @@ public class SocketWrapper extends Observable {
     private Socket socket;
     private boolean socketAvailable;
     private boolean socketConnected;
+    private MainActivity parent;
 
     private String[] restaurantList;
 
@@ -28,7 +32,8 @@ public class SocketWrapper extends Observable {
         return thisObj;
     }
 
-    public void initSocket() {
+    public void initSocket(MainActivity parent) {
+        this.parent = parent;
         socketConnected = false;
 
         try {
@@ -53,6 +58,18 @@ public class SocketWrapper extends Observable {
                     restaurantList = new String[obj.length()];
                     for(int i = 0; i < obj.length(); i += 1) {
                         restaurantList[i] = obj.optString(i);
+                    }
+
+                    setChanged();
+                    notifyObservers();
+                }
+            }).on("DutchDismiss", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    final JSONArray obj = (JSONArray) args[0];
+
+                    for(int i = 0; i < obj.length(); i += 1) {
+                        int messageID = obj.optInt(i);
                     }
 
                     setChanged();
@@ -94,6 +111,26 @@ public class SocketWrapper extends Observable {
             e.printStackTrace();
             socketAvailable = false;
         }
+    }
+
+    public void sendFBToken(String token) {
+        Log.d(DEBUG_TAG, "Sending Firebase Token");
+        SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        String user = pref.getString("username", null);
+        socket.emit("FBToken", token, user);
+    }
+
+    public void sendDutch(String nameTo, String price) {
+        Log.d(DEBUG_TAG, "Sending dutch request");
+        SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        String nameFrom = pref.getString("username", null);
+        socket.emit("DutchRequest", nameFrom, nameTo, price);
+    }
+    public void sendDutchDismiss(String nameTo) {
+        Log.d(DEBUG_TAG, "Sending dutch dismiss request");
+        SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        String nameFrom = pref.getString("username", null);
+        socket.emit("DutchDismiss", nameFrom, nameTo);
     }
 
     public void requestRestaurantList(String category) {

@@ -8,6 +8,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import io.socket.client.Socket;
+
 /**
  * Created by Woosuk on 2016-12-01.
  */
@@ -34,6 +36,7 @@ public class FBIDService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(final String token) {
         // sending gcm token to server
+        SocketWrapper.object().sendFBToken(token);
         Log.e(TAG, "sendRegistrationToServer: " + token);
     }
 
