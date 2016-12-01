@@ -8,11 +8,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class ShowWebChartActivity extends ActionBarActivity {
+public class ShowWebChartActivity extends AppCompatActivity {
 
     WebView webView;
     int num1, num2, num3, num4, num5;
