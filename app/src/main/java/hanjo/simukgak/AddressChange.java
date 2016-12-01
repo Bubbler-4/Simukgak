@@ -1,5 +1,6 @@
 package hanjo.simukgak;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.EditTextPreference;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ public class AddressChange extends AppCompatActivity {
     private EditText etxValue;
     private TextView txvValue;
     private SharedPreferences preferences;
-    private static java.lang.String address="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,16 +24,15 @@ public class AddressChange extends AppCompatActivity {
         etxValue=(EditText)findViewById(R.id.amin_etxValue);
         txvValue=(TextView)findViewById(R.id.amin_txvValue);
         preferences=getSharedPreferences("shared", MODE_PRIVATE);
-        txvValue.setText(address);
         Button Change=(Button)findViewById(R.id.ChangeButton);
+        txvValue.setText(preferences.getString("key", null));
             Change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor=preferences.edit();
                 editor.putString("key", etxValue.getText().toString());
                 editor.commit();
-                address=etxValue.getText().toString();
-                txvValue.setText(address);
+                txvValue.setText(preferences.getString("key", null));
 
             }
         });
