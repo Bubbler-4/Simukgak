@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectCustomer(View view) {
-        Intent onSelectCustomerIntent = new Intent(this, CustomerActivity.class);
+        Intent onSelectCustomerIntent = new Intent(this, selorderwait.class);
 
         onSelectCustomerIntent.putExtra("key", "value");
 
@@ -24,5 +24,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectRestaurant(View view) {
+        Intent onSelectCustomerIntent = new Intent(this, seller.class);
+
+        onSelectCustomerIntent.putExtra("key", "value");
+
+        final int result = 1;
+        startActivity(onSelectCustomerIntent);
     }
 }
