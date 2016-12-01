@@ -18,11 +18,7 @@ public class CreateDutchItem {
     //private int Price;
 
     public void setProductList(ArrayList<String> strList) {productList = strList;}
-    public void setProductIndex(int n) {
-        productIndex = n;
-        //Product = productList.get(n);
-        //Price = priceList[n];
-    }
+    public void setProductIndex(int n) {productIndex = n;}
     public void setPriceList(int[] ints) {priceList = ints;}
     public void setPrice(int _price) {price = _price;}
     public void setName(String name) {Name = name;}
@@ -40,7 +36,7 @@ public class CreateDutchItem {
 
     public ArrayList<String> getProductList() {return productList;}
     public int getProductIndex() {return productIndex;}
-    public int[] getPriceList() {return priceList;}
+    //public int[] getPriceList() {return priceList;}
     public String getName() {return Name;}
     public String getProduct() {return productList.get(productIndex);}
     public int getPrice() {return price;}

@@ -14,6 +14,7 @@ public class OrderlistItem {
     private int dateYear ;
     private int dateMonth ;
     private int dateDay ;
+    private boolean dutch = false;
 
     public void setCompany(String company) {
         companyStr = company ;
@@ -36,6 +37,7 @@ public class OrderlistItem {
         dateMonth = Integer.parseInt(str[1]) ;
         dateDay = Integer.parseInt(str[2]) ;
     }
+    public void setDutch(boolean tf) {dutch = tf;}
 
     public String getCompany() { return companyStr ; }
     public ArrayList<String> getProductList() { return productList;}
@@ -73,4 +75,5 @@ public class OrderlistItem {
     public int getDateYear() { return dateYear ; }
     public int getDateMonth() { return dateMonth ; }
     public int getDateDay() { return dateDay ; }
+    public boolean getDutch() {return dutch;}
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CreateDutch extends AppCompatActivity implements CreateDutchListViewAdapter.ListBtnClickListener{
 
     final public static int REQUEST_CODE = 1;
-
+    private  int index;
     private FileManager fileManager;
 
     final CreateDutchListViewAdapter adapter = new CreateDutchListViewAdapter(this, R.layout.create_dutch_listview_item, this);
@@ -48,6 +48,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         final int[] price = getIntent().getExtras().getIntArray("price");
         final int[] amount = getIntent().getExtras().getIntArray("amount");
         final ArrayList<String> product = getIntent().getExtras().getStringArrayList("product");
+        index = getIntent().getExtras().getInt("index");
 
         int count = 0;
         for(int i = 0; i<product.size(); i++)
@@ -90,7 +91,6 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                //TODO: 모든 아이템이 선택되었을 경우 진행하도록 하기
                 String data;
                 adapter.renewItem();
                 if(adapter.AllDataSelected(product, price, amount) == null) {
@@ -98,6 +98,9 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                         data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
                         fileManager.writeFile(data);
                     }
+                    Intent intent = new Intent();
+                    intent.putExtra("index",  index);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
                 else {

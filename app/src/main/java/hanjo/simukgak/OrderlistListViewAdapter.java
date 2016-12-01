@@ -95,7 +95,7 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String company, String date, ArrayList<String> product, int[] price, int[] amount) {
+    public void addItem(String company, String date, int dutch, ArrayList<String> product, int[] price, int[] amount) {
         OrderlistItem item = new OrderlistItem();
 
         //item.setIcon(icon);
@@ -104,6 +104,10 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         item.setPrice(price);
         item.setAmount(amount);
         item.setDate(date);
+        if(dutch == 0)
+            item.setDutch(false);
+        else
+            item.setDutch(true);
 
         listViewItemList.add(item);
     }

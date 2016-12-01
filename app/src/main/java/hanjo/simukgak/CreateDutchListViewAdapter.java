@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -168,7 +167,7 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
 
     }
 
-    public void changeItem()
+    private void changeItem()
     {
         for(int i=0; i<getCount(); i++)
         {
@@ -178,7 +177,7 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
 
     }
 
-    public int getIndexByProduct(String str)
+    private int getIndexByProduct(String str)
     {
         ArrayList<String> list = getItem(0).getProductList();
         for(int i = 0; i<getItem(0).getProductList().size(); i++)
