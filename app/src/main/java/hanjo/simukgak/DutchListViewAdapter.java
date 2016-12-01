@@ -127,6 +127,8 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
         }
     }
 
+
+
     //TODO: 분류 시 우선순위 방식
     public void sortItemByDate() {
         Comparator<ListViewItem> noAsc = new Comparator<ListViewItem>() {

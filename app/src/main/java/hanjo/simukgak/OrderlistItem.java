@@ -14,7 +14,7 @@ public class OrderlistItem {
     private int dateYear ;
     private int dateMonth ;
     private int dateDay ;
-    private boolean dutch = false;
+    private boolean dutch;
 
     public void setCompany(String company) {
         companyStr = company ;

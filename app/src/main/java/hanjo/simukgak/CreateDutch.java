@@ -67,7 +67,6 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         TextView productText = (TextView) findViewById(R.id.productText);
         TextView dateText = (TextView) findViewById(R.id.dateText);
         Button addButton = (Button) findViewById(R.id.addButton);
-        Button setButton = (Button) findViewById(R.id.setButton);
         Button confirmButton = (Button) findViewById(R.id.confirmButton);
 
         productText.setText(company);
@@ -81,27 +80,11 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
             }
         });
 
-        setButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                adapter.renewItem();
-                adapter.notifyDataSetChanged();
-
-            }
-        });
-
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                String data;
                 adapter.renewItem();
                 if(adapter.AllDataSelected(product, price, amount) == null) {
-                    for (int i = 1; i < adapter.getCount(); i++) {
-                        data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
-                        fileManager.writeFile(data);
-                    }
-                    Intent intent = new Intent();
-                    intent.putExtra("index",  index);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    confirmItem(company, date);
                 }
                 else {
                     String[] errorMsg = adapter.AllDataSelected(product, price, amount).split(",");
@@ -132,6 +115,36 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         }
     }
 
+
+    public void confirmItem(final String company, final String date)
+    {
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
+        alert_confirm.setMessage("더치페이를 하시겠습니까?").setCancelable(false).setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String data;
+                        for (int i = 1; i < adapter.getCount(); i++) {
+                            data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
+                            fileManager.writeFile(data);
+                        }
+                        Intent intent = new Intent();
+                        intent.putExtra("index",  index);
+                        setResult(RESULT_OK, intent);
+                        finish();
+
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 'No'
+                        return;
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
+    }
 
     public void itemDelete(final int position)
     {

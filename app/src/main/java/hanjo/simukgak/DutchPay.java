@@ -49,19 +49,8 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             adapter.addItem(values[0], values[1], values[2], values[3]);
         }
 
-
-
-        Button addButton = (Button)findViewById(R.id.addSequence) ;
         Button sortByDate = (Button)findViewById(R.id.sortByDateButton) ;
         Button sortByName = (Button)findViewById(R.id.sortByNameButton) ;
-
-        addButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-
-                startActivityForResult(new Intent(getApplicationContext(), DutchAddItem.class), 1);
-                //TODO: 아이템 추가 기능 삭제(로컬 데이터 사용중)
-            }
-        }) ;
 
 
         /*
@@ -102,26 +91,6 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         {
             data = adapter.getItem(i).getTitle() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + adapter.getItem(i).getDate();
             fileManager.writeFile(data);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        //MainActivity에서 부여한 번호표를 비교
-        if (requestCode == REQUEST_CODE) {
-
-            if (resultCode == RESULT_OK) { //세컨드 액티비티에서 이 값을 반환하는 코드가 동작 됐을때
-                String productStr = intent.getExtras().getString("product"); //인자로 구분된 값을 불러오는 행위를 하고
-                String priceStr = intent.getExtras().getString("price");
-                String nameStr = intent.getExtras().getString("name");
-                String dateStr = intent.getExtras().getString("date");
-                adapter.addItem(productStr, priceStr, nameStr, dateStr) ; //아이템 추가
-                adapter.notifyDataSetChanged(); //데이터 수정 알림
-                Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
-
-            }
         }
     }
 
