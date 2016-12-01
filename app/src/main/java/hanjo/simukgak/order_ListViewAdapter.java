@@ -18,18 +18,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class order_ListViewAdapter extends BaseAdapter implements Serializable {
+public class order_ListViewAdapter extends BaseAdapter implements Serializable,View.OnClickListener {
 
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
 
+    private CheckBox selected;
     public interface ListBtnClickListener{
         void onListBtnClick(int position, View v);
     }
     int resourceId;
     private ListBtnClickListener listBtnClickListener;
 
-    public order_ListViewAdapter(){
+    public order_ListViewAdapter()
+    {
 
+    }
+
+    public order_ListViewAdapter(Context context, int resource,  ListBtnClickListener clickListener) {
+        // super(context, resource,list);
+
+        this.resourceId=resource;
+        this.listBtnClickListener =clickListener;
     }
     @Override
     public int getCount(){
@@ -45,28 +54,36 @@ public class order_ListViewAdapter extends BaseAdapter implements Serializable {
             convertView = inflater.inflate(R.layout.order_item, parent, false);
 
         }
-
+        final View temp = convertView;
         TextView titleTextView = (TextView) convertView.findViewById(R.id.order_productText);
         TextView descTextView = (TextView) convertView.findViewById(R.id.order_priceText);
-        final CheckBox selected = (CheckBox) convertView.findViewById(R.id.checkBox1);
+        selected = (CheckBox) convertView.findViewById(R.id.checkBox1);
 
         final ListViewItem listViewItem = listViewItemList.get(position);
         titleTextView.setText(listViewItem.getTitle());
         descTextView.setText(""+listViewItem.getPrice());
-        selected.setChecked(false);
+
+       // selected.setChecked(false);
+        selected.setTag(position);
+        selected.setOnClickListener(this);
 
         //selected.setChecked(((ListView)parent).isItemChecked(position));
 
 
-        View.OnClickListener listener = new View.OnClickListener() {
+       /* View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         };
-        selected.setOnClickListener(listener);
+        selected.setOnClickListener(listener);*/
 
         return convertView;
+    }
+    public void onClick(View v) {
+        if(this.listBtnClickListener != null) {
+            this.listBtnClickListener.onListBtnClick((int)v.getTag(),v);
+        }
     }
     @Override
     public long getItemId(int position){
@@ -88,4 +105,9 @@ public class order_ListViewAdapter extends BaseAdapter implements Serializable {
         item.setcount(1);
         listViewItemList.add(item);
     }
+    public void setCheck(int position)
+    {
+        selected.setChecked(true);
+    }
+
 }

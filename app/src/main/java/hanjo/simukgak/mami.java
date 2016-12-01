@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class mami extends AppCompatActivity implements order_ListViewAdapter2.ListBtnClickListener{
+public class mami extends AppCompatActivity implements order_ListViewAdapter.ListBtnClickListener{
     private ListView listview;
     private order_ListViewAdapter adapter;
 
@@ -36,7 +36,7 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter2.Li
 
 
 
-        adapter = new order_ListViewAdapter();
+        adapter = new order_ListViewAdapter(this,R.layout.order_item,this);
 
         listview = (ListView) findViewById(R.id.list12);
         listview.setAdapter(adapter);
@@ -60,10 +60,11 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter2.Li
 
         SparseBooleanArray checkedItem = listview.getCheckedItemPositions();
 
-        for(int i=0;i<checkedItem.size();i++)
+        for(int i=0;i<adapter.getList().size();i++)
         {
-            if(checkedItem.valueAt(i))
+            if(checkedItem.get(i))
             {
+
                 temp.addItem(adapter.getItem(i));
             }
         }
@@ -75,10 +76,9 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter2.Li
     public void check_on(View view) {
     }
     @Override
-    public void onListBtnClick(int position, View v)
-    {
+    public void onListBtnClick(int position, View v) {
+        listview.setItemChecked(position,!(listview.isItemChecked(position)));
 
     }
-
 }
 

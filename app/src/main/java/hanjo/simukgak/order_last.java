@@ -45,7 +45,7 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
         }
 
         total_price_View.setText("총 가격: " + total_price_int);
-        LinearLayout mlayout =(LinearLayout)findViewById(R.id.activity_order_last);
+       /* LinearLayout mlayout =(LinearLayout)findViewById(R.id.activity_order_last);
 
         mlayout.setOnTouchListener(new LinearLayout.OnTouchListener(){
             public boolean onTouch(View v, MotionEvent m){
@@ -54,7 +54,7 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
                 total_price_View.setText("총 가격: "+adapter.getTotal_price());
                 return true;
             }
-        });
+        });*/
     }
 @Override
 public void onListBtnClick(int position, View v)
