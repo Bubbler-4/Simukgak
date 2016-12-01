@@ -12,11 +12,21 @@
         android:gravity="center">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="8.76"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Customer Page"
             android:textSize="30sp" />
+
+        <Button
+            android:text="Settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/SettingsButton"
+            android:onClick="onClickSettings"
+            android:layout_weight="1.83" />
+
 
     </LinearLayout>
 

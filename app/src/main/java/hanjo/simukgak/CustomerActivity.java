@@ -26,6 +26,7 @@ public class CustomerActivity extends Activity {
     }
 
     public void onClickMyPage(View view) {
+        startActivity(new Intent(getApplicationContext(), Mypage.class));
     }
 
     public void onClickBoard(View view) {
@@ -37,5 +38,8 @@ public class CustomerActivity extends Activity {
 
     public void onClickDutch(View view) {
         startActivity(new Intent(getApplicationContext(), DutchPay.class));
+    }
+    public void onClickSettings(View view) {
+        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
     }
 }
