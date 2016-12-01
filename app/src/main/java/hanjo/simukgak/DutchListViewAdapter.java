@@ -218,13 +218,21 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
 
     public String getTotalPrice(int position) {
         int total = 0;
-        int i;
-        for (i = 0; i < getCount(); i++) {
+        for (int i = 0; i < getCount(); i++) {
             if (listViewItemList.get(position).getName().compareTo(listViewItemList.get(i).getName()) == 0) {
                 total = total + listViewItemList.get(i).getPrice();
             }
         }
 
+        return Integer.toString(total);
+    }
+
+    public String getTotalPrice()
+    {
+        int total = 0;
+        for (int i = 0; i < getCount(); i++) {
+            total = total + listViewItemList.get(i).getPrice();
+        }
         return Integer.toString(total);
     }
 }

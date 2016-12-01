@@ -105,7 +105,6 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         item.setPrice(price);
         item.setAmount(amount);
         item.setDate(date);
-        Log.d("OLAdapter", Integer.toString(dutch));
         if(dutch == 0)
             item.setDutch(false);
         else

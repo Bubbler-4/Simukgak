@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -49,22 +50,11 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             adapter.addItem(values[0], values[1], values[2], values[3]);
         }
 
+        TextView totalTText = (TextView)findViewById(R.id.totalText);
         Button sortByDate = (Button)findViewById(R.id.sortByDateButton) ;
         Button sortByName = (Button)findViewById(R.id.sortByNameButton) ;
 
-
-        /*
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // get item
-                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
-
-                String titleStr = item.getTitle() ;
-                //Drawable iconDrawable = item.getIcon() ;
-                Toast.makeText(getApplicationContext(), titleStr, Toast.LENGTH_SHORT).show();
-            }
-        }) ;*/
+        totalTText.setText("받아야 할 돈: " + adapter.getTotalPrice() + "원");
 
         sortByDate.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -116,6 +106,8 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.deleteItem(position);
+                        TextView totalTText = (TextView)findViewById(R.id.totalText);
+                        totalTText.setText("받아야 할 돈: " + adapter.getTotalPrice() + "원");
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(), "Item deleted", Toast.LENGTH_SHORT).show();
                     }
@@ -130,7 +122,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         AlertDialog alert = alert_confirm.create();
         alert.show();
     }
-    //TODO: 한꺼번에 삭제 기능
+    //TODO: 한꺼번에 삭제 기능 (알림이 올 경우)
 
     public void noticeDutch(final int position)
     {

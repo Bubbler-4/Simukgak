@@ -75,7 +75,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 adapter.renewItem();
-                adapter.addItem("Name", price, product);
+                adapter.addItem("", price, product);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -94,6 +94,8 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                         Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
                     } else if (errorMsg[0].equals("2")) {
                         Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
+                    } else if (errorMsg[0].equals("3")) {
+                        Toast.makeText(getApplicationContext(), "이름이 모두 작성되지 않았습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -124,15 +126,16 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String data;
-                        for (int i = 1; i < adapter.getCount(); i++) {
-                            data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
-                            fileManager.writeFile(data);
+                        for (int i = 0; i < adapter.getCount(); i++) {
+                            if(!adapter.getItem(i).getName().equals("나")) {
+                                data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
+                                fileManager.writeFile(data);
+                            }
                         }
                         Intent intent = new Intent();
                         intent.putExtra("index",  index);
                         setResult(RESULT_OK, intent);
                         finish();
-
                     }
                 }).setNegativeButton("취소",
                 new DialogInterface.OnClickListener() {

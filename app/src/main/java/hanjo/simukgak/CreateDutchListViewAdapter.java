@@ -159,10 +159,14 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         for(int i=0; i<getCount(); i++)
         {
             getItem(i).setName(nameList.get(i).getText().toString());
+
             if(getIndexByProduct(productList.get(i).getSelectedItem().toString()) == getItem(i).getProductIndex())
                 getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
-            getItem(i).setPrice(Integer.parseInt(priceList.get(i).getText().toString()));
-            //getItem(i).setProductIndex(getIndexByProduct(getItem(i).getProduct()));
+
+            if(priceList.get(i).getText().toString().equals(""))
+                getItem(i).setPrice(0);
+            else
+                getItem(i).setPrice(Integer.parseInt(priceList.get(i).getText().toString()));
         }
 
     }
@@ -192,6 +196,7 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
     {
         int count = 0;
         int total = 0;
+        boolean name;
         for(int i = 0; i<product.size(); i++)
         {
             count = 0;
@@ -211,6 +216,11 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
                 return "1" + "," + getItem(i).getProduct() + "," + Integer.toString(price[i]*amount[i] - total);
             else if(total > price[i]*amount[i])
                 return "2" + "," + getItem(i).getProduct() + "," + Integer.toString(total - price[i]*amount[i]);
+        }
+        for(int i = 0; i<getCount(); i++)
+        {
+            if(getItem(i).getName().equals(""))
+                return "3";
         }
         return null; //its ok
 
