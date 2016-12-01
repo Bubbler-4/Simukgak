@@ -35,6 +35,20 @@
         <activity android:name=".Mypage" />
         <activity android:name=".Orderlist" />
         <activity android:name=".CreateDutch"></activity>
+
+        <!-- Firebase Notifications -->
+        <service android:name=".FBMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".FBIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- ./Firebase Notifications -->
     </application>
 
 </manifest>
