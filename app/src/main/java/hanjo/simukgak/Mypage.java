@@ -22,4 +22,8 @@ public class Mypage extends AppCompatActivity {
     {
         startActivity(new Intent(getApplicationContext(), AddressChange.class));
     }
+    public void onClickManage(View view)
+    {
+        startActivity(new Intent(getApplicationContext(), ManageDiet.class));
+    }
 }
