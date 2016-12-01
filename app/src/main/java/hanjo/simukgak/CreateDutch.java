@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,11 +31,12 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         listview = (ListView) findViewById(R.id.listview);
         listview.setAdapter(adapter);
+        listview.setItemsCanFocus(true);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-
+                Log.d("CreateDutch", "listview.onItemClick");
             }
         });
 
@@ -47,8 +49,18 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         final int[] amount = getIntent().getExtras().getIntArray("amount");
         final ArrayList<String> product = getIntent().getExtras().getStringArrayList("product");
 
+        int count = 0;
+        for(int i = 0; i<product.size(); i++)
+        {
+            for(int j = 0; j<amount[i]; j++) {
+                adapter.addItem("", price, product);
+                adapter.getItem(count).setProductIndex(i);
+                adapter.getItem(count).setPrice(price[i]);
+                count++;
+            }
+        }
+        adapter.getItem(0).setName("나");
 
-        adapter.addItem("나", price, product);
 
 
         TextView productText = (TextView) findViewById(R.id.productText);
@@ -78,14 +90,27 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                //TODO: 모든 아이템이 선택되었을 경우 진행하도록 하기
                 String data;
                 adapter.renewItem();
-                for(int i = 1; i<adapter.getCount(); i++)
-                {
-                    data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," +  adapter.getItem(i).getName() + "," + date;
-                    fileManager.writeFile(data);
+                if(adapter.AllDataSelected(product, price, amount) == null) {
+                    for (int i = 1; i < adapter.getCount(); i++) {
+                        data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
+                        fileManager.writeFile(data);
+                    }
+                    finish();
                 }
-                finish();
+                else {
+                    String[] errorMsg = adapter.AllDataSelected(product, price, amount).split(",");
+                    if (errorMsg[0].equals("0")) {
+                        Toast.makeText(getApplicationContext(), "모든 아이템이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                    } else if (errorMsg[0].equals("1")) {
+                        Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
+                    } else if (errorMsg[0].equals("2")) {
+                        Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
             }
         });
 
@@ -96,13 +121,14 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
     public void onListBtnClick(int position, View v) {
         switch(v.getId()) {
             case R.id.deleteButton:
-                if(position != 0)
+                if(!adapter.getItem(position).getName().equals("나"))
                     itemDelete(position);
                 break;
             default:
                 break;
         }
     }
+
 
     public void itemDelete(final int position)
     {

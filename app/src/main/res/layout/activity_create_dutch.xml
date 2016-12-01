@@ -35,7 +35,7 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="491dp" />
+        android:layout_height="394dp" />
 
     <TextView
         android:layout_width="wrap_content"
