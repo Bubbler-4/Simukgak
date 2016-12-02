@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CreateDutch extends AppCompatActivity implements CreateDutchListViewAdapter.ListBtnClickListener{
 
@@ -64,11 +67,31 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         TextView productText = (TextView) findViewById(R.id.productText);
         TextView dateText = (TextView) findViewById(R.id.dateText);
+        Spinner amountSpinner = (Spinner) findViewById(R.id.amountSpinner);
+        final TextView amountText = (TextView) findViewById(R.id.amountText);
         Button addButton = (Button) findViewById(R.id.addButton);
         Button confirmButton = (Button) findViewById(R.id.confirmButton);
 
         productText.setText(company);
         dateText.setText(date);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, product);
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        amountSpinner.setAdapter(arrayAdapter);
+        amountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                amountText.setText(String.format(Locale.KOREA, "%d개", amount[position]));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        }
+
+        );
 
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
