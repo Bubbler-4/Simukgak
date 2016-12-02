@@ -26,13 +26,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1">
-            <EditText
+            <TextView
                 android:id="@+id/pro1"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1" />
 
-            <EditText
+            <TextView
                 android:id="@+id/num1"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -46,13 +46,13 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <EditText
+            <TextView
                 android:id="@+id/pro2"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1" />
 
-            <EditText
+            <TextView
                 android:id="@+id/num2"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -67,13 +67,13 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <EditText
+            <TextView
                 android:id="@+id/pro3"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1" />
 
-            <EditText
+            <TextView
                 android:id="@+id/num3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -88,13 +88,13 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <EditText
+            <TextView
                 android:id="@+id/pro4"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1" />
 
-            <EditText
+            <TextView
                 android:id="@+id/num4"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -109,13 +109,13 @@
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <EditText
+            <TextView
                 android:id="@+id/pro5"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1" />
 
-            <EditText
+            <TextView
                 android:id="@+id/num5"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
             android:id="@+id/show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show Chart"/>
+            android:text="Show Chart" />
 
     </LinearLayout>
 
