@@ -117,14 +117,17 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
         listViewItemList.remove(position);
     }
 
-    public void deleteCommonItem(int position) {
+    public int deleteCommonItem(int position) {
         String name = listViewItemList.get(position).getName();
-
+        int count = 0;
         for (int i = 0; i < getCount(); i++) {
             if (name.compareTo(listViewItemList.get(i).getName()) == 0) {
                 listViewItemList.remove(i);
+                count ++;
+                i--;
             }
         }
+        return count;
     }
 
     public void sortItemByDate() {

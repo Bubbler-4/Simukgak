@@ -105,11 +105,11 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adapter.deleteItem(position);
+                        int n = adapter.deleteCommonItem(position);
                         TextView totalTText = (TextView)findViewById(R.id.totalText);
                         totalTText.setText("받아야 할 돈: " + adapter.getTotalPrice() + "원");
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(getApplicationContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), Integer.toString(n) + "개의 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("취소",
                 new DialogInterface.OnClickListener() {
@@ -122,7 +122,6 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         AlertDialog alert = alert_confirm.create();
         alert.show();
     }
-    //TODO: 한꺼번에 삭제 기능 (알림이 올 경우)
 
     public void noticeDutch(final int position)
     {
