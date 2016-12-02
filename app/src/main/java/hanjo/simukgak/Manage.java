@@ -3,18 +3,16 @@ package hanjo.simukgak;
 /**
  * Created by lg on 2016-11-27.
  */
-       // import android.support.v7.app.ActionBarActivity;
+        import android.support.v7.app.ActionBarActivity;
         import android.content.Intent;
         import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
         import android.text.InputFilter;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.widget.Button;
         import android.widget.EditText;
-        import android.widget.TextView;
 
-public class Manage extends AppCompatActivity {
+public class Manage extends ActionBarActivity {
 
     EditText num1, num2, num3, num4, num5, pro1, pro2, pro3, pro4, pro5;
     Button btnShow;

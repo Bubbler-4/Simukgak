@@ -1,10 +1,7 @@
 package hanjo.simukgak;
 
-/**
- * Created by Kwon Ohhyun on 2016-11-29.
- */
-
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Locale;
 
 
 /**
@@ -28,7 +22,7 @@ import java.util.Comparator;
 
 
 
-public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
     public interface ListBtnClickListener {
         void onListBtnClick(int position, View v);
@@ -37,6 +31,7 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
     private int resourceId;
     private ListBtnClickListener listBtnClickListener;
     private ArrayList<EditText> nameList = new ArrayList<>();
+    private ArrayList<EditText> priceList = new ArrayList<>();
     private ArrayList<Spinner> productList = new ArrayList<>();
 
 
@@ -68,22 +63,24 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
             convertView = inflater.inflate(this.resourceId/*R.layout.listview_item*/, parent, false);
         }
 
-        EditText nameEditText = (EditText) convertView.findViewById(R.id.NameEdit);
-        TextView priceEditText = (TextView) convertView.findViewById(R.id.PriceEdit);
+        final EditText nameEditText = (EditText) convertView.findViewById(R.id.NameEdit);
+        final EditText priceEditText = (EditText) convertView.findViewById(R.id.PriceEdit);
         Spinner productSpinner = (Spinner) convertView.findViewById(R.id.productSpin);
 
         //값을 가져오기 위해 리스트에 저장
         if(nameList.size() == position)
             nameList.add(nameEditText);
+        if(priceList.size() == position)
+            priceList.add(priceEditText);
         if(productList.size() == position)
             productList.add(productSpinner);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        CreateDutchItem createDutchItem = listViewItemList.get(position);
+        final CreateDutchItem createDutchItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         nameEditText.setText(createDutchItem.getName());
-        priceEditText.setText(Integer.toString(createDutchItem.getPrice()) + "원 ");
+        priceEditText.setText(String.format(Locale.KOREA, "%d", createDutchItem.getPrice()));
         final String[] productArr = new String[createDutchItem.getProductList().size()];
         for(int i = 0; i<createDutchItem.getProductList().size(); i++)
         {
@@ -94,7 +91,25 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         productSpinner.setAdapter(arrayAdapter);
         productSpinner.setSelection(createDutchItem.getProductIndex());
-        productSpinner.setOnItemSelectedListener(this);
+        productSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                for(int i=0; i<getCount(); i++)
+                {
+                    getItem(i).setName(nameList.get(i).getText().toString());
+                    getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+                }
+                nameEditText.setText(createDutchItem.getName());
+                priceEditText.setText(String.format(Locale.KOREA, "%d", createDutchItem.getPrice()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        }
+
+        );
 
         Button deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         deleteButton.setTag(position);
@@ -107,16 +122,6 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         if (this.listBtnClickListener != null) {
             this.listBtnClickListener.onListBtnClick((int) v.getTag(), v);
         }
-    }
-
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        renewItem();
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
     }
 
     // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현
@@ -140,36 +145,33 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         listViewItemList.add(item);
     }
 
-    public void editItemName(int position, String name) {
-        getItem(position).setName(name);
-    }
-
-    public void editItemPrice(int position, int price) {
-        getItem(position).setPrice(price);
-    }
-
     //아이템 제거
     public void deleteItem(int position) {
         nameList.remove(position);
+        priceList.remove(position);
         productList.remove(position);
         listViewItemList.remove(position);
 
     }
 
-    public void renewItem()
-    {
+    //아이템 갱신
+    public void renewItem() {
         for(int i=0; i<getCount(); i++)
         {
             getItem(i).setName(nameList.get(i).getText().toString());
-            getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
-            getItem(i).setProductIndex(getIndexByProduct(getItem(i).getProduct()));
-            getItem(i).setPrice(listViewItemList.get(i).getPrice());
+
+            if(getIndexByProduct(productList.get(i).getSelectedItem().toString()) == getItem(i).getProductIndex())
+                getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+
+            if(priceList.get(i).getText().toString().equals(""))
+                getItem(i).setPrice(0);
+            else
+                getItem(i).setPrice(Integer.parseInt(priceList.get(i).getText().toString()));
         }
 
     }
 
-    public int getIndexByProduct(String str)
-    {
+    private int getIndexByProduct(String str) {
         ArrayList<String> list = getItem(0).getProductList();
         for(int i = 0; i<getItem(0).getProductList().size(); i++)
         {
@@ -179,15 +181,44 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         return -1;
     }
 
-    public int getSelectedAmount(String str)
-    {
+    /**
+     *
+     * @param product 제품 배열
+     * @param price 가격 배열
+     * @param amount 수량 배열
+     * @return 모든 데이터가 입력되었으면 null 반환, 아니면 에러 메시지를 반환
+     */
+    public String AllDataSelected(ArrayList<String> product, int[] price, int[] amount) {
         int count = 0;
+        int total = 0;
+        boolean name;
+        for(int i = 0; i<product.size(); i++)
+        {
+            count = 0;
+            total = 0;
+            for(int j = 0; j<getCount(); j++)
+            {
+                if(product.get(i).equals(getItem(j).getProduct())) {
+                    count++;
+                    total = total + getItem(j).getPrice();
+                }
+            }
+            Log.d("CDAdapter", Integer.toString(total) + " " + Integer.toString(price[i]*amount[i]));
+
+            if(count < amount[i])
+                return "0";
+            else if(total < price[i]*amount[i])
+                return "1" + "," + getItem(i).getProduct() + "," + Integer.toString(price[i]*amount[i] - total);
+            else if(total > price[i]*amount[i])
+                return "2" + "," + getItem(i).getProduct() + "," + Integer.toString(total - price[i]*amount[i]);
+        }
         for(int i = 0; i<getCount(); i++)
         {
-            if(getItem(i).getProduct().equals(str))
-                count++;
+            if(getItem(i).getName().equals(""))
+                return "3";
         }
-        return count;
+        return null; //its ok
+
     }
 
 }
