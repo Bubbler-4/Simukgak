@@ -25,8 +25,9 @@ public class order2 extends AppCompatActivity {
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView parent, View v, int position, long id){
-                    Intent intent = new Intent(order2.this,mami.class);
-
+                    Intent intent = new Intent(order2.this,order3.class);
+                    //가게명 전송
+                    intent.putExtra("StoreName",LIST_MENU[position]);
 
                     startActivity(intent);
 

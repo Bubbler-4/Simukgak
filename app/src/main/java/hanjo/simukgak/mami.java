@@ -20,6 +20,7 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter.Lis
     private ListView listview;
     private order_ListViewAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +35,12 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter.Lis
         cb = (CheckBox) findViewById(R.id.checkBox1);
         T =(TextView) findViewById(R.id.test);
 
+        Intent intent = getIntent();
 
 
         adapter = new order_ListViewAdapter(this,R.layout.order_item,this);
+
+        adapter.setStoreName(intent.getStringExtra("StoreName"));
 
         listview = (ListView) findViewById(R.id.list12);
         listview.setAdapter(adapter);
@@ -52,7 +56,6 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter.Lis
 
 
 
-
     }
     public void orderk(View v)
     {
@@ -64,12 +67,12 @@ public class mami extends AppCompatActivity implements order_ListViewAdapter.Lis
         {
             if(checkedItem.get(i))
             {
-
                 temp.addItem(adapter.getItem(i));
             }
         }
         Intent intent = new Intent(mami.this, order_last.class);
         intent.putExtra("order", temp.getList());
+        intent.putExtra("StoreName",adapter.getStoreName());
         startActivity(intent);
     }
 
