@@ -28,13 +28,13 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".order1" />
         <activity android:name=".order2" />
+        <activity android:name=".order_last" />
+        <activity android:name=".mami"></activity>
         <activity android:name=".DutchPay" />
         <activity android:name=".DutchAddItem" />
         <activity android:name=".Mypage" />
         <activity android:name=".Orderlist" />
         <activity android:name=".CreateDutch" />
-        <activity android:name=".order_last" />
-        <activity android:name=".mami" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
