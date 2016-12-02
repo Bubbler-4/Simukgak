@@ -30,7 +30,6 @@ public class order1 extends AppCompatActivity {
 
                 Intent intent = new Intent(order1.this,order2.class);
 
-
                 startActivity(intent);
             }
         });
