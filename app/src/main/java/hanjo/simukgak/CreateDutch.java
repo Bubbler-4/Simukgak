@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class CreateDutch extends AppCompatActivity implements CreateDutchListViewAdapter.ListBtnClickListener{
 
-    final public static int REQUEST_CODE = 1;
     private  int index;
     private FileManager fileManager;
 
@@ -42,7 +41,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
 
         fileManager = new FileManager(getApplicationContext(), "dutch_info.txt");
-        //default 아이템 추가. Product, Price, Name, Date
+        //아이템 추가.
         final String company = getIntent().getExtras().getString("company");
         final String date = getIntent().getExtras().getString("date");
         final int[] price = getIntent().getExtras().getIntArray("price");
@@ -51,18 +50,17 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         index = getIntent().getExtras().getInt("index");
 
         int count = 0;
-        for(int i = 0; i<product.size(); i++)
-        {
-            for(int j = 0; j<amount[i]; j++) {
-                adapter.addItem("", price, product);
-                adapter.getItem(count).setProductIndex(i);
-                adapter.getItem(count).setPrice(price[i]);
-                count++;
+        if(product!=null && amount!=null && price!=null) {
+            for (int i = 0; i < product.size(); i++) {
+                for (int j = 0; j < amount[i]; j++) {
+                    adapter.addItem("", price, product);
+                    adapter.getItem(count).setProductIndex(i);
+                    adapter.getItem(count).setPrice(price[i]);
+                    count++;
+                }
             }
+            adapter.getItem(0).setName("나");
         }
-        adapter.getItem(0).setName("나");
-
-
 
         TextView productText = (TextView) findViewById(R.id.productText);
         TextView dateText = (TextView) findViewById(R.id.dateText);
@@ -88,21 +86,26 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                 }
                 else {
                     String[] errorMsg = adapter.AllDataSelected(product, price, amount).split(",");
-                    if (errorMsg[0].equals("0")) {
-                        Toast.makeText(getApplicationContext(), "모든 아이템이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
-                    } else if (errorMsg[0].equals("1")) {
-                        Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
-                    } else if (errorMsg[0].equals("2")) {
-                        Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
-                    } else if (errorMsg[0].equals("3")) {
-                        Toast.makeText(getApplicationContext(), "이름이 모두 작성되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                    switch (errorMsg[0])
+                    {
+                        case "0":
+                            Toast.makeText(getApplicationContext(), "모든 아이템이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        case "1":
+                            Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        case "2":
+                            Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        case "3":
+                            Toast.makeText(getApplicationContext(), "이름이 모두 작성되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            break;
                     }
                 }
-
             }
         });
-
-
     }
 
     @Override
@@ -141,8 +144,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 'No'
-                        return;
+                        // 'No'1
                     }
                 });
         AlertDialog alert = alert_confirm.create();
@@ -165,7 +167,6 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 'No'
-                        return;
                     }
                 });
         AlertDialog alert = alert_confirm.create();

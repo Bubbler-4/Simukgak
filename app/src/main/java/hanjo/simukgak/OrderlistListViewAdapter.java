@@ -27,7 +27,7 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
     private int resourceId;
     private int listSortStatus = 0;
     private ListBtnClickListener listBtnClickListener;
-    private ArrayList<OrderlistItem> listViewItemList = new ArrayList() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
+    private ArrayList<OrderlistItem> listViewItemList = new ArrayList<>() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
 
     // ListViewAdapter의 생성자
     public OrderlistListViewAdapter(Context context, int resource, ListBtnClickListener clickListener) {

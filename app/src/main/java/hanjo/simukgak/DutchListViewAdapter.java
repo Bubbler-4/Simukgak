@@ -37,13 +37,13 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
 
-    // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
+    // Adapter에 사용되는 데이터의 개수를 리턴.
     @Override
     public int getCount() {
         return listViewItemList.size();
     }
 
-    // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
+    // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴.
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context context = parent.getContext();
@@ -87,13 +87,13 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
         }
     }
 
-    // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현
+    // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴.
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
+    // 지정한 위치(position)에 있는 데이터 리턴
     @Override
     public ListViewItem getItem(int position) {
         return listViewItemList.get(position);
@@ -127,9 +127,6 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
         }
     }
 
-
-
-    //TODO: 분류 시 우선순위 방식
     public void sortItemByDate() {
         Comparator<ListViewItem> noAsc = new Comparator<ListViewItem>() {
             @Override

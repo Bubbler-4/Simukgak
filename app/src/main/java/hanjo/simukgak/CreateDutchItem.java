@@ -1,7 +1,5 @@
 package hanjo.simukgak;
 
-import android.widget.Spinner;
-
 import java.util.ArrayList;
 
 /**
@@ -14,8 +12,6 @@ public class CreateDutchItem {
     private int price;
     private int productIndex;
     private String Name;
-    //private String Product;
-    //private int Price;
 
     public void setProductList(ArrayList<String> strList) {productList = strList;}
     public void setProductIndex(int n) {productIndex = n;}
@@ -36,7 +32,6 @@ public class CreateDutchItem {
 
     public ArrayList<String> getProductList() {return productList;}
     public int getProductIndex() {return productIndex;}
-    //public int[] getPriceList() {return priceList;}
     public String getName() {return Name;}
     public String getProduct() {return productList.get(productIndex);}
     public int getPrice() {return price;}

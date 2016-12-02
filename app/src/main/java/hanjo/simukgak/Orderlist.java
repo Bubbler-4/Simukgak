@@ -52,7 +52,7 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
 
         for(int i = 0; i < fileValues.size(); i++)
         {
-            productList = new ArrayList();
+            productList = new ArrayList<>();
             values = fileValues.get(i).split(",");
             int[] priceList = new int[(values.length-3)/3];
             int[] amountList = new int[(values.length-3)/3];
@@ -97,13 +97,12 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
             case R.id.dutchButton:
                 if(!adapter.getItem(position).getDutch()) {
                     Intent intent = new Intent(getApplicationContext(), CreateDutch.class);
-                    int n = position;
-                    intent.putExtra("company", adapter.getItem(n).getCompany());
-                    intent.putExtra("product", adapter.getItem(n).getProductList());
-                    intent.putExtra("price", adapter.getItem(n).getPriceArr());
-                    intent.putExtra("amount", adapter.getItem(n).getAmountArr());
-                    intent.putExtra("date", adapter.getItem(n).getDate());
-                    intent.putExtra("index", n);
+                    intent.putExtra("company", adapter.getItem(position).getCompany());
+                    intent.putExtra("product", adapter.getItem(position).getProductList());
+                    intent.putExtra("price", adapter.getItem(position).getPriceArr());
+                    intent.putExtra("amount", adapter.getItem(position).getAmountArr());
+                    intent.putExtra("date", adapter.getItem(position).getDate());
+                    intent.putExtra("index", position);
                     startActivityForResult(intent, REQUEST_CODE);
                 }
                 else
