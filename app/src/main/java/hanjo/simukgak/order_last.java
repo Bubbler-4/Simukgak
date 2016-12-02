@@ -56,27 +56,27 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
             }
         });*/
     }
-@Override
-public void onListBtnClick(int position, View v)
-{
-    switch(v.getId()) {
-        case R.id.btn_minus:
-            adapter.count_minus(position);
-            adapter.notifyDataSetInvalidated();
-            break;
-        case R.id.btn_plus:
-            adapter.count_plus(position);
-            adapter.notifyDataSetInvalidated();
-            break;
-        default:
-            break;
+    @Override
+    public void onListBtnClick(int position, View v)
+    {
+        switch(v.getId()) {
+            case R.id.btn_minus:
+                adapter.count_minus(position);
+                adapter.notifyDataSetInvalidated();
+                break;
+            case R.id.btn_plus:
+                adapter.count_plus(position);
+                adapter.notifyDataSetInvalidated();
+                break;
+            default:
+                break;
+        }
+        TextView t =(TextView)findViewById(R.id.total_price);
+        t.setText("총 가격:"+ adapter.getTotal_price());
+
     }
-    TextView t =(TextView)findViewById(R.id.total_price);
-    t.setText("총 가격:"+ adapter.getTotal_price());
+    public void send_order()
+    {
 
-}
-public void send_order()
-{
-
-}
+    }
 }
