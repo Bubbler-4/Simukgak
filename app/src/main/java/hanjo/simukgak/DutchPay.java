@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.ListBtnClickListener {
 
-    final public static int REQUEST_CODE = 1;
-
     private FileManager fileManager;
 
     final DutchListViewAdapter adapter = new DutchListViewAdapter(this, R.layout.dutch_listview_item, this);
@@ -97,8 +95,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         }
     }
 
-    public void itemDelete(final int position)
-    {
+    public void itemDelete(final int position) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(DutchPay.this);
         alert_confirm.setMessage("내역을 삭제하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
@@ -122,8 +119,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
         alert.show();
     }
 
-    public void noticeDutch(final int position)
-    {
+    public void noticeDutch(final int position) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(DutchPay.this);
         alert_confirm.setMessage(adapter.getItem(position).getName() + "에게 " + adapter.getTotalPrice(position) + "원을 요청하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {

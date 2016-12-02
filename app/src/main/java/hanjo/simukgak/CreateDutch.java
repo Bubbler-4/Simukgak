@@ -35,7 +35,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Log.d("CreateDutch", "listview.onItemClick");
+
             }
         });
 
@@ -82,27 +82,11 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
             public void onClick(View v) {
                 adapter.renewItem();
                 if(adapter.AllDataSelected(product, price, amount) == null) {
-                    confirmItem(company, date);
+                    confirmItems(company, date);
                 }
                 else {
                     String[] errorMsg = adapter.AllDataSelected(product, price, amount).split(",");
-                    switch (errorMsg[0])
-                    {
-                        case "0":
-                            Toast.makeText(getApplicationContext(), "모든 아이템이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
-                            break;
-                        case "1":
-                            Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
-                            break;
-                        case "2":
-                            Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
-                            break;
-                        case "3":
-                            Toast.makeText(getApplicationContext(), "이름이 모두 작성되지 않았습니다.", Toast.LENGTH_SHORT).show();
-                            break;
-                        default:
-                            break;
-                    }
+                    confirmError(errorMsg);
                 }
             }
         });
@@ -113,14 +97,14 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         switch(v.getId()) {
             case R.id.deleteButton:
                 if(!adapter.getItem(position).getName().equals("나"))
-                    itemDelete(position);
+                    deleteItem(position);
                 break;
             default:
                 break;
         }
     }
 
-    public void confirmItem(final String company, final String date) {
+    public void confirmItems(final String company, final String date) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
         alert_confirm.setMessage("더치페이를 하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
@@ -149,7 +133,27 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         alert.show();
     }
 
-    public void itemDelete(final int position) {
+    public void confirmError(final String[] errorMsg) {
+        switch (errorMsg[0])
+        {
+            case "0":
+                Toast.makeText(getApplicationContext(), "모든 아이템이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case "1":
+                Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case "2":
+                Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case "3":
+                Toast.makeText(getApplicationContext(), "이름이 모두 작성되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void deleteItem(final int position) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
         alert_confirm.setMessage("내역을 삭제하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {

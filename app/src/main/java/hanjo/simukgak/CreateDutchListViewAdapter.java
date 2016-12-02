@@ -1,9 +1,5 @@
 package hanjo.simukgak;
 
-/**
- * Created by Kwon Ohhyun on 2016-11-29.
- */
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -83,7 +80,7 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
 
         // 아이템 내 각 위젯에 데이터 반영
         nameEditText.setText(createDutchItem.getName());
-        priceEditText.setText(Integer.toString(createDutchItem.getPrice()));
+        priceEditText.setText(String.format(Locale.KOREA, "%d", createDutchItem.getPrice()));
         final String[] productArr = new String[createDutchItem.getProductList().size()];
         for(int i = 0; i<createDutchItem.getProductList().size(); i++)
         {
@@ -97,9 +94,13 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         productSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                changeItem();
+                for(int i=0; i<getCount(); i++)
+                {
+                    getItem(i).setName(nameList.get(i).getText().toString());
+                    getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+                }
                 nameEditText.setText(createDutchItem.getName());
-                priceEditText.setText(Integer.toString(createDutchItem.getPrice()));
+                priceEditText.setText(String.format(Locale.KOREA, "%d", createDutchItem.getPrice()));
             }
 
             @Override
@@ -122,7 +123,6 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
             this.listBtnClickListener.onListBtnClick((int) v.getTag(), v);
         }
     }
-
 
     // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현
     @Override
@@ -154,8 +154,8 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
 
     }
 
-    public void renewItem()
-    {
+    //아이템 갱신
+    public void renewItem() {
         for(int i=0; i<getCount(); i++)
         {
             getItem(i).setName(nameList.get(i).getText().toString());
@@ -171,18 +171,7 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
 
     }
 
-    private void changeItem()
-    {
-        for(int i=0; i<getCount(); i++)
-        {
-            getItem(i).setName(nameList.get(i).getText().toString());
-            getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
-        }
-
-    }
-
-    private int getIndexByProduct(String str)
-    {
+    private int getIndexByProduct(String str) {
         ArrayList<String> list = getItem(0).getProductList();
         for(int i = 0; i<getItem(0).getProductList().size(); i++)
         {
@@ -192,8 +181,14 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         return -1;
     }
 
-    public String AllDataSelected(ArrayList<String> product, int[] price, int[] amount)
-    {
+    /**
+     *
+     * @param product 제품 배열
+     * @param price 가격 배열
+     * @param amount 수량 배열
+     * @return 모든 데이터가 입력되었으면 null 반환, 아니면 에러 메시지를 반환
+     */
+    public String AllDataSelected(ArrayList<String> product, int[] price, int[] amount) {
         int count = 0;
         int total = 0;
         boolean name;

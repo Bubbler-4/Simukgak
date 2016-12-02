@@ -31,7 +31,6 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
 
     // ListViewAdapter의 생성자
     public OrderlistListViewAdapter(Context context, int resource, ListBtnClickListener clickListener) {
-        //super(context, resource);
 
         this.listBtnClickListener = clickListener;
         this.resourceId = resource;
@@ -63,7 +62,6 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         OrderlistItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        //iconImageView.setImageDrawable(listViewItem.getIcon());
         companyTextView.setText(listViewItem.getCompany());
         String products = listViewItem.getProductList().get(0) + " 외 " + Integer.toString(listViewItem.getTotAmount()-1) + "개";
         productTextView.setText(products);
@@ -99,7 +97,6 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
     public void addItem(String company, String date, int dutch, ArrayList<String> product, int[] price, int[] amount) {
         OrderlistItem item = new OrderlistItem();
 
-        //item.setIcon(icon);
         item.setCompany(company);
         item.setProduct(product);
         item.setPrice(price);
