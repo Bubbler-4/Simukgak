@@ -13,13 +13,27 @@
         android:orientation="vertical"
         tools:context="com.example.lg.sungho.MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:autoLink="web"
-            android:text="Simukgak"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/restaurantName"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="Restaurant Name" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Number" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
