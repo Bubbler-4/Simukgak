@@ -160,8 +160,21 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
                                 ret = -1;
                             else if (item1.getDateDay() > item2.getDateDay())
                                 ret = 0;
-                            else
-                                ret = -1;
+                            else {
+                                if (item1.getDateHour() < item2.getDateHour())
+                                    ret = -1;
+                                else if(item1.getDateHour()>item2.getDateHour())
+                                    ret=0;
+                                else
+                                {
+                                    if(item1.getDateMin()<item2.getDateHour())
+                                        ret=-1;
+                                    else if(item1.getDateMin()>item2.getDateMin())
+                                        ret=0;
+                                    else
+                                        ret=-1;
+                                }
+                            }
                         }
                     }
                 }
@@ -183,8 +196,21 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
                                 ret = -1;
                             else if (item1.getDateDay() < item2.getDateDay())
                                 ret = 0;
-                            else
-                                ret = -1;
+                            else {
+                                if (item1.getDateHour() > item2.getDateHour())
+                                    ret = -1;
+                                else if(item1.getDateHour()<item2.getDateHour())
+                                    ret=0;
+                                else
+                                {
+                                    if(item1.getDateMin()>item2.getDateHour())
+                                        ret=-1;
+                                    else if(item1.getDateMin()<item2.getDateMin())
+                                        ret=0;
+                                    else
+                                        ret=-1;
+                                }
+                            }
                         }
                     }
                 }

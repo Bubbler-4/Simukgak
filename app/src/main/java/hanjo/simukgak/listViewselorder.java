@@ -13,6 +13,8 @@ public class listViewselorder implements Serializable{
     private int dateYear ;
     private int dateMonth ;
     private int dateDay ;
+    private int dateHour;
+    private int dateMin;
     private int state;
     private String place;
     private String phone;
@@ -30,6 +32,8 @@ public class listViewselorder implements Serializable{
         dateYear = Integer.parseInt(date.substring(0, 4)) ;
         dateMonth = Integer.parseInt(date.substring(5, 7)) ;
         dateDay = Integer.parseInt(date.substring(8, 10)) ;
+        dateHour=Integer.parseInt(date.substring(11,13));
+        dateMin=Integer.parseInt(date.substring(14,16));
     }
     public void setState(int state1){state=state1;}
     public void setPlace(String place1){place=place1;}
@@ -52,6 +56,8 @@ public class listViewselorder implements Serializable{
     public int getDateYear() { return dateYear ; }
     public int getDateMonth() { return dateMonth ; }
     public int getDateDay() { return dateDay ; }
+    public int getDateHour(){return dateHour;}
+    public int getDateMin(){return dateMin;}
     public int getState(){return state;}
     public String getPlace(){return place;}
     public String getPhone(){return phone;}

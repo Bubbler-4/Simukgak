@@ -49,10 +49,10 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
         });
 
         //default 아이템 추가. price, name, date,phone
-        adapter.addItem("5000", "1고추장 불고기", "2016.10.03", "010-1111-2222", 1);
-        adapter.addItem("5000", "1참치마요", "2016.10.10", "010-3333-4444", 1);
-        adapter.addItem("5000", "1참치마요", "2016.10.09", "010-1111-3333", 1);
-        adapter.addItem("7000", "1불고기", "2016.10.01", "010-5555-4444", 1);
+        adapter.addItem("5000", "1고추장 불고기", "2016.10.03.14:30", "010-1111-2222", 1);
+        adapter.addItem("5000", "1참치마요", "2016.10.10.11:30", "010-3333-4444", 1);
+        adapter.addItem("5000", "1참치마요", "2016.10.09.18:32", "010-1111-3333", 1);
+        adapter.addItem("7000", "1불고기", "2016.10.01.19:22", "010-5555-4444", 1);
         adapter.sortItemByDate();
 
         Button sort = (Button) findViewById(R.id.namesort);
