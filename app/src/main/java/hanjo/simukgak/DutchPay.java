@@ -46,6 +46,7 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
             values = fileValues.get(i).split(",");
             adapter.addItem(values[0], values[1], values[2], values[3]);
         }
+        adapter.sortItemByDate();
 
         TextView totalTText = (TextView)findViewById(R.id.totalText);
         Button sortByDate = (Button)findViewById(R.id.sortByDateButton) ;
