@@ -3,6 +3,7 @@ package hanjo.simukgak;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ManageDiet extends AppCompatActivity {
 
@@ -48,6 +50,7 @@ public class ManageDiet extends AppCompatActivity {
                     fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
                     fileValues=fileManager.readFile();
                     restaurantName = new ArrayList<>();
+                    ArrayList<String> sortedList;
                     String[] values;
                     orderCount= new int[fileValues.size()];
                     for(int i=0; i<fileValues.size(); i++)
@@ -61,11 +64,43 @@ public class ManageDiet extends AppCompatActivity {
                         if(index==-1) {
                             //TODO: 여기서 date 비교해노읍시다..
                             restaurantName.add(values[0]);
+                            orderCount[restaurantName.size()-1]++;
                         }
                         else
                         {
                             orderCount[index]++;
                         }
+                    }
+                    sortedList=sortProducts(restaurantName, orderCount);
+                    switch(restaurantName.size()) {
+                        case 5:
+                            pro5.setText(sortedList.get(4));
+                            num5.setText(String.format(Locale.KOREA, "%d", orderCount[4]));
+                        case 4:
+                            pro4.setText(sortedList.get(3));
+                            num4.setText(String.format(Locale.KOREA, "%d", orderCount[3]));
+                        case 3:
+                            pro3.setText(sortedList.get(2));
+                            num3.setText(String.format(Locale.KOREA, "%d", orderCount[2]));
+                        case 2:
+                            pro2.setText(sortedList.get(1));
+                            num2.setText(String.format(Locale.KOREA, "%d", orderCount[1]));
+                        case 1:
+                            pro1.setText(sortedList.get(0));
+                            num1.setText(String.format(Locale.KOREA, "%d", orderCount[0]));
+                        case 0:
+                            break;
+                        default:
+                            pro1.setText(sortedList.get(0));
+                            num1.setText(String.format(Locale.KOREA, "%d", orderCount[0]));
+                            pro2.setText(sortedList.get(1));
+                            num2.setText(String.format(Locale.KOREA, "%d", orderCount[1]));
+                            pro3.setText(sortedList.get(2));
+                            num3.setText(String.format(Locale.KOREA, "%d", orderCount[2]));
+                            pro4.setText(sortedList.get(3));
+                            num4.setText(String.format(Locale.KOREA, "%d", orderCount[3]));
+                            pro5.setText(sortedList.get(4));
+                            num5.setText(String.format(Locale.KOREA, "%d", orderCount[4]));
                     }
                 }
             };
@@ -78,4 +113,49 @@ public class ManageDiet extends AppCompatActivity {
         }
         return -1;
     }
+
+    private ArrayList<String> sortProducts(ArrayList<String> restaurantName, int[] orderCount)
+    {
+        int tempMax;
+        int temp;
+        int[] index;
+        int[] ognOrder;
+        ognOrder= new int[restaurantName.size()];
+        index= new int[restaurantName.size()];
+        for(int i=0; i<restaurantName.size(); i++)
+        {
+            ognOrder[i]=orderCount[i];
+        }
+        for(int i=0; i<restaurantName.size(); i++ )
+        {
+            tempMax=i;
+            for(int j=i; j<restaurantName.size(); j++)
+            {
+                if(orderCount[j]>orderCount[i])
+                    tempMax=j;
+            }
+            temp=orderCount[tempMax];
+            for(int j=tempMax-1; j>=i; j--)
+            {
+                orderCount[j+1]=orderCount[j];
+            }
+            orderCount[i]=temp;
+        }
+        for(int i=0; i<restaurantName.size(); i++)
+        {
+            for(int j=0; j<restaurantName.size(); j++)
+            {
+                if(orderCount[i]==ognOrder[j])
+                    index[i]=j;
+            }
+        }
+        ArrayList<String> sortedList= new ArrayList<>();
+        for(int i=0; i<restaurantName.size(); i++)
+        {
+            sortedList.add(restaurantName.get(index[i]));
+        }
+
+        return sortedList;
+    }
+
 }

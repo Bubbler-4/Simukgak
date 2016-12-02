@@ -43,7 +43,12 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
         fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
         //TODO: 주문 메뉴에서 아이템 추가
         //fileManager.writeFile("참서리,2016.08.03,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
+        //fileManager.writeFile("참서리,2016.08.03,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
+        //fileManager.writeFile("참서리,2016.08.03,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
         //fileManager.writeFile("새천년,2016.11.30,보쌈대,20000,1,돼지고추장,6000,2");
+        //fileManager.writeFile("새천년,2016.11.30,보쌈대,20000,1,돼지고추장,6000,2");
+        //fileManager.writeFile("치킨,2016.12.01,양념치킨,16000,1");
+        //fileManager.writeFile("치킨,2016.12.01,양념치킨,16000,1");
         //fileManager.writeFile("치킨,2016.12.01,양념치킨,16000,1");
         fileValues = fileManager.readFile(); //company, date, product1, price1, product2, price2, ...
 
