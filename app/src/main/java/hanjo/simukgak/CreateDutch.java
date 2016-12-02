@@ -120,9 +120,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         }
     }
 
-
-    public void confirmItem(final String company, final String date)
-    {
+    public void confirmItem(final String company, final String date) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
         alert_confirm.setMessage("더치페이를 하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
@@ -151,8 +149,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
         alert.show();
     }
 
-    public void itemDelete(final int position)
-    {
+    public void itemDelete(final int position) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
         alert_confirm.setMessage("내역을 삭제하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
