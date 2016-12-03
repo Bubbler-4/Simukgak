@@ -7,12 +7,16 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최근"/>
+
     <ListView
-        android:id="@+id/listorder"
+        android:id="@+id/list1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
-
 
 
 </LinearLayout>

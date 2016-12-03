@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ManageSell extends AppCompatActivity implements ManageSellListViewAdapter.ListBtnClickListener {
+public class ManageSellRank extends AppCompatActivity implements ManageSellListViewAdapter.ListBtnClickListener {
 
     static final int REQUEST_CODE = 1;
 
@@ -48,7 +48,10 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
             values = fileValues.get(i).split(",");
             int[] priceList = new int[(values.length-4)/3];
             int[] amountList = new int[(values.length-4)/3];
-            for(int j = 4; j < values.length; j = j + 3) {
+            for(int j = 3; j < values.length; j = j + 3) {
+                //if()
+
+
                 productList.add(values[j]);
                 priceList[(j-4)/3] = Integer.parseInt(values[j+1]);
                 amountList[(j-4)/3] = Integer.parseInt(values[j+2]);

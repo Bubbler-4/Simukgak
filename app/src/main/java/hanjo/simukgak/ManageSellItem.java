@@ -3,26 +3,22 @@ package hanjo.simukgak;
 import java.util.ArrayList;
 
 /**
- * Created by Kwon Ohhyun on 2016-11-30.
+ * Created by Kwon Ohhyun on 2016-12-04.
  */
 
-public class OrderlistItem {
-    private String companyStr ;
+public class ManageSellItem {
     private ArrayList<String> productList;
     private int[] priceList;
     private int[] amountList;
 
     private int dateYear ;
     private int dateMonth ;
-    private int dateDay ;
-    private int dateHour;
-    private int dateMinute;
+    private int dateDay;
 
-    private boolean dutch;
+    private String phoneNum;
+    private String location;
 
-    public void setCompany(String company) {
-        companyStr = company ;
-    }
+
     public void setProduct(ArrayList<String> product) { productList = product;}
     public void setPrice(int[] price) {
         priceList = new int[price.length];
@@ -37,12 +33,10 @@ public class OrderlistItem {
         dateYear = Integer.parseInt(str[0]) ;
         dateMonth = Integer.parseInt(str[1]) ;
         dateDay = Integer.parseInt(str[2]) ;
-        dateHour = Integer.parseInt(str[3]);
-        dateMinute = Integer.parseInt(str[4]);
     }
-    public void setDutch(boolean tf) {dutch = tf;}
+    public void setPhoneNum(String str) {phoneNum = str;}
+    public void setLocation(String str) {location = str;}
 
-    public String getCompany() { return companyStr ; }
     public ArrayList<String> getProductList() { return productList;}
 
     public int getPrice(int n) {
@@ -51,8 +45,8 @@ public class OrderlistItem {
     public int[] getPriceArr() {return priceList;}
     public int getTotPrice() {
         int total = 0;
-        for(int i = 0; i < priceList.length; i++)
-            total = total + priceList[i]*amountList[i];
+        for(int i : priceList)
+            total = total + i;
         return total;
     }
 
@@ -67,23 +61,14 @@ public class OrderlistItem {
         return total;
     }
 
-    public String getPrintDate() {
-        String dateStr;
-        dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) + " " + Integer.toString(dateHour) + ":" + Integer.toString(dateMinute) ;
-        return dateStr ;
-    }
-
     public String getDate() {
         String dateStr;
-        dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) + "." + Integer.toString(dateHour) + "." + Integer.toString(dateMinute) ;
+        dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) ;
         return dateStr ;
     }
-
     public int getDateYear() { return dateYear ; }
     public int getDateMonth() { return dateMonth ; }
     public int getDateDay() { return dateDay ; }
-    public int getDateHour() {return dateHour;}
-    public int getDateMinute() {return dateMinute;}
-
-    public boolean getDutch() {return dutch;}
+    public String getPhoneNum() {return  phoneNum;}
+    public String getLocation() {return location;}
 }
