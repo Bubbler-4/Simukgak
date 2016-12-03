@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="hanjo.simukgak.MainActivity">
+    android:id="@+id/back">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome to Simukgak"
-            android:textSize="20sp"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="300dp">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Restaurant"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
             android:layout_marginTop="20dp"
-            android:onClick="onSelectRestaurant"/>
+            android:onClick="onSelectRestaurant"
+            android:background="@drawable/btn1" />
+
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="37dp" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Customer"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
             android:layout_marginTop="20dp"
-            android:onClick="onSelectCustomer"/>
+            android:onClick="onSelectCustomer"
+            android:background="@drawable/btn2" />
 
     </LinearLayout>
 

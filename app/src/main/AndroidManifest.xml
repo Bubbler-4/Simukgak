@@ -14,7 +14,9 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +33,9 @@
         <activity android:name=".order2" />
         <activity android:name=".order_last" />
         <activity android:name=".mami" />
-        <activity android:name=".DutchPay" />
+        <activity
+            android:name=".DutchPay"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".DutchAddItem" />
         <activity android:name=".Mypage" />
         <activity android:name=".Orderlist" />

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,9 @@ public class DutchPay extends AppCompatActivity implements DutchListViewAdapter.
 
         listview = (ListView) findViewById(R.id.listview1);
         listview.setAdapter(adapter);
+
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+        layout.setBackgroundResource(R.drawable.bg2);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
