@@ -202,6 +202,16 @@ public void onListBtnClick(int position, View v)
 }
 public void send_order(View v)
 {
+    if(!(cash_Box.isChecked()||banking_Box.isChecked()||card_Box.isChecked()))
+    {
+        Toast.makeText(this,"결제 수단을 선택해 주세요.",Toast.LENGTH_LONG).show();
+        return;
+    }
+    if(!(saved_address_Box.isChecked()||new_address_Box.isChecked()))
+    {
+        Toast.makeText(this,"주소를 선택해 주세요.",Toast.LENGTH_LONG).show();
+        return;
+    }
     adapter.setTotal_price();
     if(adapter.getTotal_price()>0)
     {
