@@ -62,6 +62,7 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
             }
             adapter.addItem(values[0], values[1], Integer.parseInt(values[2]), productList, priceList, amountList); //
         }
+        adapter.sortItemByDate();
     }
 
     @Override

@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 

@@ -1,6 +1,8 @@
 package hanjo.simukgak;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,8 +70,10 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         Spinner productSpinner = (Spinner) convertView.findViewById(R.id.productSpin);
 
         //값을 가져오기 위해 리스트에 저장
-        if(nameList.size() == position)
+        if(nameList.size() == position) {
             nameList.add(nameEditText);
+            Log.d("adapter", "!");
+        }
         if(priceList.size() == position)
             priceList.add(priceEditText);
         if(productList.size() == position)
@@ -94,13 +98,24 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         productSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("adapter", String.format(Locale.KOREA, "%d", position));
                 for(int i=0; i<getCount(); i++)
                 {
-                    getItem(i).setName(nameList.get(i).getText().toString());
-                    getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+                    if(i < nameList.size()) {
+                        getItem(i).setName(nameList.get(i).getText().toString());
+                        getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+
+                        Log.d("adapter 1", String.format(Locale.KOREA, "%d: %d %s", i, getItem(i).getPrice(), getItem(i).getName()));
+                    }
                 }
-                nameEditText.setText(createDutchItem.getName());
-                priceEditText.setText(String.format(Locale.KOREA, "%d", createDutchItem.getPrice()));
+                for(int i=0; i<getCount(); i++) {
+                    Log.d("adapter 4", String.format(Locale.KOREA, "%d: %d %s", i, getItem(i).getPrice(), getItem(i).getName()));
+                    if (i < nameList.size()) {
+                        priceList.get(i).setText(String.format(Locale.KOREA, "%d", getItem(i).getPrice()));
+
+                        Log.d("adapter 5", String.format(Locale.KOREA, "%d: %d %s", i, getItem(i).getPrice(), getItem(i).getName()));
+                    }
+                }
             }
 
             @Override
@@ -110,6 +125,23 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         }
 
         );
+
+        nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                renewItem();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         Button deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         deleteButton.setTag(position);
@@ -158,15 +190,17 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
     public void renewItem() {
         for(int i=0; i<getCount(); i++)
         {
-            getItem(i).setName(nameList.get(i).getText().toString());
+            if(i < nameList.size()) {
+                getItem(i).setName(nameList.get(i).getText().toString());
 
-            if(getIndexByProduct(productList.get(i).getSelectedItem().toString()) == getItem(i).getProductIndex())
-                getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+                if (getIndexByProduct(productList.get(i).getSelectedItem().toString()) == getItem(i).getProductIndex())
+                    getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
 
-            if(priceList.get(i).getText().toString().equals(""))
-                getItem(i).setPrice(0);
-            else
-                getItem(i).setPrice(Integer.parseInt(priceList.get(i).getText().toString()));
+                if (priceList.get(i).getText().toString().equals(""))
+                    getItem(i).setPrice(0);
+                else
+                    getItem(i).setPrice(Integer.parseInt(priceList.get(i).getText().toString()));
+            }
         }
 
     }
