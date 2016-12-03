@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 
 public class CustomerActivity extends Activity {
@@ -15,6 +16,8 @@ public class CustomerActivity extends Activity {
 
         Intent parentIntent = getIntent();
         String value = parentIntent.getExtras().getString("key");
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back_);
+        layout.setBackgroundResource(R.drawable.background);
     }
 
     public void onReturn(View view) {
