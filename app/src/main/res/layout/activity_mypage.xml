@@ -13,17 +13,11 @@
 
 
     <Button
-        android:text="Order List"
+        android:text="주문 내역"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/OrderlistButton"
         android:onClick="onClickOrderlist"/>
-
-    <Button
-        android:text="Dutch List"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/DutchlistButton" />
 
     <Button
         android:text="주문 식당 랭킹"
@@ -34,7 +28,7 @@
         />
 
     <Button
-        android:text="Address Change"
+        android:text="주소지 변경"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/AddressButton"

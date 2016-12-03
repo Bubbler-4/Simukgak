@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 public class ManageDiet extends AppCompatActivity {
@@ -36,6 +39,61 @@ public class ManageDiet extends AppCompatActivity {
         pro5 = (TextView)findViewById(R.id.pro5);
         num5 = (TextView)findViewById(R.id.num5);
 
+        fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
+        fileValues=fileManager.readFile();
+        restaurantName = new ArrayList<>();
+        ArrayList<String> sortedList;
+        String[] values;
+        orderCount= new int[fileValues.size()];
+        for(int i=0; i<fileValues.size(); i++)
+        {
+            orderCount[i]=0;
+        }
+        int index;
+        for(int i=0; i<fileValues.size(); i++) {
+            values = fileValues.get(i).split(",");
+            index=checkRepeat(values[0], restaurantName);
+            if(index==-1) {
+                //TODO: 여기서 date 비교해노읍시다..
+                restaurantName.add(values[0]);
+                orderCount[restaurantName.size()-1]++;
+            }
+            else
+            {
+                orderCount[index]++;
+            }
+        }
+        sortProducts(restaurantName, orderCount);
+        switch(restaurantName.size()) {
+            case 5:
+                pro5.setText(restaurantName.get(4));
+                num5.setText(String.format(Locale.KOREA, "%d", orderCount[4]));
+            case 4:
+                pro4.setText(restaurantName.get(3));
+                num4.setText(String.format(Locale.KOREA, "%d", orderCount[3]));
+            case 3:
+                pro3.setText(restaurantName.get(2));
+                num3.setText(String.format(Locale.KOREA, "%d", orderCount[2]));
+            case 2:
+                pro2.setText(restaurantName.get(1));
+                num2.setText(String.format(Locale.KOREA, "%d", orderCount[1]));
+            case 1:
+                pro1.setText(restaurantName.get(0));
+                num1.setText(String.format(Locale.KOREA, "%d", orderCount[0]));
+            case 0:
+                break;
+            default:
+                pro1.setText(restaurantName.get(0));
+                num1.setText(String.format(Locale.KOREA, "%d", orderCount[0]));
+                pro2.setText(restaurantName.get(1));
+                num2.setText(String.format(Locale.KOREA, "%d", orderCount[1]));
+                pro3.setText(restaurantName.get(2));
+                num3.setText(String.format(Locale.KOREA, "%d", orderCount[2]));
+                pro4.setText(restaurantName.get(3));
+                num4.setText(String.format(Locale.KOREA, "%d", orderCount[3]));
+                pro5.setText(restaurantName.get(4));
+                num5.setText(String.format(Locale.KOREA, "%d", orderCount[4]));
+        }
         //여기서 제품 받아오면 될것 같군요
         btnShow = (Button)findViewById(R.id.show);
 
@@ -47,61 +105,22 @@ public class ManageDiet extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
-                    fileValues=fileManager.readFile();
-                    restaurantName = new ArrayList<>();
-                    ArrayList<String> sortedList;
-                    String[] values;
-                    orderCount= new int[fileValues.size()];
-                    for(int i=0; i<fileValues.size(); i++)
-                    {
-                        orderCount[i]=0;
-                    }
-                    int index;
-                    for(int i=0; i<fileValues.size(); i++) {
-                        values = fileValues.get(i).split(",");
-                        index=checkRepeat(values[0], restaurantName);
-                        if(index==-1) {
-                            //TODO: 여기서 date 비교해노읍시다..
-                            restaurantName.add(values[0]);
-                            orderCount[restaurantName.size()-1]++;
-                        }
-                        else
-                        {
-                            orderCount[index]++;
-                        }
-                    }
-                    sortedList=sortProducts(restaurantName, orderCount);
-                    switch(restaurantName.size()) {
-                        case 5:
-                            pro5.setText(sortedList.get(4));
-                            num5.setText(String.format(Locale.KOREA, "%d", orderCount[4]));
-                        case 4:
-                            pro4.setText(sortedList.get(3));
-                            num4.setText(String.format(Locale.KOREA, "%d", orderCount[3]));
-                        case 3:
-                            pro3.setText(sortedList.get(2));
-                            num3.setText(String.format(Locale.KOREA, "%d", orderCount[2]));
-                        case 2:
-                            pro2.setText(sortedList.get(1));
-                            num2.setText(String.format(Locale.KOREA, "%d", orderCount[1]));
-                        case 1:
-                            pro1.setText(sortedList.get(0));
-                            num1.setText(String.format(Locale.KOREA, "%d", orderCount[0]));
-                        case 0:
-                            break;
-                        default:
-                            pro1.setText(sortedList.get(0));
-                            num1.setText(String.format(Locale.KOREA, "%d", orderCount[0]));
-                            pro2.setText(sortedList.get(1));
-                            num2.setText(String.format(Locale.KOREA, "%d", orderCount[1]));
-                            pro3.setText(sortedList.get(2));
-                            num3.setText(String.format(Locale.KOREA, "%d", orderCount[2]));
-                            pro4.setText(sortedList.get(3));
-                            num4.setText(String.format(Locale.KOREA, "%d", orderCount[3]));
-                            pro5.setText(sortedList.get(4));
-                            num5.setText(String.format(Locale.KOREA, "%d", orderCount[4]));
-                    }
+                    Intent intent = new Intent(
+                            ManageDiet.this,
+                            ShowWebChartActivity.class);
+
+                    intent.putExtra("PRO1", getPro(pro1));
+                    intent.putExtra("NUM1", getNum(num1));
+                    intent.putExtra("PRO2", getPro(pro2));
+                    intent.putExtra("NUM2", getNum(num2));
+                    intent.putExtra("PRO3", getPro(pro3));
+                    intent.putExtra("NUM3", getNum(num3));
+                    intent.putExtra("PRO4", getPro(pro4));
+                    intent.putExtra("NUM4", getNum(num4));
+                    intent.putExtra("PRO5", getPro(pro5));
+                    intent.putExtra("NUM5", getNum(num5));
+
+                    startActivity(intent);
                 }
             };
 
@@ -114,7 +133,7 @@ public class ManageDiet extends AppCompatActivity {
         return -1;
     }
 
-    private ArrayList<String> sortProducts(ArrayList<String> restaurantName, int[] orderCount)
+    private void sortProducts(ArrayList<String> restaurantName, int[] orderCount)
     {
         int tempMax;
         int temp;
@@ -126,36 +145,40 @@ public class ManageDiet extends AppCompatActivity {
         {
             ognOrder[i]=orderCount[i];
         }
-        for(int i=0; i<restaurantName.size(); i++ )
-        {
-            tempMax=i;
-            for(int j=i; j<restaurantName.size(); j++)
-            {
-                if(orderCount[j]>orderCount[i])
+        for(int i=0; i<restaurantName.size(); i++ ) {
+            tempMax = i;
+            for(int j=i;j<restaurantName.size(); j++){
+                if(orderCount[j]>orderCount[tempMax])
                     tempMax=j;
             }
             temp=orderCount[tempMax];
-            for(int j=tempMax-1; j>=i; j--)
-            {
-                orderCount[j+1]=orderCount[j];
-            }
+            orderCount[tempMax]=orderCount[i];
             orderCount[i]=temp;
-        }
-        for(int i=0; i<restaurantName.size(); i++)
-        {
-            for(int j=0; j<restaurantName.size(); j++)
-            {
-                if(orderCount[i]==ognOrder[j])
-                    index[i]=j;
-            }
-        }
-        ArrayList<String> sortedList= new ArrayList<>();
-        for(int i=0; i<restaurantName.size(); i++)
-        {
-            sortedList.add(restaurantName.get(index[i]));
+            Collections.swap(restaurantName, tempMax, i);
         }
 
-        return sortedList;
     }
+
+    private int getNum(TextView textView){
+
+        int num = 0;
+
+        String stringNum = textView.getText().toString();
+        if(!stringNum.equals("")){
+            num = Integer.valueOf(stringNum);
+        }
+
+        return (num);
+    }
+    private String getPro(TextView textView){
+
+        String pro;
+        pro = textView.getText().toString();
+        return (pro);
+    }
+
+
+
+
 
 }
