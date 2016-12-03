@@ -5,7 +5,8 @@
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="16dp">
+    android:paddingTop="16dp"
+    android:id="@+id/back">
 
     <ListView
         android:id="@+id/listorder"
@@ -13,14 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 
-
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sortButton"
         android:text="Sort/Date"
-        android:onClick="onClickSort"/>
+        android:onClick="onClickSort"
+        android:textColor="#F5C30B"
+        android:background="#000000"/>
 
 
 </LinearLayout>
