@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,16 +20,25 @@ public CustomExpandableListViewAdapter adapter;
     public HashMap<String, ArrayList<ListViewItem>> category_itemList;
     public ArrayList<String> category;
     public ArrayList<order_ListViewAdapter> child_adapterList;
+    public TextView StoreName;
+    public TextView state_And_time;
+    public TextView Memo;
+    public TextView call_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order3);
 
+        StoreName =(TextView)findViewById(R.id.StoreName);
+        state_And_time =(TextView)findViewById(R.id.state_And_time);
+        Memo =(TextView)findViewById(R.id.memo);
+        call_number=(TextView)findViewById(R.id.call_number);
+
         child_adapterList = new ArrayList<order_ListViewAdapter>();
         category = new ArrayList<String>();
         order_ListViewAdapter temp0 =new order_ListViewAdapter();
-        temp0.setStoreName("돈까스류");
+        temp0.setStoreName("   "+"돈까스류");
         temp0.addItem("마미돈까스",6000);
         temp0.addItem("치킨까스",6500);
         temp0.addItem("생선까스",6000);
@@ -38,7 +48,7 @@ public CustomExpandableListViewAdapter adapter;
         child_adapterList.add(temp0);
 
         order_ListViewAdapter temp1 = new order_ListViewAdapter();
-        temp1.setStoreName("도시락류");
+        temp1.setStoreName("   "+"도시락류");
         temp1.addItem("치킨마요 도시락",6000);
         temp1.addItem("제육 도시락",6000);
         temp1.addItem("탕수육 정식",7500);
@@ -46,7 +56,7 @@ public CustomExpandableListViewAdapter adapter;
         child_adapterList.add(temp1);
 
         order_ListViewAdapter temp2 = new order_ListViewAdapter();
-        temp2.setStoreName("식사류");
+        temp2.setStoreName("   "+"식사류");
         temp2.addItem("김치국",6500);
         temp2.addItem("육개장",6000);
         temp2.addItem("제육덮밥",5000);
@@ -67,6 +77,10 @@ category_itemList = new HashMap<String,ArrayList<ListViewItem>>();
         adapter.setmChildHashMap(category_itemList);
         adapter.setmParentList(category);
 
+        StoreName.setText(adapter.getStoreName());
+        state_And_time.setText("열림"+" 영업 시간"+"9시~23시");
+        call_number.setText("010-8874-0587");
+        Memo.setText("*분식하나도 주문되며, 오전에도 주문가능!");
         expandableListView.setAdapter(adapter);
 
     }
