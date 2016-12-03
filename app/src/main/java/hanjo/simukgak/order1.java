@@ -15,8 +15,9 @@ import java.util.Observer;
 
 public class order1 extends AppCompatActivity implements Observer {
 
+    static int REQUEST_ACT=0123;
     static final String[] LIST_MENU ={"한식","중식","일식"};
-    static int REQUEST_ACT =0123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +28,37 @@ public class order1 extends AppCompatActivity implements Observer {
         ListView listview =(ListView)findViewById(R.id.store);
         listview.setAdapter(adapter);
 
+        SocketWrapper.object().addObserver(this);
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
-
-
-                Intent intent = new Intent(order1.this,order2.class);
-
-                startActivity(intent);
+                SocketWrapper.object().requestRestaurantList(LIST_MENU[position]);
             }
         });
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        SocketWrapper sw = (SocketWrapper) o;
+        String[] restaurantList = sw.getRestaurantList();
+
+        Intent intent = new Intent(order1.this,order2.class);
+        intent.putExtra("restaurantList", restaurantList);
+        startActivityForResult(intent, REQUEST_ACT);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_ACT)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+    }
+
 }
