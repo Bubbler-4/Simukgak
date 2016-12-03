@@ -14,9 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
@@ -110,6 +112,8 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         listViewItemList.add(item);
     }
 
+    public void deleteItem(int position) {listViewItemList.remove(position);}
+
     public void sortItemByDate()
     {
         Comparator<OrderlistItem> noAsc = new Comparator<OrderlistItem>() {
@@ -170,6 +174,33 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         if(listSortStatus == -2 || listSortStatus >= 0) listSortStatus = -1 ;
         else if(listSortStatus == -1 || listSortStatus >= 0) listSortStatus = -2 ;
         notifyDataSetChanged() ;
+    }
+
+
+    public boolean checkDate(String savedDate) {
+        // 현재시간을 msec 으로 구한다.
+        long now = System.currentTimeMillis();
+        // 현재시간을 date 변수에 저장한다.
+        Date date = new Date(now);
+        // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy.MM.dd");
+        // nowDate 변수에 값을 저장한다.
+        String formatDate = sdfNow.format(date);
+
+        String[] savedDates = savedDate.split("\\.");
+        String[] currentDates = formatDate.split("\\.");
+
+        if(Integer.parseInt(currentDates[0]) == Integer.parseInt(savedDates[0]))
+            if(Integer.parseInt(currentDates[1]) - Integer.parseInt(savedDates[1]) >= 3)
+                return true;
+        else if(Integer.parseInt(currentDates[0]) - Integer.parseInt(savedDates[0]) == 1)
+                if(Integer.parseInt(currentDates[1]) + 12 - Integer.parseInt(savedDates[1]) >= 3)
+                    return true;
+        else if(Integer.parseInt(currentDates[0]) - Integer.parseInt(savedDates[0]) > 1)
+                    return true;
+
+        return false;
+
     }
 
 }

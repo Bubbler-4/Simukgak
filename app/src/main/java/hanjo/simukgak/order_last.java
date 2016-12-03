@@ -211,6 +211,7 @@ public void send_order(View v)
     // nowDate 변수에 값을 저장한다.
     String formatDate = sdfNow.format(date);
 
+    formatDate = "2016.08.20";
 
     String data;
     data = adapter.getStoreName() + "," + formatDate + ",0";
