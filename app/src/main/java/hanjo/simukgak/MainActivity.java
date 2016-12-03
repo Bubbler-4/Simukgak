@@ -100,5 +100,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectRestaurant(View view) {
+        Intent onSelectCustomerIntent = new Intent(this, RestaurantMyPage.class);
+
+        onSelectCustomerIntent.putExtra("key", "value");
+
+        final int result = 1;
+        startActivity(onSelectCustomerIntent);
+        //startActivityForResult(onSelectCustomerIntent, result);
     }
 }

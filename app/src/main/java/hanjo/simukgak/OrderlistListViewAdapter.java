@@ -176,6 +176,11 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         notifyDataSetChanged() ;
     }
 
+    /**
+     *
+     * @param savedDate 데이터가 저장된 시간
+     * @return 3개월이 지났을 경우 true, 지나지 않았을 경우 false를 반환
+     */
 
     public boolean checkDate(String savedDate) {
         // 현재시간을 msec 으로 구한다.

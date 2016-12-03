@@ -29,19 +29,18 @@
         <activity android:name=".order1" />
         <activity android:name=".order2" />
         <activity android:name=".order_last" />
-        <activity android:name=".mami"></activity>
+        <activity android:name=".mami" />
         <activity android:name=".DutchPay" />
         <activity android:name=".DutchAddItem" />
         <activity android:name=".Mypage" />
         <activity android:name=".Orderlist" />
-        <activity android:name=".CreateDutch"></activity>
+        <activity android:name=".CreateDutch" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".AddressChange" />
         <activity android:name=".ManageDiet" />
-        <activity android:name=".ShowWebChartActivity" />
-        <activity android:name=".order3"></activity>
+        <activity android:name=".order3" />
 
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">
@@ -56,6 +55,8 @@
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
+        <activity android:name=".RestaurantMyPage" />
+        <activity android:name=".ManageSell"></activity>
     </application>
 
 </manifest>
