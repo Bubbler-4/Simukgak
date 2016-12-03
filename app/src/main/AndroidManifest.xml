@@ -28,24 +28,34 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="Customer"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".order1" />
-        <activity android:name=".order2" />
-        <activity android:name=".order_last" />
-        <activity android:name=".mami" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".order1"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".order2"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".order_last"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".mami"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".DutchPay"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".DutchAddItem" />
-        <activity android:name=".Mypage" />
-        <activity android:name=".Orderlist" />
-        <activity android:name=".CreateDutch" />
+        <activity android:name=".Mypage"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".Orderlist"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".CreateDutch"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".SettingsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".AddressChange" />
-        <activity android:name=".ManageDiet" />
-        <activity android:name=".order3" />
+        <activity android:name=".AddressChange"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ManageDiet"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".order3"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">

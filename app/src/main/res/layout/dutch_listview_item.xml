@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="#ABABAB">
+    android:background="#686565">
     <!--
     <ImageView
         android:layout_width="50dp"
@@ -24,7 +25,7 @@
             android:text="Product"
             android:id="@+id/productText"
             android:textSize="17dp"
-            android:textColor="#000000"
+            android:textColor="#F5C30B"
             android:gravity="center_vertical"
             android:layout_weight="1" />
 
@@ -34,7 +35,7 @@
             android:text="Price"
             android:id="@+id/priceText"
             android:textSize="15dp"
-            android:textColor="#666666"
+            android:textColor="#D0CDCD"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -51,7 +52,7 @@
             android:text="Name"
             android:id="@+id/nameText"
             android:textSize="17dp"
-            android:textColor="#000000"
+            android:textColor="#D0CDCD"
             android:gravity="center_vertical"
             android:layout_weight="1" />
 
@@ -61,7 +62,7 @@
             android:text="Date"
             android:id="@+id/dateText"
             android:textSize="15dp"
-            android:textColor="#666666"
+            android:textColor="#D0CDCD"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -77,9 +78,9 @@
             android:id="@+id/askButton"
             android:color="#FFFF00"
             android:textSize="10dp"
-            android:textColor="#F03D3D"
             android:text="Remind"
             android:layout_height="34dp"
+            android:textColor="#FF0000"
             android:background="#000000"/>
 
         <Button
@@ -88,6 +89,8 @@
             android:id="@+id/deleteButton"
             android:textSize="10dp"
             android:text="Delete"
+            android:textColor="#F5C30B"
+            android:background="#000000"
             />
 
     </LinearLayout>
