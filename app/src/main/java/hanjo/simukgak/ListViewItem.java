@@ -15,10 +15,11 @@ public class ListViewItem implements Serializable{
     private int dateMonth ;
     private int dateDay ;
     private int count;
-
+    private boolean checked;
     /*public void setIcon(Drawable icon) {
         iconDrawable = icon ;
     }*/
+    public void setChecked(boolean check){checked=check;}
     public void setcount(int countset){count =countset;}
     public void setTitle(String title) {
         titleStr = title ;
@@ -39,6 +40,7 @@ public class ListViewItem implements Serializable{
     /*public Drawable getIcon() {
         return this.iconDrawable ;
     }*/
+    public boolean getchecked(){ return checked;}
     public int getcount(){return count;}
     public String getTitle() { return titleStr ; }
     public int getPrice() {

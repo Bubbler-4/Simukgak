@@ -30,6 +30,7 @@ public class order_ListViewAdapter2 extends BaseAdapter implements Serializable,
     private ListBtnClickListener listBtnClickListener;
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
     private int total_price;
+    private String StoreName;
     TextView count;
 
     public order_ListViewAdapter2(Context context, int resource,  ListBtnClickListener clickListener) {
@@ -162,5 +163,6 @@ public class order_ListViewAdapter2 extends BaseAdapter implements Serializable,
 
         }
     }
-
+    public void setStoreName(String name){ StoreName= name;}
+    public String getStoreName(){return StoreName;}
 }

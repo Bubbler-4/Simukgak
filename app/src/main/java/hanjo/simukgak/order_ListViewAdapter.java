@@ -21,14 +21,15 @@ import java.util.List;
 public class order_ListViewAdapter extends BaseAdapter implements Serializable,View.OnClickListener {
 
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
-
     private CheckBox selected;
+    int resourceId;
+    private ListBtnClickListener listBtnClickListener;
+    private String StoreName;
+    private String FoodType;
+
     public interface ListBtnClickListener{
         void onListBtnClick(int position, View v);
     }
-    int resourceId;
-    private ListBtnClickListener listBtnClickListener;
-
     public order_ListViewAdapter()
     {
 
@@ -103,11 +104,11 @@ public class order_ListViewAdapter extends BaseAdapter implements Serializable,V
         item.setTitle(title);
         item.setPrice(desc);
         item.setcount(1);
+        item.setChecked(false);
         listViewItemList.add(item);
     }
-    public void setCheck(int position)
-    {
-        selected.setChecked(true);
-    }
+
+    public void setStoreName(String name){ StoreName= name;}
+    public String getStoreName(){return StoreName;}
 
 }

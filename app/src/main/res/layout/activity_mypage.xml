@@ -26,11 +26,12 @@
         android:id="@+id/DutchlistButton" />
 
     <Button
-        android:text="Manage Menu"
+        android:text="주문 식당 랭킹"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ManageButton"
-        android:onClick="onClickManage"/>
+        android:onClick="onClickManage"
+        />
 
     <Button
         android:text="Address Change"
