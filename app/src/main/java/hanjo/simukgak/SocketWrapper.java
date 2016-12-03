@@ -28,6 +28,8 @@ public class SocketWrapper extends Observable {
 
     private String[] restaurantList;
 
+    private int changeID = 0;
+
     public static SocketWrapper object() {
         return thisObj;
     }
