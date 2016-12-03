@@ -98,15 +98,24 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
         productSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("adapter", String.format(Locale.KOREA, "%d", position));
                 for(int i=0; i<getCount(); i++)
                 {
                     if(i < nameList.size()) {
                         getItem(i).setName(nameList.get(i).getText().toString());
                         getItem(i).setProduct(productList.get(i).getSelectedItem().toString());
+
+                        Log.d("adapter 1", String.format(Locale.KOREA, "%d: %d %s", i, getItem(i).getPrice(), getItem(i).getName()));
                     }
                 }
-                nameEditText.setText(createDutchItem.getName());
-                priceEditText.setText(String.format(Locale.KOREA, "%d", createDutchItem.getPrice()));
+                for(int i=0; i<getCount(); i++) {
+                    Log.d("adapter 4", String.format(Locale.KOREA, "%d: %d %s", i, getItem(i).getPrice(), getItem(i).getName()));
+                    if (i < nameList.size()) {
+                        priceList.get(i).setText(String.format(Locale.KOREA, "%d", getItem(i).getPrice()));
+
+                        Log.d("adapter 5", String.format(Locale.KOREA, "%d: %d %s", i, getItem(i).getPrice(), getItem(i).getName()));
+                    }
+                }
             }
 
             @Override
