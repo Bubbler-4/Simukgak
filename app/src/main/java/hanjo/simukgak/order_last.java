@@ -199,30 +199,40 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
         TextView t =(TextView)findViewById(R.id.total_price);
         t.setText("총 가격:"+ adapter.getTotal_price());
 
-    }
-    public void send_order(View v)
+}
+public void send_order(View v)
+{
+    adapter.setTotal_price();
+    if(adapter.getTotal_price()>0)
     {
-        // 현재시간을 msec 으로 구한다.
-        long now = System.currentTimeMillis();
-        // 현재시간을 date 변수에 저장한다.
-        Date date = new Date(now);
-        // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy.MM.dd");
-        // nowDate 변수에 값을 저장한다.
-        String formatDate = sdfNow.format(date);
 
+    // 현재시간을 msec 으로 구한다.
+    long now = System.currentTimeMillis();
+    // 현재시간을 date 변수에 저장한다.
+    Date date = new Date(now);
+    // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
+    SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy.MM.dd");
+    // nowDate 변수에 값을 저장한다.
+    String formatDate = sdfNow.format(date);
 
-        String data;
-        data = adapter.getStoreName() + "," + formatDate + ",0";
-        for(int j = 0; j < adapter.getCount(); j++) {
-            data = data + "," + (adapter.getItem(j).getTitle());
-            data = data + "," + adapter.getItem(j).getPrice();
-            data = data + "," + adapter.getItem(j).getcount();
-        }
-        fileManager.writeFile(data);
-        Toast.makeText(this,"주문이 완료되었습니다.",Toast.LENGTH_LONG).show();
-        /*Intent intent = new Intent(order_last.this,CustomerActivity.class);
-        startActivity(intent);*/
-
+    String data;
+    data = adapter.getStoreName() + "," + formatDate + ",0";
+    for(int j = 0; j < adapter.getCount(); j++) {
+        data = data + "," + (adapter.getItem(j).getTitle());
+        data = data + "," + adapter.getItem(j).getPrice();
+        data = data + "," + adapter.getItem(j).getcount();
     }
+
+        fileManager.writeFile(data);
+        Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_LONG).show();
+
+        setResult(RESULT_OK);
+        finish();
+        return;
+    }
+    else
+    {
+        Toast.makeText(this, "수량이 0입니다. 수량을 조정하세요.", Toast.LENGTH_LONG).show();
+    }
+}
 }

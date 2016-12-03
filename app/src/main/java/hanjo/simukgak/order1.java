@@ -15,6 +15,7 @@ import java.util.Observer;
 
 public class order1 extends AppCompatActivity implements Observer {
 
+    static int REQUEST_ACT=0123;
     static final String[] LIST_MENU ={"한식","중식","일식"};
 
     @Override
@@ -44,6 +45,20 @@ public class order1 extends AppCompatActivity implements Observer {
 
         Intent intent = new Intent(order1.this,order2.class);
         intent.putExtra("restaurantList", restaurantList);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_ACT);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_ACT)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+    }
+
 }

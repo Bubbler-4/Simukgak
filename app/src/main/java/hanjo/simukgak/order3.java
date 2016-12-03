@@ -15,7 +15,8 @@ import java.util.HashMap;
 import static hanjo.simukgak.R.id.listview;
 
 public class order3 extends AppCompatActivity /*implements CustomExpandableListViewAdapter.ListBtnClickListener*/{
-public CustomExpandableListViewAdapter adapter;
+    static int REQUEST_ACT =1234;
+    public CustomExpandableListViewAdapter adapter;
     public ExpandableListView expandableListView;
     public HashMap<String, ArrayList<ListViewItem>> category_itemList;
     public ArrayList<String> category;
@@ -101,12 +102,21 @@ category_itemList = new HashMap<String,ArrayList<ListViewItem>>();
         Intent intent = new Intent(order3.this, order_last.class);
         intent.putExtra("order", temp.getList());
         intent.putExtra("StoreName",adapter.getStoreName());
-        startActivity(intent);
+        startActivityForResult(intent,REQUEST_ACT);
     }
-   /* @Override
-    public void onListBtnClick(int position, View v) {
-        //Toast.makeText(this,""+adapter.get,Toast.LENGTH_LONG).show();
-        Toast.makeText(this,""+position,Toast.LENGTH_LONG).show();
-    }*/
+   @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+   {
+       super.onActivityResult(requestCode, resultCode, data);
+       if(requestCode==REQUEST_ACT)
+       {
+           if(resultCode==RESULT_OK)
+           {
+               setResult(RESULT_OK);
+               finish();
+           }
+       }
+   }
+
 
 }

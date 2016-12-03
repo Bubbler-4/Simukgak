@@ -3,12 +3,14 @@ package hanjo.simukgak;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by jkj89 on 2016-11-29.
@@ -30,6 +32,8 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
         listview = (ListView) findViewById(R.id.listorder);
         listview.setAdapter(adapter);
 
+
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -43,10 +47,6 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
 
         fileManager = new FileManager(getApplicationContext(), "orderlist_info.txt");
         //TODO: 주문 메뉴에서 아이템 추가
-        fileManager.resetData();
-        fileManager.writeFile("참서리,2016.08.03,0,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
-        fileManager.writeFile("새천년,2016.11.30,0,보쌈대,20000,1,돼지고추장,6000,2");
-        fileManager.writeFile("치킨,2016.12.01,0,양념치킨,16000,1");
         fileValues = fileManager.readFile(); //company, date, 0, product1, price1, amount1, product2, price2, amount2,...
 
         for(int i = 0; i < fileValues.size(); i++)
@@ -62,7 +62,11 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
             }
             adapter.addItem(values[0], values[1], Integer.parseInt(values[2]), productList, priceList, amountList); //
         }
+        int n = checkDue();
+        if(n > 0)
+            Toast.makeText(getApplicationContext(), String.format(Locale.KOREA, "오래된 %d개의 항목이 삭제되었습니다.", n), Toast.LENGTH_SHORT).show();
         adapter.sortItemByDate();
+
     }
 
     @Override
@@ -126,5 +130,16 @@ public class Orderlist extends AppCompatActivity implements OrderlistListViewAda
                 adapter.getItem(n).setDutch(true);
             }
         }
+    }
+
+    private int checkDue() {
+        int count = 0;
+        for(int i = 0; i<adapter.getCount(); i++) {
+            if (adapter.checkDate(adapter.getItem(i).getDate())) {
+                adapter.deleteItem(i);
+                count++;
+            }
+        }
+        return count;
     }
 }

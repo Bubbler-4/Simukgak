@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class order2 extends AppCompatActivity {
-
+static int REQUEST_ACT =1111;
 
         static final String[] LIST_MENU ={"마미 음식 백화점","새천년 식육식당"};
         @Override
@@ -33,9 +33,22 @@ public class order2 extends AppCompatActivity {
                     //가게명 전송
                     intent.putExtra("StoreName",LIST_MENU[position]);
 
-                    startActivity(intent);
+                    startActivityForResult(intent,REQUEST_ACT);
 
                 }
             });
         }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_ACT)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+    }
 }
