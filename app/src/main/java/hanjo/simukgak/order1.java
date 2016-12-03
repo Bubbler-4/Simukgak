@@ -4,12 +4,16 @@ package hanjo.simukgak;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class order1 extends AppCompatActivity {
+import java.util.Observable;
+import java.util.Observer;
+
+public class order1 extends AppCompatActivity implements Observer {
 
     static final String[] LIST_MENU ={"한식","중식","일식"};
 
@@ -23,15 +27,23 @@ public class order1 extends AppCompatActivity {
         ListView listview =(ListView)findViewById(R.id.store);
         listview.setAdapter(adapter);
 
+        SocketWrapper.object().addObserver(this);
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
-
-
-                Intent intent = new Intent(order1.this,order2.class);
-
-                startActivity(intent);
+                SocketWrapper.object().requestRestaurantList(LIST_MENU[position]);
             }
         });
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        SocketWrapper sw = (SocketWrapper) o;
+        String[] restaurantList = sw.getRestaurantList();
+
+        Intent intent = new Intent(order1.this,order2.class);
+        intent.putExtra("restaurantList", restaurantList);
+        startActivity(intent);
     }
 }

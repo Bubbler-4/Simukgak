@@ -6,6 +6,7 @@ package hanjo.simukgak;
  */
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,10 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
     private int resourceId;
     private int listSortStatus = 0;
     private ListBtnClickListener listBtnClickListener;
-    private ArrayList<OrderlistItem> listViewItemList = new ArrayList() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
+    private ArrayList<OrderlistItem> listViewItemList = new ArrayList<>() ; // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
 
     // ListViewAdapter의 생성자
     public OrderlistListViewAdapter(Context context, int resource, ListBtnClickListener clickListener) {
-        //super(context, resource);
 
         this.listBtnClickListener = clickListener;
         this.resourceId = resource;
@@ -62,7 +62,6 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         OrderlistItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        //iconImageView.setImageDrawable(listViewItem.getIcon());
         companyTextView.setText(listViewItem.getCompany());
         String products = listViewItem.getProductList().get(0) + " 외 " + Integer.toString(listViewItem.getTotAmount()-1) + "개";
         productTextView.setText(products);
@@ -95,15 +94,18 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String company, String date, ArrayList<String> product, int[] price, int[] amount) {
+    public void addItem(String company, String date, int dutch, ArrayList<String> product, int[] price, int[] amount) {
         OrderlistItem item = new OrderlistItem();
 
-        //item.setIcon(icon);
         item.setCompany(company);
         item.setProduct(product);
         item.setPrice(price);
         item.setAmount(amount);
         item.setDate(date);
+        if(dutch == 0)
+            item.setDutch(false);
+        else
+            item.setDutch(true);
 
         listViewItemList.add(item);
     }

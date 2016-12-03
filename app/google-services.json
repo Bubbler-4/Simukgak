@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "498422048888",
+    "firebase_url": "https://simukgak.firebaseio.com",
+    "project_id": "simukgak",
+    "storage_bucket": "simukgak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498422048888:android:8dbf577ef8d0ace6",
+        "android_client_info": {
+          "package_name": "hanjo.simukgak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498422048888-9e8aa1bc75c5os8bk9n3j2orofe3tqa1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBONCsq9fEbinszAZiEIWGao6MzxmoYsdA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,19 +5,22 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CreateDutch extends AppCompatActivity implements CreateDutchListViewAdapter.ListBtnClickListener{
 
-    final public static int REQUEST_CODE = 1;
-
+    private  int index;
     private FileManager fileManager;
 
     final CreateDutchListViewAdapter adapter = new CreateDutchListViewAdapter(this, R.layout.create_dutch_listview_item, this);
@@ -30,6 +33,7 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         listview = (ListView) findViewById(R.id.listview);
         listview.setAdapter(adapter);
+        listview.setItemsCanFocus(true);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -40,72 +44,139 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
 
         fileManager = new FileManager(getApplicationContext(), "dutch_info.txt");
-        //default 아이템 추가. Product, Price, Name, Date
+        //아이템 추가.
         final String company = getIntent().getExtras().getString("company");
         final String date = getIntent().getExtras().getString("date");
         final int[] price = getIntent().getExtras().getIntArray("price");
         final int[] amount = getIntent().getExtras().getIntArray("amount");
         final ArrayList<String> product = getIntent().getExtras().getStringArrayList("product");
+        index = getIntent().getExtras().getInt("index");
 
-
-        adapter.addItem("나", price, product);
-
+        int count = 0;
+        if(product!=null && amount!=null && price!=null) {
+            for (int i = 0; i < product.size(); i++) {
+                for (int j = 0; j < amount[i]; j++) {
+                    adapter.addItem("", price, product);
+                    adapter.getItem(count).setProductIndex(i);
+                    adapter.getItem(count).setPrice(price[i]);
+                    count++;
+                }
+            }
+            adapter.getItem(0).setName("나");
+        }
 
         TextView productText = (TextView) findViewById(R.id.productText);
         TextView dateText = (TextView) findViewById(R.id.dateText);
+        Spinner amountSpinner = (Spinner) findViewById(R.id.amountSpinner);
+        final TextView amountText = (TextView) findViewById(R.id.amountText);
         Button addButton = (Button) findViewById(R.id.addButton);
-        Button setButton = (Button) findViewById(R.id.setButton);
         Button confirmButton = (Button) findViewById(R.id.confirmButton);
 
         productText.setText(company);
         dateText.setText(date);
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, product);
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        amountSpinner.setAdapter(arrayAdapter);
+        amountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                amountText.setText(String.format(Locale.KOREA, "%d개", amount[position]));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        }
+
+        );
+
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 adapter.renewItem();
-                adapter.addItem("Name", price, product);
+                adapter.addItem("", price, product);
                 adapter.notifyDataSetChanged();
-            }
-        });
-
-        setButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                adapter.renewItem();
-                adapter.notifyDataSetChanged();
-
             }
         });
 
         confirmButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                String data;
                 adapter.renewItem();
-                for(int i = 1; i<adapter.getCount(); i++)
-                {
-                    data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," +  adapter.getItem(i).getName() + "," + date;
-                    fileManager.writeFile(data);
+                if(adapter.AllDataSelected(product, price, amount) == null) {
+                    confirmItems(company, date);
                 }
-                finish();
+                else {
+                    String[] errorMsg = adapter.AllDataSelected(product, price, amount).split(",");
+                    confirmError(errorMsg);
+                }
             }
         });
-
-
     }
 
     @Override
     public void onListBtnClick(int position, View v) {
         switch(v.getId()) {
             case R.id.deleteButton:
-                if(position != 0)
-                    itemDelete(position);
+                if(!adapter.getItem(position).getName().equals("나"))
+                    deleteItem(position);
                 break;
             default:
                 break;
         }
     }
 
-    public void itemDelete(final int position)
-    {
+    public void confirmItems(final String company, final String date) {
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
+        alert_confirm.setMessage("더치페이를 하시겠습니까?").setCancelable(false).setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String data;
+                        for (int i = 0; i < adapter.getCount(); i++) {
+                            if(!adapter.getItem(i).getName().equals("나")) {
+                                data = company + "-" + adapter.getItem(i).getProduct() + "," + Integer.toString(adapter.getItem(i).getPrice()) + "," + adapter.getItem(i).getName() + "," + date;
+                                fileManager.writeFile(data);
+                            }
+                        }
+                        Intent intent = new Intent();
+                        intent.putExtra("index",  index);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 'No'1
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
+    }
+
+    public void confirmError(final String[] errorMsg) {
+        switch (errorMsg[0])
+        {
+            case "0":
+                Toast.makeText(getApplicationContext(), "모든 아이템이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case "1":
+                Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 부족합니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case "2":
+                Toast.makeText(getApplicationContext(), errorMsg[1] + "가  " + errorMsg[2] + "원 초과되었습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            case "3":
+                Toast.makeText(getApplicationContext(), "이름이 모두 작성되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void deleteItem(final int position) {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(CreateDutch.this);
         alert_confirm.setMessage("내역을 삭제하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
@@ -120,7 +191,6 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 'No'
-                        return;
                     }
                 });
         AlertDialog alert = alert_confirm.create();

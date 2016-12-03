@@ -1,7 +1,5 @@
 package hanjo.simukgak;
 
-import android.widget.Spinner;
-
 import java.util.ArrayList;
 
 /**
@@ -10,29 +8,34 @@ import java.util.ArrayList;
 
 public class CreateDutchItem {
     private ArrayList<String> productList;
-    private int[] priceList;
     private int productIndex;
+    private int[] priceList;
+    private int price;
     private String Name;
-    private String Product;
-    private int Price;
 
     public void setProductList(ArrayList<String> strList) {productList = strList;}
-    public void setProductIndex(int n) {
-        productIndex = n;
-        Product = productList.get(n);
-        Price = priceList[n];
+    public void setProduct(String product) {
+        productIndex = 0;
+        for(int i = 0; i<productList.size(); i++)
+        {
+            if(product.equals(productList.get(i))) {
+                productIndex = i;
+                price = priceList[i];
+                break;
+            }
+        }
     }
+    public void setProductIndex(int n) {productIndex = n;}
     public void setPriceList(int[] ints) {priceList = ints;}
+    public void setPrice(int _price) {price = _price;}
     public void setName(String name) {Name = name;}
-    public void setProduct(String product) {Product = product;}
-    public void setPrice(int price) {Price = price;}
+
 
     public ArrayList<String> getProductList() {return productList;}
+    public String getProduct() {return productList.get(productIndex);}
     public int getProductIndex() {return productIndex;}
-    public int[] getPriceList() {return priceList;}
+    public int getPrice() {return price;}
     public String getName() {return Name;}
-    public String getProduct() {return Product;}
-    public int getPrice() {return Price;}
 
 
 }
