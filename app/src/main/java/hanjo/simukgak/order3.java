@@ -9,8 +9,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static hanjo.simukgak.R.id.listview;
 
@@ -36,43 +40,37 @@ public class order3 extends AppCompatActivity /*implements CustomExpandableListV
         Memo =(TextView)findViewById(R.id.memo);
         call_number=(TextView)findViewById(R.id.call_number);
 
-        child_adapterList = new ArrayList<order_ListViewAdapter>();
-        category = new ArrayList<String>();
-        order_ListViewAdapter temp0 =new order_ListViewAdapter();
-        temp0.setStoreName("   "+"돈까스류");
-        temp0.addItem("마미돈까스",6000);
-        temp0.addItem("치킨까스",6500);
-        temp0.addItem("생선까스",6000);
-        temp0.addItem("새우까스",6500);
-        temp0.addItem("떡갈비",7000);
-        category.add(temp0.getStoreName());
-        child_adapterList.add(temp0);
+        Intent intent = getIntent();
+        String menuList = intent.getStringExtra("menuList");
+        category = new ArrayList<>();
+        category_itemList = new HashMap<>();
 
-        order_ListViewAdapter temp1 = new order_ListViewAdapter();
-        temp1.setStoreName("   "+"도시락류");
-        temp1.addItem("치킨마요 도시락",6000);
-        temp1.addItem("제육 도시락",6000);
-        temp1.addItem("탕수육 정식",7500);
-        category.add(temp1.getStoreName());
-        child_adapterList.add(temp1);
+        try {
+            JSONObject menuListJSON = new JSONObject(menuList);
+            Iterator<String> categoryIter = menuListJSON.keys();
+            while(categoryIter.hasNext()) {
+                String categoryName = categoryIter.next();
+                JSONObject menus = menuListJSON.getJSONObject(categoryName);
 
-        order_ListViewAdapter temp2 = new order_ListViewAdapter();
-        temp2.setStoreName("   "+"식사류");
-        temp2.addItem("김치국",6500);
-        temp2.addItem("육개장",6000);
-        temp2.addItem("제육덮밥",5000);
-        category.add(temp2.getStoreName());
-        child_adapterList.add(temp2);
+                order_ListViewAdapter adapter = new order_ListViewAdapter();
+                adapter.setStoreName("   " + categoryName);
 
-category_itemList = new HashMap<String,ArrayList<ListViewItem>>();
-        for(int i=0;i<3;i++) {
-            category_itemList.put(category.get(i),child_adapterList.get(i).getList());
+                Iterator<String> menuIter = menus.keys();
+                while(menuIter.hasNext()) {
+                    String menu = menuIter.next();
+                    int price = menus.getInt(menu);
+                    adapter.addItem(menu, price);
+                }
+                category.add(adapter.getStoreName());
+                category_itemList.put(adapter.getStoreName(), adapter.getList());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandablelist);
 
         adapter = new CustomExpandableListViewAdapter();
-        Intent intent = getIntent();
         adapter.setStoreName(intent.getStringExtra("StoreName"));
         adapter.setmContext(this);
         adapter.setmChildHashMap(category_itemList);

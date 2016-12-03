@@ -27,8 +27,7 @@ public class SocketWrapper extends Observable {
     private MainActivity parent;
 
     private String[] restaurantList;
-
-    private int changeID = 0;
+    private String menuList;
 
     public static SocketWrapper object() {
         return thisObj;
@@ -61,6 +60,14 @@ public class SocketWrapper extends Observable {
                     for(int i = 0; i < obj.length(); i += 1) {
                         restaurantList[i] = obj.optString(i);
                     }
+
+                    setChanged();
+                    notifyObservers();
+                }
+            }).on("menuList", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    menuList = ((JSONObject) args[0]).toString();
 
                     setChanged();
                     notifyObservers();
@@ -141,5 +148,13 @@ public class SocketWrapper extends Observable {
 
     public String[] getRestaurantList() {
         return restaurantList;
+    }
+
+    public void requestMenuList(String category) {
+        socket.emit("menuList", category);
+    }
+
+    public String getMenuList() {
+        return menuList;
     }
 }

@@ -28,6 +28,7 @@ public class order1 extends AppCompatActivity implements Observer {
         ListView listview =(ListView)findViewById(R.id.store);
         listview.setAdapter(adapter);
 
+        SocketWrapper.object().deleteObservers();
         SocketWrapper.object().addObserver(this);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -41,7 +42,6 @@ public class order1 extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         SocketWrapper sw = (SocketWrapper) o;
-        sw.deleteObserver(this);
         String[] restaurantList = sw.getRestaurantList();
 
         Intent intent = new Intent(order1.this,order2.class);
