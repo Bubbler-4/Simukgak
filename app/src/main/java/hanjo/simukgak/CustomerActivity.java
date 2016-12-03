@@ -17,7 +17,7 @@ public class CustomerActivity extends Activity {
         Intent parentIntent = getIntent();
         String value = parentIntent.getExtras().getString("key");
         LinearLayout layout =(LinearLayout)findViewById(R.id.back_);
-        layout.setBackgroundResource(R.drawable.background);
+        layout.setBackgroundResource(R.drawable.background3);
     }
 
     public void onReturn(View view) {
