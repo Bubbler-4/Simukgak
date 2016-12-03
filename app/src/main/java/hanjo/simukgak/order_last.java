@@ -1,15 +1,20 @@
 package hanjo.simukgak;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +30,14 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
     private ArrayList<ListViewItem> itemList;
     private order_ListViewAdapter2 adapter;
     private FileManager fileManager;
-
+    private SharedPreferences preferences;
+    private EditText address;
+    private TextView saved_address;
+    private CheckBox saved_address_Box;
+    private CheckBox new_address_Box;
+    private CheckBox cash_Box;
+    private CheckBox card_Box;
+    private CheckBox banking_Box;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,18 +63,125 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
         }
 
         total_price_View.setText("총 가격: " + total_price_int);
-       /* LinearLayout mlayout =(LinearLayout)findViewById(R.id.activity_order_last);
 
-        mlayout.setOnTouchListener(new LinearLayout.OnTouchListener(){
-            public boolean onTouch(View v, MotionEvent m){
-                adapter.setTotal_price();
-                total_price_View.invalidate();
-                total_price_View.setText("총 가격: "+adapter.getTotal_price());
-                return true;
-            }
-        });*/
+        banking_Box =(CheckBox)findViewById(R.id.banking_check);
+        card_Box =(CheckBox)findViewById(R.id.card_check);
+        cash_Box =(CheckBox)findViewById(R.id.cash_check);
+
+        new_address_Box =(CheckBox)findViewById(R.id.new_address_check);
+        saved_address_Box =(CheckBox)findViewById(R.id.save_address_check);
+
+        address = (EditText)findViewById(R.id.real_address);
+        saved_address =(TextView)findViewById(R.id.save_address);
+        preferences=getSharedPreferences("shared", MODE_PRIVATE);
+
+        saved_address.setText(" 저장된 주소: "+preferences.getString("key", null));
+        if(!new_address_Box.isChecked())
+        {
+        address.setEnabled(false);
+        }
     }
-@Override
+    public void save_address(View v)
+    {
+        if(new_address_Box.isChecked())
+        {
+            new_address_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    new_address_Box.setChecked(false);
+                    address.setEnabled(false);
+                }
+            });
+        }
+    }
+    public void new_address(View v)
+    {
+        if(saved_address_Box.isChecked())
+         {
+        saved_address_Box.post(new Runnable() {
+            @Override
+            public void run() {
+               saved_address_Box.setChecked(false);
+            }
+        });
+         }
+
+        if(new_address_Box.isChecked())
+        {
+            address.setEnabled(true);
+        }
+        else
+        {
+            address.setEnabled(false);
+        }
+    }
+    public void cash(View v)
+    {
+        if(card_Box.isChecked())
+        {
+            card_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    card_Box.setChecked(false);
+                }
+            });
+        }
+        else if(banking_Box.isChecked())
+        {
+            banking_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    banking_Box.setChecked(false);
+
+                }
+            });
+        }
+    }
+    public void card(View v)
+    {
+        if(cash_Box.isChecked())
+        {
+            cash_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    cash_Box.setChecked(false);
+                }
+            });
+        }
+        else if(banking_Box.isChecked())
+        {
+            banking_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    banking_Box.setChecked(false);
+
+                }
+            });
+        }
+    }
+    public void banking(View v)
+    {
+        if(cash_Box.isChecked())
+        {
+            cash_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    cash_Box.setChecked(false);
+                }
+            });
+        }
+        else if(card_Box.isChecked())
+        {
+            card_Box.post(new Runnable() {
+                @Override
+                public void run() {
+                    card_Box.setChecked(false);
+
+                }
+            });
+        }
+    }
+    @Override
 public void onListBtnClick(int position, View v)
 {
     switch(v.getId()) {
@@ -101,6 +220,9 @@ public void send_order(View v)
         data = data + "," + adapter.getItem(j).getcount();
     }
     fileManager.writeFile(data);
+    Toast.makeText(this,"주문이 완료되었습니다.",Toast.LENGTH_LONG).show();
+    /*Intent intent = new Intent(order_last.this,CustomerActivity.class);
+    startActivity(intent);*/
 
 }
 }

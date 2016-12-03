@@ -1,11 +1,13 @@
 package hanjo.simukgak;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -105,12 +107,31 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter {
         }
         TextView titleTextView = (TextView) convertView.findViewById(R.id.order_productText);
         TextView descTextView = (TextView) convertView.findViewById(R.id.order_priceText);
-        CheckBox selected = (CheckBox) convertView.findViewById(R.id.checkBox1);
+        final CheckBox selected = (CheckBox) convertView.findViewById(R.id.checkBox1);
 
         /*selected.setTag(groupPosition*10+childPosition);
-        selected.setOnClickListener(this);*/
+        selected.getChild(groupPosition,childPosition).getcheckesetOnClickListener(this);*/
 
-
+        Log.d(""+childPosition,""+getChild(groupPosition,childPosition).getchecked()+" "+selected.isChecked());
+       /* CompoundButton.OnCheckedChangeListener temp = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    selected.setChecked(true);
+                }
+                else
+                {
+                    selected.setChecked(false);
+                }
+            }
+        };*/
+        selected.post(new Runnable() {
+            @Override
+            public void run() {
+                selected.setChecked(getChild(groupPosition,childPosition).getchecked());
+            }
+        });
        View.OnClickListener listener= new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -120,7 +141,7 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter {
         };
 
         selected.setOnClickListener(listener);
-
+//selected.setOnCheckedChangeListener(temp);
         titleTextView.setText(childData.getTitle());
         descTextView.setText(""+childData.getPrice());
 
