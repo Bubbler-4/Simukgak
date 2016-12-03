@@ -40,6 +40,7 @@
             android:label="@string/title_activity_settings" />
         <activity android:name=".AddressChange" />
         <activity android:name=".ManageDiet" />
+        <activity android:name=".ShowWebChartActivity" />
         <activity android:name=".order3"></activity>
 
         <!-- Firebase Notifications -->
