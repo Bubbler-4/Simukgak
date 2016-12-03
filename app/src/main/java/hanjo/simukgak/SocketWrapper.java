@@ -129,12 +129,18 @@ public class SocketWrapper extends Observable {
         socket.emit("FBToken", token, user);
     }
 
+    public void sendOrder(JSONObject order) {
+        Log.d(DEBUG_TAG, "Sending order: " + order.toString());
+        socket.emit("Order", order);
+    }
+
     public void sendDutch(String nameTo, String price) {
         Log.d(DEBUG_TAG, "Sending dutch request");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
         String nameFrom = pref.getString("username", null);
         socket.emit("DutchRequest", nameFrom, nameTo, price);
     }
+
     public void sendDutchDismiss(String nameTo) {
         Log.d(DEBUG_TAG, "Sending dutch dismiss request");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
