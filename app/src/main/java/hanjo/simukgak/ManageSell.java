@@ -43,8 +43,6 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
         String[] values;
 
         fileManager = new FileManager(getApplicationContext(), "selcomp.txt");
-        fileManager.resetData();
-        fileManager.writeFile("010-9367-7686,공학3동,3,2016.12.05.03.01,라면,2000,3,김밥,4000,4,치킨,15000,3");
         fileValues = fileManager.readFile(); //date, location, phoneNum, product1, price1, amount1, product2, price2, amount2,...
 
         for(int i = 0; i < fileValues.size(); i++)
