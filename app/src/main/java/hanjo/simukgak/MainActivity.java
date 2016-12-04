@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectCustomer(View view) {
-        Intent onSelectCustomerIntent = new Intent(this, selorderwait.class);
+        Intent onSelectCustomerIntent = new Intent(this, CustomerActivity.class);
 
         onSelectCustomerIntent.putExtra("key", "value");
 
