@@ -36,9 +36,22 @@
             android:textColor="#F5C30B"/>
 
         <TextView
+            android:text="현재 저장된 주소"
+            android:textSize="15dp"
+            android:textColor="#F5C30B"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            />
+
+        <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/amin_txvValue"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
