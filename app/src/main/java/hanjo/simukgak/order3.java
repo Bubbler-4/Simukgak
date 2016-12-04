@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ public class order3 extends AppCompatActivity /*implements CustomExpandableListV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order3);
+
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+        layout.setBackgroundResource(R.drawable.bg2);
 
         StoreName =(TextView)findViewById(R.id.StoreName);
         state_And_time =(TextView)findViewById(R.id.state_And_time);

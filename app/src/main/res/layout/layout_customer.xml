@@ -48,8 +48,7 @@
             android:layout_weight="1"
             android:onClick="onClickMyPage"
             android:textSize="13sp"
-            android:textColor="#F5C30B"
-            android:background="#000000"/>
+            android:textColor="#F5C30B"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -58,7 +57,7 @@
             android:onClick="onClickBoard"
             android:textSize="13sp"
             android:textColor="#F5C30B"
-            android:background="#000000"/>
+            />
 
         <Button
             android:layout_width="wrap_content"
@@ -68,7 +67,7 @@
             android:onClick="onClickOrder"
             android:textSize="13sp"
             android:textColor="#F5C30B"
-            android:background="#000000"/>
+            />
 
         <Button
             android:layout_width="wrap_content"
@@ -79,7 +78,7 @@
             android:onClick="onClickDutch"
             android:textSize="13sp"
             android:textColor="#F5C30B"
-            android:background="#000000"/>
+            />
 
     </LinearLayout>
 

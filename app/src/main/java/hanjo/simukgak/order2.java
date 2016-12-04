@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class order2 extends AppCompatActivity {
@@ -16,6 +17,9 @@ static int REQUEST_ACT =1111;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_order2);
+
+            LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+            layout.setBackgroundResource(R.drawable.bg2);
 
             Intent parentIntent = getIntent();
             String[] restaurantList = parentIntent.getStringArrayExtra("restaurantList");
