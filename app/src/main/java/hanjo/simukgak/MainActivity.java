@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+        layout.setBackgroundResource(R.drawable.bg1);
 
         SocketWrapper.object().initSocket(this);
         initFirebase();
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectCustomer(View view) {
-        Intent onSelectCustomerIntent = new Intent(this, CustomerActivity.class);
+        Intent onSelectCustomerIntent = new Intent(this, selorderwait.class);
 
         onSelectCustomerIntent.putExtra("key", "value");
 
@@ -100,5 +104,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectRestaurant(View view) {
+        Intent onSelectCustomerIntent = new Intent(this, seller.class);
+
+        onSelectCustomerIntent.putExtra("key", "value");
+
+        final int result = 1;
+        startActivity(onSelectCustomerIntent);
     }
 }

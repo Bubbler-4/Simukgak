@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:paddingLeft="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place"
+            android:text="Place"
+            android:textSize="15dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item"
+            android:text="Item"
+            android:textSize="17dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/price"
+            android:text="price"
+            android:textSize="17dp"/>
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/number"
+            android:text="PhonNumber"
+            android:textSize="17dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/statetext"
+            android:gravity="left"
+            android:textSize="15dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="right">
+            <Button
+                android:layout_width="60dp"
+                android:id="@+id/startButton"
+                android:textSize="10dp"
+                android:text="Start"
+                android:layout_height="34dp" />
+            <Button
+                android:layout_width="60dp"
+                android:id="@+id/departButtonButton"
+                android:textSize="10dp"
+                android:text="Depart."
+                android:layout_height="34dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

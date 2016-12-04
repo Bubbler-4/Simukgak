@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hanjo.simukgak">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Simukgak"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,37 +28,53 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="Customer"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".order1" />
-        <activity android:name=".order2" />
-        <activity android:name=".order_last" />
-        <activity android:name=".mami"></activity>
-        <activity android:name=".DutchPay" />
-        <activity android:name=".DutchAddItem" />
-        <activity android:name=".Mypage" />
-        <activity android:name=".Orderlist" />
-        <activity android:name=".CreateDutch" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".order1"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".order2"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".order_last"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".mami"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".DutchPay"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".Mypage"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".Orderlist"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".CreateDutch"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".SettingsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".AddressChange" />
-        <activity android:name=".ManageDiet" />
-        <activity android:name=".ShowWebChartActivity" />
-        <activity android:name=".order3"></activity>
-
+        <activity android:name=".AddressChange"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ManageDiet"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".order3"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".RestaurantMyPage"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ManageSell"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ManageSellRank"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".FBIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
+
     </application>
 
 </manifest>

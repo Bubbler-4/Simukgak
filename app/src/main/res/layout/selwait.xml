@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="90dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place"
+            android:text="Place"
+            android:textSize="17dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item"
+            android:text="Item"
+            android:textSize="17dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/number"
+            android:text="PhonNumber"
+            android:textSize="17dp"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+        <Button
+            android:layout_width="100dp"
+            android:id="@+id/OkButton"
+            android:color="#FFFF00"
+            android:textSize="10dp"
+            android:text="Submit"
+            android:layout_height="34dp" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="34dp"
+            android:textColor="#F03D3D"
+            android:id="@+id/NOButton"
+            android:textSize="10dp"
+            android:text="Cancle"
+            />
+    </LinearLayout>
+</LinearLayout>

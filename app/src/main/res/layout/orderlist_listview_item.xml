@@ -15,15 +15,16 @@ android:layout_height="70dp">
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_weight="12.46"
-    android:gravity="left">
+    android:gravity="left"
+    android:layout_marginLeft="10dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Company"
         android:id="@+id/CompanyText"
-        android:textSize="17dp"
-        android:textColor="#000000"
+        android:textSize="16dp"
+        android:textColor="#F5C30B"
         android:gravity="center_vertical"
         android:layout_weight="1" />
 
@@ -34,7 +35,7 @@ android:layout_height="70dp">
         android:text="Date"
         android:id="@+id/dateText"
         android:textSize="15dp"
-        android:textColor="#666666"
+        android:textColor="#D0CDCD"
         android:layout_weight="1" />
 
 </LinearLayout>
@@ -44,35 +45,39 @@ android:layout_height="70dp">
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_weight="4"
-    android:gravity="right">
+    android:gravity="right"
+    android:layout_marginRight="10dp">
+
     <TextView
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_gravity="left"
+        android:layout_gravity="right"
         android:text="Products"
         android:id="@+id/productText"
-        android:textSize="15dp"
-        android:textColor="#666666"
+        android:textSize="13dp"
+        android:textColor="#D0CDCD"
         android:layout_weight="1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="right"
         android:text="Price"
         android:id="@+id/priceText"
-        android:textSize="15dp"
-        android:textColor="#666666"
+        android:textSize="13dp"
+        android:textColor="#D0CDCD"
         android:layout_weight="1" />
 
 </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:id="@+id/dutchButton"
         android:text="Dutch"
-        android:onClick="onClickDutch"/>
+        android:onClick="onClickDutch"
+        android:textColor="#F5C30B" />
+
 </LinearLayout>

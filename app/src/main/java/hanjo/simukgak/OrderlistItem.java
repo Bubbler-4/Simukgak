@@ -15,6 +15,8 @@ public class OrderlistItem {
     private int dateYear ;
     private int dateMonth ;
     private int dateDay ;
+    private int dateHour;
+    private int dateMinute;
 
     private boolean dutch;
 
@@ -35,6 +37,8 @@ public class OrderlistItem {
         dateYear = Integer.parseInt(str[0]) ;
         dateMonth = Integer.parseInt(str[1]) ;
         dateDay = Integer.parseInt(str[2]) ;
+        dateHour = Integer.parseInt(str[3]);
+        dateMinute = Integer.parseInt(str[4]);
     }
     public void setDutch(boolean tf) {dutch = tf;}
 
@@ -47,8 +51,8 @@ public class OrderlistItem {
     public int[] getPriceArr() {return priceList;}
     public int getTotPrice() {
         int total = 0;
-        for(int i : priceList)
-            total = total + i;
+        for(int i = 0; i < priceList.length; i++)
+            total = total + priceList[i]*amountList[i];
         return total;
     }
 
@@ -63,14 +67,23 @@ public class OrderlistItem {
         return total;
     }
 
-    public String getDate() {
+    public String getPrintDate() {
         String dateStr;
-        dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) ;
+        dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) + " " + Integer.toString(dateHour) + ":" + Integer.toString(dateMinute) ;
         return dateStr ;
     }
+
+    public String getDate() {
+        String dateStr;
+        dateStr = Integer.toString(dateYear) + "." + Integer.toString(dateMonth) + "." + Integer.toString(dateDay) + "." + Integer.toString(dateHour) + "." + Integer.toString(dateMinute) ;
+        return dateStr ;
+    }
+
     public int getDateYear() { return dateYear ; }
     public int getDateMonth() { return dateMonth ; }
     public int getDateDay() { return dateDay ; }
+    public int getDateHour() {return dateHour;}
+    public int getDateMinute() {return dateMinute;}
 
     public boolean getDutch() {return dutch;}
 }
