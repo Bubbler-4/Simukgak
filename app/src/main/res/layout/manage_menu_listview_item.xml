@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rankText"
+        android:text="0"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:textColor="#F5C30B"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/productText"
+        android:text="0"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:textColor="#D0CDCD"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/priceText"
+        android:text="0"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:textColor="#D0CDCD"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numText"
+        android:text="0"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:textColor="#D0CDCD"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:id="@+id/deleteButton"
+        android:textSize="10dp"
+        android:text="Delete"
+        android:textColor="#F5C30B"
+        android:layout_gravity="center_vertical"/>
+
+
+
+</LinearLayout>

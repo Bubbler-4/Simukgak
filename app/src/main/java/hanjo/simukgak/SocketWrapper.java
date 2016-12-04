@@ -27,6 +27,7 @@ public class SocketWrapper extends Observable {
     private MainActivity parent;
 
     private String[] restaurantList;
+    private String menuList;
 
     public static SocketWrapper object() {
         return thisObj;
@@ -59,6 +60,14 @@ public class SocketWrapper extends Observable {
                     for(int i = 0; i < obj.length(); i += 1) {
                         restaurantList[i] = obj.optString(i);
                     }
+
+                    setChanged();
+                    notifyObservers();
+                }
+            }).on("menuList", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    menuList = ((JSONObject) args[0]).toString();
 
                     setChanged();
                     notifyObservers();
@@ -120,12 +129,18 @@ public class SocketWrapper extends Observable {
         socket.emit("FBToken", token, user);
     }
 
+    public void sendOrder(JSONObject order) {
+        Log.d(DEBUG_TAG, "Sending order: " + order.toString());
+        socket.emit("Order", order);
+    }
+
     public void sendDutch(String nameTo, String price) {
         Log.d(DEBUG_TAG, "Sending dutch request");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
         String nameFrom = pref.getString("username", null);
         socket.emit("DutchRequest", nameFrom, nameTo, price);
     }
+
     public void sendDutchDismiss(String nameTo) {
         Log.d(DEBUG_TAG, "Sending dutch dismiss request");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
@@ -139,5 +154,13 @@ public class SocketWrapper extends Observable {
 
     public String[] getRestaurantList() {
         return restaurantList;
+    }
+
+    public void requestMenuList(String category) {
+        socket.emit("menuList", category);
+    }
+
+    public String getMenuList() {
+        return menuList;
     }
 }

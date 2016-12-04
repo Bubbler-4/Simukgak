@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.File;
@@ -182,26 +184,25 @@ public class order_last extends AppCompatActivity implements order_ListViewAdapt
         }
     }
     @Override
-public void onListBtnClick(int position, View v)
-{
-    switch(v.getId()) {
-        case R.id.btn_minus:
-            adapter.count_minus(position);
-            adapter.notifyDataSetInvalidated();
-            break;
-        case R.id.btn_plus:
-            adapter.count_plus(position);
-            adapter.notifyDataSetInvalidated();
-            break;
-        default:
-            break;
-    }
-    TextView t =(TextView)findViewById(R.id.total_price);
-    t.setText("총 가격:"+ adapter.getTotal_price());
+    public void onListBtnClick(int position, View v)
+    {
+        switch(v.getId()) {
+            case R.id.btn_minus:
+                adapter.count_minus(position);
+                adapter.notifyDataSetInvalidated();
+                break;
+            case R.id.btn_plus:
+                adapter.count_plus(position);
+                adapter.notifyDataSetInvalidated();
+                break;
+            default:
+                break;
+        }
+        TextView t =(TextView)findViewById(R.id.total_price);
+        t.setText("총 가격:"+ adapter.getTotal_price());
 
 }
-public void send_order(View v)
-{
+public void send_order(View v) {
     if(!(cash_Box.isChecked()||banking_Box.isChecked()||card_Box.isChecked()))
     {
         Toast.makeText(this,"결제 수단을 선택해 주세요.",Toast.LENGTH_LONG).show();
@@ -232,13 +233,51 @@ public void send_order(View v)
         data = data + "," + adapter.getItem(j).getPrice();
         data = data + "," + adapter.getItem(j).getcount();
     }
-
         fileManager.writeFile(data);
+
+        String addressStr;
+        if(saved_address_Box.isChecked()) {
+            addressStr = preferences.getString("key", null);
+        }
+        else {
+            addressStr = address.getText().toString();
+        }
+
+        String paymentType;
+        if(cash_Box.isChecked()) {
+            paymentType = "현금";
+        }
+        else if(card_Box.isChecked()) {
+            paymentType = "카드";
+        }
+        else {
+            paymentType = "계좌이체";
+        }
+
+        // Pass to server
+        JSONObject dataJSON = new JSONObject();
+        try {
+            dataJSON.put("store", adapter.getStoreName());
+            dataJSON.put("timestamp", now);
+            dataJSON.put("address", addressStr);
+            dataJSON.put("payment", paymentType);
+
+            JSONObject itemsJSON = new JSONObject();
+            for(int j = 0; j < adapter.getCount(); j++) {
+                itemsJSON.put("menu", adapter.getItem(j).getTitle());
+                itemsJSON.put("count", adapter.getItem(j).getcount());
+            }
+            dataJSON.put("items", itemsJSON);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        SocketWrapper.object().sendOrder(dataJSON);
+
         Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_LONG).show();
 
         setResult(RESULT_OK);
         finish();
-        return;
     }
     else
     {

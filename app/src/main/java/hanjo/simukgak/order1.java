@@ -32,6 +32,7 @@ public class order1 extends AppCompatActivity implements Observer {
         ListView listview =(ListView)findViewById(R.id.store);
         listview.setAdapter(adapter);
 
+        SocketWrapper.object().deleteObservers();
         SocketWrapper.object().addObserver(this);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
