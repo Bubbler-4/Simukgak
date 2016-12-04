@@ -62,9 +62,11 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
         {
             productList = new ArrayList<>();
             values = fileValues.get(i).split(",");
+            Log.d("selorderdel", fileValues.get(i));
             int[] priceList = new int[(values.length-4)/3];
             int[] amountList = new int[(values.length-4)/3];
             for(int j = 4; j < values.length; j = j + 3) {
+                Log.d("selorderdel", values[j] + "," + values[j+1] + "," + values[j+2]);
                 productList.add(values[j]);
                 priceList[(j-4)/3 ] = Integer.parseInt(values[j+1]);
                 amountList[(j-4)/3 ] = Integer.parseInt(values[j+2]);
@@ -86,6 +88,7 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
 
         wait.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selorderdel.this, selorderwait.class));
             }
         });
@@ -107,6 +110,7 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
         GD.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selorderdel.this, selorderdel.class));
 
             }
@@ -114,6 +118,7 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
         complet.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selorderdel.this, selordercomp.class));
 
             }
@@ -163,6 +168,13 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             adapter.stateup(position);
+                            adapter.notifyDataSetChanged();
+                            fileManager.resetData();
+                            int i;
+                            for(i=0;i<adapter.getCount();i++) {
+                                fileManager.writeFile(adapter.getPhone(i) + "," + adapter.getPlace(i) + "," +
+                                        adapter.getstate(i) + ","+adapter.getDate(i) + "," +adapter.getall(i));
+                            }
                         }
                     }).setNegativeButton("취소",
                     new DialogInterface.OnClickListener() {
@@ -190,14 +202,14 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
                             adapter.stateup(position);
                             writeManager=new FileManager(getApplicationContext(),"selcomp.txt");
                             writeManager.writeFile(adapter.getPhone(position) + "," + adapter.getPlace(position) + "," +
-                                    "3"+adapter.getDate(position) + "," +adapter.getall(position));
+                                    "3,"+adapter.getDate(position) + "," +adapter.getall(position));
                             adapter.deleteItem(position);
                             adapter.notifyDataSetChanged();
                             fileManager.resetData();
                             int i;
                             for(i=0;i<adapter.getCount();i++) {
                                 fileManager.writeFile(adapter.getPhone(i) + "," + adapter.getPlace(i) + "," +
-                                        "2"+adapter.getDate(i) + "," +adapter.getall(i));
+                                        "2,"+adapter.getDate(i) + "," +adapter.getall(i));
                             }
 
                             //TODO: 구매자에게 메시지 전송

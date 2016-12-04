@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,10 +56,12 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
         for(int i = 0; i < fileValues.size(); i++)
         {
             productList = new ArrayList<>();
+            Log.d("selorderwait", fileValues.get(i));
             values = fileValues.get(i).split(",");
             int[] priceList = new int[(values.length-4)/3];
             int[] amountList = new int[(values.length-4)/3];
             for(int j = 4; j < values.length; j = j + 3) {
+                Log.d("selorderwait", values[j] + "," + values[j+1] + "," + values[j+2]);
                 productList.add(values[j]);
                 priceList[(j-4)/3] = Integer.parseInt(values[j+1]);
                 amountList[(j-4)/3] = Integer.parseInt(values[j+2]);
@@ -79,6 +82,7 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
 
         wait.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selorderwait.this, selorderwait.class));
             }
         }) ;
@@ -100,12 +104,14 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
         GD.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selorderwait.this, selorderdel.class));
             }
         });
         complet.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selorderwait.this, selordercomp.class));
 
             }
@@ -175,7 +181,7 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
                         adapter.stateup(position);
                         writeManager=new FileManager(getApplicationContext(),"seldel.txt");
                         writeManager.writeFile(adapter.getPhone(position) + "," + adapter.getPlace(position) + "," +
-                                "1"+adapter.getDate(position) + "," +adapter.getall(position));
+                                "1,"+adapter.getDate(position) + "," +adapter.getall(position));
                         Toast.makeText(getApplicationContext(), "주문을 수락하였습니다", Toast.LENGTH_SHORT).show();
                         //TODO: 네트워크로 메시지 전송
                         adapter.deleteItem(position);
@@ -184,7 +190,7 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
                         int i;
                         for(i=0;i<adapter.getCount();i++) {
                             fileManager.writeFile(adapter.getPhone(i) + "," + adapter.getPlace(i) + "," +
-                                    "0"+adapter.getDate(i) + "," +adapter.getall(position));
+                                    "0,"+adapter.getDate(i) + "," +adapter.getall(position));
                         }
                     }
                 }).setNegativeButton("취소",

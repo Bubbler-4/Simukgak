@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -47,10 +48,12 @@ public class selordercomp extends AppCompatActivity implements selorder_ListView
         for(int i = 0; i < fileValues.size(); i++)
         {
             productList = new ArrayList<>();
+            Log.d("selordercomp", fileValues.get(i));
             values = fileValues.get(i).split(",");
             int[] priceList = new int[(values.length-4)/3];
             int[] amountList = new int[(values.length-4)/3];
-            for(int j = 3; j < values.length; j = j + 3) {
+            for(int j = 4; j < values.length; j = j + 3) {
+                Log.d("selordercomp", values[j] + "," + values[j+1] + "," + values[j+2]);
                 productList.add(values[j]);
                 priceList[j/3 - 1] = Integer.parseInt(values[j+1]);
                 amountList[j/3 - 1] = Integer.parseInt(values[j+2]);
@@ -71,6 +74,7 @@ public class selordercomp extends AppCompatActivity implements selorder_ListView
 
         wait.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selordercomp.this, selorderwait.class));
             }
         }) ;
@@ -78,12 +82,14 @@ public class selordercomp extends AppCompatActivity implements selorder_ListView
         GD.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selordercomp.this, selorderdel.class));
             }
         });
         complet.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(selordercomp.this, selordercomp.class));
             }
         });

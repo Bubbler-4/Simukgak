@@ -233,6 +233,7 @@ public void send_order(View v) {
         data = data + "," + adapter.getItem(j).getPrice();
         data = data + "," + adapter.getItem(j).getcount();
     }
+        Log.d("order_last", data);
         fileManager.writeFile(data);
 
         String addressStr;
@@ -264,8 +265,9 @@ public void send_order(View v) {
 
             JSONObject itemsJSON = new JSONObject();
             for(int j = 0; j < adapter.getCount(); j++) {
-                itemsJSON.put("menu", adapter.getItem(j).getTitle());
-                itemsJSON.put("count", adapter.getItem(j).getcount());
+                if(adapter.getItem(j).getcount() > 0) {
+                    itemsJSON.put(adapter.getItem(j).getTitle(), adapter.getItem(j).getcount());
+                }
             }
             dataJSON.put("items", itemsJSON);
         } catch (JSONException e) {

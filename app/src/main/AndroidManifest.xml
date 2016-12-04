@@ -16,6 +16,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,6 +77,15 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".seller"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".selorderwait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".selorderdel"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".selordercomp"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">

@@ -143,10 +143,11 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
     public String getPhone(int position){return listViewItemList.get(position).getPhone();}
     public String getall(int position){
         String all;
-        all=listViewItemList.get(position).getProductList().get(0)+","+Integer.toString(listViewItemList.get(position).getPrice(0))+","+Integer.toString(listViewItemList.get(position).getAmount(0));
+        listViewselorder order = listViewItemList.get(position);
+        all = order.getProductList().get(0)+","+Integer.toString(order.getPrice(0))+","+Integer.toString(order.getAmount(0));
         int i;
-        for(i=1;i<getCount();i++)
-            all=all+","+listViewItemList.get(position).getProductList().get(i)+","+Integer.toString(listViewItemList.get(position).getPrice(i))+","+Integer.toString(listViewItemList.get(position).getAmount(i));
+        for(i=1;i<order.getLength();i++)
+            all=all+","+order.getProductList().get(i)+","+Integer.toString(order.getPrice(i))+","+Integer.toString(order.getAmount(i));
         return all;
     }
     //아이템 제거
