@@ -24,12 +24,11 @@
 
         <Button
 
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="37dp"
+            android:layout_height="33dp"
             android:id="@+id/SettingsButton"
             android:onClick="onClickSettings"
-            android:layout_weight="1.83"
-            />
+            android:background="@drawable/btn_setting" />
 
 
     </LinearLayout>
