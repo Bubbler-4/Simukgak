@@ -16,7 +16,6 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,39 +28,55 @@
             android:label="Customer"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".order1"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".order2"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".order_last"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".mami"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".order1"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order2"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order_last"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".mami"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".DutchPay"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Mypage"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Orderlist"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".CreateDutch"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Mypage"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Orderlist"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".CreateDutch"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".AddressChange"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".ManageDiet"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".order3"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".RestaurantMyPage"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".ManageSell"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".ManageSellRank"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".AddressChange"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ManageDiet"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order3"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".RestaurantMyPage"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ManageSell"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ManageSellRank"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".seller"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">
             <intent-filter>
@@ -75,6 +90,8 @@
         </service>
         <!-- ./Firebase Notifications -->
 
+        <activity android:name=".ManageMenu"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

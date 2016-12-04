@@ -17,7 +17,7 @@ public class RestaurantMyPage extends AppCompatActivity {
     }
 
     public void onClickManageMenu(View v) {
-
+        startActivity(new Intent(getApplicationContext(), ManageMenu.class));
     }
 
     public void onClickManageSell(View v) {
