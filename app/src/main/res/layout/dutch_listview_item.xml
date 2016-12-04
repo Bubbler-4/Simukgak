@@ -79,8 +79,7 @@
             android:textSize="10dp"
             android:text="Remind"
             android:layout_height="34dp"
-            android:textColor="#FF0000"
-            android:background="#000000"/>
+            android:textColor="#FF0000" />
 
         <Button
             android:layout_width="wrap_content"
@@ -88,9 +87,7 @@
             android:id="@+id/deleteButton"
             android:textSize="10dp"
             android:text="Delete"
-            android:textColor="#F5C30B"
-            android:background="#000000"
-            />
+            android:textColor="#F5C30B"  />
 
     </LinearLayout>
 

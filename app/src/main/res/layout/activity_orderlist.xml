@@ -20,8 +20,7 @@
         android:id="@+id/sortButton"
         android:text="Sort/Date"
         android:onClick="onClickSort"
-        android:textColor="#F5C30B"
-        android:background="#000000"/>
+        android:textColor="#F5C30B" />
 
 
 </LinearLayout>

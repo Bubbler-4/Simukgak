@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Kwon Ohhyun on 2016-12-04.
@@ -56,15 +57,17 @@ public class ManageSellListViewAdapter extends BaseAdapter implements View.OnCli
         TextView dateTextView = (TextView) convertView.findViewById(R.id.dateText) ;
         TextView locationTextView = (TextView) convertView.findViewById(R.id.locationText) ;
         TextView phoneNumTextView = (TextView) convertView.findViewById(R.id.phoneNumText) ;
+        TextView priceTextView = (TextView) convertView.findViewById(R.id.priceText);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ManageSellItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        productTextView.setText(listViewItem.getProductList().get(0));
+        productTextView.setText(String.format(Locale.KOREA, "%s 외 %d개", listViewItem.getProductList().get(0), listViewItem.getTotAmount() - 1));
         dateTextView.setText(listViewItem.getDate());
         locationTextView.setText(listViewItem.getLocation());
         phoneNumTextView.setText(listViewItem.getPhoneNum());
+        priceTextView.setText(Integer.toString(listViewItem.getTotPrice()));
 
 
         return convertView;
@@ -89,10 +92,12 @@ public class ManageSellListViewAdapter extends BaseAdapter implements View.OnCli
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(ArrayList<String> product, String date, String location, String phoneNum) {
+    public void addItem(ArrayList<String> product, int[] price, int[] amount, String date, String location, String phoneNum) {
         ManageSellItem item = new ManageSellItem();
 
         item.setProduct(product);
+        item.setPrice(price);
+        item.setAmount(amount);
         item.setDate(date);
         item.setLocation(location);
         item.setPhoneNum(phoneNum);

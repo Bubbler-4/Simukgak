@@ -66,8 +66,7 @@
             android:layout_weight="1"
             android:onClick="onClickOrder"
             android:textSize="13sp"
-            android:textColor="#F5C30B"
-            />
+            android:textColor="#F5C30B" />
 
         <Button
             android:layout_width="wrap_content"
@@ -77,8 +76,7 @@
             android:layout_weight="1"
             android:onClick="onClickDutch"
             android:textSize="13sp"
-            android:textColor="#F5C30B"
-            />
+            android:textColor="#F5C30B" />
 
     </LinearLayout>
 

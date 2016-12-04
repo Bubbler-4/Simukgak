@@ -56,7 +56,12 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".order3"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
+        <activity android:name=".RestaurantMyPage"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ManageSell"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".ManageSellRank"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">
             <intent-filter>
@@ -69,9 +74,7 @@
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
-        <activity android:name=".RestaurantMyPage" />
-        <activity android:name=".ManageSell" />
-        <activity android:name=".ManageSellRank"></activity>
+
     </application>
 
 </manifest>

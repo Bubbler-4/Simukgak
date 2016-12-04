@@ -17,7 +17,7 @@
         android:hint="Product"
         android:id="@+id/productSpin"
         android:textSize="17dp"
-        android:textColor="#000000"
+        android:textColor="#F5C30B"
         android:gravity="center_horizontal"
         android:layout_gravity="center_vertical"
         android:layout_weight="2" />
@@ -28,7 +28,7 @@
         android:hint="Name"
         android:id="@+id/NameEdit"
         android:textSize="17dp"
-        android:textColor="#000000"
+        android:textColor="#D0CDCD"
         android:gravity="center_horizontal"
         android:layout_gravity="center_vertical"
         android:layout_weight="1" />
@@ -42,7 +42,7 @@
         android:layout_weight="2"
         android:hint="Price"
         android:textSize="17dp"
-        android:textColor="#000000"
+        android:textColor="#D0CDCD"
         android:inputType="number"
         android:digits="0123456789"/>
 
@@ -52,6 +52,7 @@
         android:layout_gravity="center_vertical"
         android:textSize="10dp"
         android:text="x"
-        android:id="@+id/deleteButton" />
+        android:id="@+id/deleteButton"
+        android:textColor="#F5C30B"/>
 
 </LinearLayout>

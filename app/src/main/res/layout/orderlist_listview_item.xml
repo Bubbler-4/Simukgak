@@ -78,7 +78,6 @@ android:layout_height="70dp">
         android:id="@+id/dutchButton"
         android:text="Dutch"
         android:onClick="onClickDutch"
-        android:textColor="#F5C30B"
-        android:background="#000000"/>
+        android:textColor="#F5C30B" />
 
 </LinearLayout>

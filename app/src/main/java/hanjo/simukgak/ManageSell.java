@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,6 +28,9 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
         listview = (ListView) findViewById(R.id.listorder);
         listview.setAdapter(adapter);
 
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+        layout.setBackgroundResource(R.drawable.bg2);
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -39,7 +43,8 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
         String[] values;
 
         fileManager = new FileManager(getApplicationContext(), "selcomp.txt");
-        fileManager.writeFile("010-9367-7686,공학3동,3,2016.12.05,라면,2000,3");
+        fileManager.resetData();
+        fileManager.writeFile("010-9367-7686,공학3동,3,2016.12.05.03.01,라면,2000,3,김밥,4000,4,치킨,15000,3");
         fileValues = fileManager.readFile(); //date, location, phoneNum, product1, price1, amount1, product2, price2, amount2,...
 
         for(int i = 0; i < fileValues.size(); i++)
@@ -53,7 +58,7 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
                 priceList[(j-4)/3] = Integer.parseInt(values[j+1]);
                 amountList[(j-4)/3] = Integer.parseInt(values[j+2]);
             }
-            adapter.addItem(productList, values[3], values[1], values[0]); //
+            adapter.addItem(productList, priceList, amountList, values[3], values[1], values[0]); //
         }
         int n = checkDue();
         if(n > 0)
@@ -69,7 +74,7 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
         String data;
         for(int i = 0; i<adapter.getCount(); i++)
         {
-            data = adapter.getItem(i).getDate() + "," + adapter.getItem(i).getLocation() + "," + adapter.getItem(i).getPhoneNum();
+            data = adapter.getItem(i).getPhoneNum() + "," + adapter.getItem(i).getLocation() + "," + adapter.getItem(i).getPrintDate() + "," + "3";
             for(int j = 0; j < adapter.getItem(i).getProductList().size(); j++) {
                 data = data + "," + (adapter.getItem(i).getProductList()).get(j);
                 data = data + "," + Integer.toString(adapter.getItem(i).getPrice(j));

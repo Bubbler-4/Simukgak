@@ -19,8 +19,7 @@
         android:id="@+id/OrderlistButton"
         android:onClick="onClickOrderlist"
         android:layout_margin="10dp"
-        android:textColor="#F5C30B"
-        android:background="#000000"/>
+        android:textColor="#F5C30B" />
 
     <Button
         android:text="주문 식당 랭킹"
@@ -30,7 +29,6 @@
         android:onClick="onClickManage"
         android:layout_margin="10dp"
         android:textColor="#F5C30B"
-        android:background="#000000"
         />
 
     <Button
@@ -40,6 +38,5 @@
         android:id="@+id/AddressButton"
         android:onClick="onClickAddress"
         android:layout_margin="10dp"
-        android:textColor="#F5C30B"
-        android:background="#000000"/>
+        android:textColor="#F5C30B" />
 </LinearLayout>

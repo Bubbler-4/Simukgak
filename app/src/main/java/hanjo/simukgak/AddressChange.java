@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AddressChange extends AppCompatActivity {
@@ -20,6 +21,9 @@ public class AddressChange extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_change);
+
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+        layout.setBackgroundResource(R.drawable.bg2);
 
         etxValue=(EditText)findViewById(R.id.amin_etxValue);
         txvValue=(TextView)findViewById(R.id.amin_txvValue);
