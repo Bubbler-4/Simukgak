@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,6 +29,9 @@ public class ManageDiet extends AppCompatActivity {
     private FileManager fileManager;
     private ArrayList<String> fileValues;
     private GregorianCalendar today = new GregorianCalendar();
+    WebView webView;
+    private int Num1, Num2, Num3, Num4, Num5;
+    private String Pro1, Pro2, Pro3, Pro4, Pro5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,24 +171,81 @@ public class ManageDiet extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(
-                            ManageDiet.this,
-                            ShowWebChartActivity.class);
 
-                    intent.putExtra("PRO1", getPro(pro1));
-                    intent.putExtra("NUM1", getNum(num1));
-                    intent.putExtra("PRO2", getPro(pro2));
-                    intent.putExtra("NUM2", getNum(num2));
-                    intent.putExtra("PRO3", getPro(pro3));
-                    intent.putExtra("NUM3", getNum(num3));
-                    intent.putExtra("PRO4", getPro(pro4));
-                    intent.putExtra("NUM4", getNum(num4));
-                    intent.putExtra("PRO5", getPro(pro5));
-                    intent.putExtra("NUM5", getNum(num5));
+                    Pro1=getPro(pro1);
+                    Num1=getNum(num1);
+                    Pro2=getPro(pro2);
+                    Num2=getNum(num2);
+                    Pro3=getPro(pro3);
+                    Num3=getNum(num3);
+                    Pro4=getPro(pro4);
+                    Num4=getNum(num4);
+                    Pro5=getPro(pro5);
+                    Num5=getNum(num5);
 
-                    startActivity(intent);
+                    webView = (WebView)findViewById(R.id.web);
+                    webView.addJavascriptInterface(new ManageDiet.WebAppInterface(), "Android");
+
+                    webView.getSettings().setJavaScriptEnabled(true);
+                    webView.loadUrl("file:///android_asset/chart.html");
+
                 }
             };
+
+    public class WebAppInterface {
+
+        @JavascriptInterface
+        public String getPro1() {
+            return Pro1;
+        }
+
+        @JavascriptInterface
+        public int getNum1() {
+            return Num1;
+        }
+
+        @JavascriptInterface
+        public String getPro2() {
+            return Pro2;
+        }
+
+        @JavascriptInterface
+        public int getNum2() {
+            return Num2;
+        }
+
+        @JavascriptInterface
+        public String getPro3() {
+            return Pro3;
+        }
+
+        @JavascriptInterface
+        public int getNum3() {
+            return Num3;
+        }
+
+        @JavascriptInterface
+        public String getPro4() {
+            return Pro4;
+        }
+
+        @JavascriptInterface
+        public int getNum4() {
+            return Num4;
+        }
+
+        @JavascriptInterface
+        public String getPro5() {
+            return Pro5;
+        }
+
+        @JavascriptInterface
+        public int getNum5() {
+            return Num5;
+        }
+    }
+
+
 
     private int checkRepeat(String name, ArrayList<String> restaurantName) {
 
