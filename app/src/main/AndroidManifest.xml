@@ -78,6 +78,15 @@
         <activity
             android:name=".seller"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".selorderwait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".selorderdel"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".selordercomp"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <!-- Firebase Notifications -->
         <service android:name=".FBMessageService">
             <intent-filter>
