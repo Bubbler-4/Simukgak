@@ -15,7 +15,7 @@
             android:id="@+id/place"
             android:text="Place"
             android:textSize="17dp"
-            android:textColor="#000000"
+            android:textColor="#D0CDCD"
             android:gravity="center_vertical"
             android:layout_weight="1"/>
         <Button
@@ -24,7 +24,7 @@
             android:id="@+id/item"
             android:text="Item"
             android:textSize="17dp"
-            android:textColor="#000000"
+            android:textColor="#D0CDCD"
             android:gravity="center_vertical"
             android:layout_weight="1"/>
         <TextView
@@ -33,7 +33,7 @@
             android:id="@+id/number"
             android:text="PhonNumber"
             android:textSize="17dp"
-            android:textColor="#000000"
+            android:textColor="#D0CDCD"
             android:gravity="center_vertical"
             android:layout_weight="1"/>
     </LinearLayout>

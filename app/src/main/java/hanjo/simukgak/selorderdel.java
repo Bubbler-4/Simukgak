@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,6 +47,9 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
 
         listview = (ListView) findViewById(R.id.orderlistview);
         listview.setAdapter(adapter);
+
+        LinearLayout layout =(LinearLayout)findViewById(R.id.back);
+        layout.setBackgroundResource(R.drawable.bg2);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
