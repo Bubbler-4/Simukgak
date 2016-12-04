@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_seller"
+            android:icon="@drawable/seller"
+            android:title="판매자 글" />
+        <item
+            android:id="@+id/nav_customer"
+            android:icon="@drawable/customer"
+            android:title="구매자 글" />
+        <item
+            android:id="@+id/nav_myWrite"
+            android:icon="@drawable/me"
+            android:title="내가 쓴 글"
+            android:visible="true" />
+    </group>
+
+</menu>

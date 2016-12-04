@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hanjo.simukgak">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +30,70 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="Customer"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".order1" />
-        <activity android:name=".order2"></activity>
-        <activity android:name=".DutchPay"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order1"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order2"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order_last"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".mami"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".DutchPay"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Mypage"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Orderlist"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".CreateDutch"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".AddressChange"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ManageDiet"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".order3"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <!-- Firebase Notifications -->
+        <service android:name=".FBMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FBIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- ./Firebase Notifications -->
+        <activity android:name=".RestaurantMyPage" />
+        <activity android:name=".ManageSell" />
+        <activity android:name=".ManageSellRank" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="시먹각">
+        </activity>
+        <activity android:name=".Sign_up_photo"></activity>
+        <activity
+            android:name=".test"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Review_write" />
+
     </application>
 
 </manifest>
