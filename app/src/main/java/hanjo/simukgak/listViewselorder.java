@@ -47,6 +47,9 @@ public class listViewselorder implements Serializable{
     /*public Drawable getIcon() {
         return this.iconDrawable ;
     }*/
+    public int getLength() {
+        return productList.size();
+    }
     public ArrayList<String> getProductList() { return productList;}
 
     public int getPrice(int n) {
