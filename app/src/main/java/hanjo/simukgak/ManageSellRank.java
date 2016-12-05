@@ -22,10 +22,10 @@ public class ManageSellRank extends AppCompatActivity implements ManageSellRankL
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_sell);
+        setContentView(R.layout.activity_manage_sell_rank);
         final ListView listview;
 
-        listview = (ListView) findViewById(R.id.listorder);
+        listview = (ListView) findViewById(R.id.list1);
         listview.setAdapter(adapter);
 
         LinearLayout layout =(LinearLayout)findViewById(R.id.back);

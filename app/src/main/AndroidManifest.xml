@@ -16,7 +16,6 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -100,7 +99,10 @@
         </service>
         <!-- ./Firebase Notifications -->
 
-        <activity android:name=".ManageMenu"
+        <activity
+            android:name=".ManageMenu"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".ManageMenuModifyItem"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
