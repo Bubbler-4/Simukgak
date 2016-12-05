@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="@drawable/color_block">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="386dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="66dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/imageView7" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <TextView
+                android:text="Customer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textView4"
+                android:textColorLink="@android:color/holo_orange_dark"
+                android:textColor="#F5C30B"
+                android:textAlignment="center" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="11dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <Space
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="ID: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView6"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:text="ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView14"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="YYYY-MM-DD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView13"
+                    android:textSize="10sp"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="123dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.79">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="19dp"
+                            android:layout_weight="0.16" />
+
+                        <TextView
+                            android:text="Store"
+                            android:layout_width="57dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView16"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textSize="12sp"
+                            android:layout_weight="0.06" />
+
+                        <TextView
+                            android:text="food"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView17"
+                            android:textSize="12sp"
+                            android:layout_weight="0.03" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView5"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textAlignment="center"
+                            android:text="♥"
+                            android:layout_weight="0.17"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:text="100"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView18"
+                            android:textAlignment="textEnd"
+                            android:layout_gravity="end"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="GRADE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView12"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@android:color/background_dark"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:layout_weight="0.02" />
+
+                <TextView
+                    android:text="F"
+                    android:layout_width="wrap_content"
+                    android:layout_height="31dp"
+                    android:id="@+id/textView15"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    android:layout_weight="0.01" />
+
+                <Button
+                    android:layout_width="46dp"
+                    android:layout_height="47dp"
+                    android:id="@+id/button"
+                    android:background="@drawable/like_icon"
+                    android:layout_weight="0.00" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.03" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Review: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_weight="0.01"
+            android:textAlignment="center" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.07">
+
+            <TextView
+                android:text="this food is really suck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_weight="0.21"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+        </ScrollView>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04" />
+
+    </LinearLayout>
+
+</LinearLayout>

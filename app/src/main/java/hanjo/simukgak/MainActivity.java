@@ -94,9 +94,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectCustomer(View view) {
-        Intent onSelectCustomerIntent = new Intent(this, CustomerActivity.class);
+     //   Intent onSelectCustomerIntent = new Intent(this, CustomerActivity.class);
+        Intent onSelectCustomerIntent = new Intent(this, LoginActivity.class);
 
-        onSelectCustomerIntent.putExtra("key", "value");
+        onSelectCustomerIntent.putExtra("Job","Customer");
 
         final int result = 1;
         startActivity(onSelectCustomerIntent);
@@ -104,9 +105,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectRestaurant(View view) {
-        Intent onSelectCustomerIntent = new Intent(this, seller.class);
+//        Intent onSelectCustomerIntent = new Intent(this, seller.class);
+        Intent onSelectCustomerIntent = new Intent(this, LoginActivity.class);
 
-        onSelectCustomerIntent.putExtra("key", "value");
+        onSelectCustomerIntent.putExtra("Job","Seller");
 
         final int result = 1;
         startActivity(onSelectCustomerIntent);
