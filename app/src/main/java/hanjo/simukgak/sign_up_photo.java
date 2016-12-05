@@ -187,48 +187,26 @@ public class Sign_up_photo extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         id_view = v.getId();
         if(v.getId() == R.id.btn_signupfinish) {
-            /** SharedPreference 환경 변수 사용 **/
-            //         SharedPreferences prefs = getSharedPreferences("login", 0);
-            /** prefs.getString() return값이 null이라면 2번째 함수를 대입한다. **/
-            //         String login = prefs.getString("USER_LOGIN", "LOGOUT");
-            //         String facebook_login = prefs.getString("FACEBOOK_LOGIN", "LOGOUT");
-            //         String user_id = prefs.getString("USER_ID","");
-            //         String user_name = prefs.getString("USER_NAME", "");
-            //        String user_password = prefs.getString("USER_PASSWORD", "");
-            //         String user_phone = prefs.getString("USER_PHONE", "");
-            //        String user_email = prefs.getString("USER_EMAIL", "");
-            //       dbmanger.select(user_id,user_name,user_password, user_phone, user_email);
-
-            //       dbmanger.selectPhoto(user_name, mImageCaptureUri, absoultePath);
-
-           if(job.equals("Customer")) {
-               Intent mainIntent = new Intent(Sign_up_photo.this, CustomerActivity.class);
-
-               mainIntent.putExtra("email_id", email_id);
-
-               BitmapDrawable d = (BitmapDrawable) iv_UserPhoto.getDrawable();
-               Bitmap b = d.getBitmap();
-               mainIntent.putExtra("bm", (Bitmap) b);
-               mainIntent.putExtra("Job", job);
-
-               Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-               Sign_up_photo.this.startActivity(mainIntent);
-               Sign_up_photo.this.finish();
-           }
-            if(job.equals("Seller")){
-                Intent mainIntent = new Intent(Sign_up_photo.this, seller.class);
-
-                mainIntent.putExtra("email_id", email_id);
-
-                BitmapDrawable d = (BitmapDrawable) iv_UserPhoto.getDrawable();
-                Bitmap b = d.getBitmap();
-                mainIntent.putExtra("bm", (Bitmap) b);
-                mainIntent.putExtra("Job", job);
-
-                Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                Sign_up_photo.this.startActivity(mainIntent);
-                Sign_up_photo.this.finish();
+            Intent mainIntent;
+            if(job.equals("Customer")) {
+                mainIntent = new Intent(Sign_up_photo.this, CustomerActivity.class);
             }
+            else {
+                mainIntent = new Intent(Sign_up_photo.this, seller.class);
+            }
+
+            mainIntent.putExtra("email_id", email_id);
+
+            BitmapDrawable d = (BitmapDrawable) iv_UserPhoto.getDrawable();
+            Bitmap b = d.getBitmap();
+            mainIntent.putExtra("bm", (Bitmap) b);
+            mainIntent.putExtra("Job", job);
+
+            SocketWrapper.object().sendProfile(b);
+
+            Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            Sign_up_photo.this.startActivity(mainIntent);
+            Sign_up_photo.this.finish();
         }else if(v.getId() == R.id.btn_UploadPicture) {
 
             DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
