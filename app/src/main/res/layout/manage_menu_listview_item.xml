@@ -29,18 +29,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/priceText"
         android:text="0"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|left"
         android:layout_weight="1"
         android:textColor="#D0CDCD"/>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/numText"
-        android:text="0"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:textColor="#D0CDCD"/>
+        android:layout_height="34dp"
+        android:id="@+id/editButton"
+        android:textSize="10dp"
+        android:text="Edit"
+        android:textColor="#F5C30B"
+        android:layout_gravity="center_vertical"/>
+
 
     <Button
         android:layout_width="wrap_content"

@@ -3,6 +3,7 @@ package hanjo.simukgak;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -56,7 +57,8 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
                 priceList[(j-4)/3] = Integer.parseInt(values[j+1]);
                 amountList[(j-4)/3] = Integer.parseInt(values[j+2]);
             }
-            adapter.addItem(productList, priceList, amountList, values[3], values[1], values[0]); //
+            Log.d("ddd", fileValues.get(i));
+            adapter.addItem(productList, priceList, amountList, values[2], values[1], values[0]); //
         }
         int n = checkDue();
         if(n > 0)

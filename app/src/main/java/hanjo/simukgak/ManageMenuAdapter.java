@@ -65,13 +65,15 @@ public class ManageMenuAdapter extends BaseAdapter implements View.OnClickListen
         rankTextView.setText(Integer.toString(position + 1));
         productTextView.setText(listViewItem.getProduct());
         priceTextView.setText(Integer.toString(listViewItem.getPrice()));
-        numTextView.setText(Integer.toString(listViewItem.getNum()));
 
         //delete button
         Button deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         deleteButton.setTag(position);
         deleteButton.setOnClickListener(this);
 
+        Button editButton = (Button) convertView.findViewById(R.id.editButton);
+        editButton.setTag(position);
+        editButton.setOnClickListener(this);
 
         return convertView;
     }
@@ -95,12 +97,11 @@ public class ManageMenuAdapter extends BaseAdapter implements View.OnClickListen
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String product, int price, int num) {
+    public void addItem(String product, int price) {
         ManageMenuItem item = new ManageMenuItem();
 
         item.setProduct(product);
         item.setPrice(price);
-        item.setNum(num);
 
         listViewItemList.add(item);
     }
@@ -109,6 +110,10 @@ public class ManageMenuAdapter extends BaseAdapter implements View.OnClickListen
         listViewItemList.remove(position);
     }
 
+    public void editItem(int position, String product, int price) {
+        getItem(position).setProduct(product);
+        getItem(position).setPrice(price);
+    }
 
     /**
      * @param savedDate 데이터가 저장된 시간
@@ -156,9 +161,9 @@ public class ManageMenuAdapter extends BaseAdapter implements View.OnClickListen
             public int compare(ManageMenuItem item1, ManageMenuItem item2) {
                 int ret = 0;
                 {
-                    if (item1.getTotPrice() > item2.getTotPrice())
+                    if (item1.getPrice() > item2.getPrice())
                         ret = -1;
-                    else if (item1.getTotPrice() < item2.getTotPrice())
+                    else if (item1.getPrice() < item2.getPrice())
                         ret = 0;
                     else
                         ret = 1;

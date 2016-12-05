@@ -110,6 +110,8 @@
         <activity
             android:name=".ManageMenu"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".ManageMenuModifyItem"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="시먹각">
