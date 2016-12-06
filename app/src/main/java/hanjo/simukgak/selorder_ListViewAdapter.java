@@ -145,8 +145,11 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
         String all;
         all=listViewItemList.get(position).getProductList().get(0)+","+Integer.toString(listViewItemList.get(position).getPrice(0))+","+Integer.toString(listViewItemList.get(position).getAmount(0));
         int i;
-        for(i=1;i<getCount();i++)
-            all=all+","+listViewItemList.get(position).getProductList().get(i)+","+Integer.toString(listViewItemList.get(position).getPrice(i))+","+Integer.toString(listViewItemList.get(position).getAmount(i));
+        for(i=1;i<getCount();i++) {
+            all = all + "," + listViewItemList.get(position).getProductList().get(i) ;
+            all=all+ "," + Integer.toString(listViewItemList.get(position).getPrice(i)) ;
+            all=all+"," + Integer.toString(listViewItemList.get(position).getAmount(i));
+        }
         return all;
     }
     //아이템 제거
