@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         final int result = 1;
         startActivity(onSelectCustomerIntent);
+        finish();
         //startActivityForResult(onSelectCustomerIntent, result);
     }
 
@@ -112,5 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         final int result = 1;
         startActivity(onSelectCustomerIntent);
+        finish();
     }
 }
