@@ -139,9 +139,21 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter {
                 getChild(groupPosition,childPosition).setChecked(!getChild(groupPosition,childPosition).getchecked());
             }
         };
-
+        View.OnClickListener listener_text= new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                getChild(groupPosition,childPosition).setChecked(!getChild(groupPosition,childPosition).getchecked());
+                selected.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        selected.setChecked(getChild(groupPosition,childPosition).getchecked());
+                    }
+                });
+            }
+        };
+        titleTextView.setOnClickListener(listener_text);
         selected.setOnClickListener(listener);
-//selected.setOnCheckedChangeListener(temp);
         titleTextView.setText(childData.getTitle());
         descTextView.setText(""+childData.getPrice());
 
