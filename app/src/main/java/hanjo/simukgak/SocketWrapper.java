@@ -135,7 +135,7 @@ public class SocketWrapper extends Observable {
     public void sendFBToken(String token) {
         Log.d(DEBUG_TAG, "Sending Firebase Token");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
-        String user = pref.getString("username", null);
+        String user = pref.getString("userId", null);
         socket.emit("FBToken", token, user);
     }
 

@@ -340,6 +340,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         editor.putString("userId", id);
         editor.putString("userJob", job);
         editor.commit();
+
+        String token = pref.getString("regId", null);
+        SocketWrapper.object().sendFBToken(token);
     }
 
     private interface ProfileQuery {
