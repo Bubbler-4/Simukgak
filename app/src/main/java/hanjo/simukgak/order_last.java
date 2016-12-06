@@ -1,9 +1,14 @@
 package hanjo.simukgak;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -260,26 +266,41 @@ public void send_order(View v) {
         try {
             dataJSON.put("store", adapter.getStoreName());
             dataJSON.put("timestamp", now);
+            dataJSON.put("date", formatDate);
             dataJSON.put("address", addressStr);
             dataJSON.put("payment", paymentType);
 
-            JSONObject itemsJSON = new JSONObject();
+            JSONArray itemsJSON = new JSONArray();
             for(int j = 0; j < adapter.getCount(); j++) {
+                JSONObject itemJSON = new JSONObject();
                 if(adapter.getItem(j).getcount() > 0) {
-                    itemsJSON.put(adapter.getItem(j).getTitle(), adapter.getItem(j).getcount());
+                    itemJSON.put("menu", adapter.getItem(j).getTitle());
+                    itemJSON.put("price", adapter.getItem(j).getPrice());
+                    itemJSON.put("count", adapter.getItem(j).getcount());
+                    itemsJSON.put(itemJSON);
                 }
             }
             dataJSON.put("items", itemsJSON);
+
+            if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.READ_SMS") != PackageManager.PERMISSION_GRANTED) {
+                final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+                ActivityCompat.requestPermissions(this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);
+                return;
+            }
+            TelephonyManager mTelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            String myNumber = mTelephonyMgr.getLine1Number();
+            dataJSON.put("phone", myNumber);
+
+            SocketWrapper.object().sendOrder(dataJSON);
+
+            Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_LONG).show();
+
+            setResult(RESULT_OK);
+            finish();
         } catch (JSONException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        SocketWrapper.object().sendOrder(dataJSON);
-
-        Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_LONG).show();
-
-        setResult(RESULT_OK);
-        finish();
     }
     else
     {

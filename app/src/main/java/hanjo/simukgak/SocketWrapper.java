@@ -36,6 +36,7 @@ public class SocketWrapper extends Observable {
     private String[] restaurantList;
     private String menuList;
     private String reviewList;
+    private String newOrder;
 
     public static SocketWrapper object() {
         return thisObj;
@@ -119,6 +120,37 @@ public class SocketWrapper extends Observable {
                         int messageID = obj.optInt(i);
                     }
 
+                    setChanged();
+                    notifyObservers();
+                }
+            }).on("ReceiveOrder", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    JSONObject order = (JSONObject) args[0];
+                    try {
+                        String phone = order.getString("phone");
+                        String address = order.optString("address");
+                        String date = order.getString("date");
+                        newOrder = phone + "," + address + ",0," + date;
+                        String menu;
+                        int price;
+                        int count;
+                        JSONArray array = order.getJSONArray("items");
+                        int len = array.length();
+                        for(int i = 0; i < len; i += 1) {
+                            JSONObject item = array.getJSONObject(i);
+                            menu = item.getString("menu");
+                            price = item.getInt("price");
+                            count = item.getInt("count");
+                            newOrder += "," + menu + "," + String.valueOf(price) + "," + String.valueOf(count);
+                        }
+
+                        FileManager fileManager = new FileManager(SocketWrapper.this.parent.getApplicationContext(), "selwait.txt");
+                        fileManager.writeFile(newOrder);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throw new RuntimeException();
+                    }
                     setChanged();
                     notifyObservers();
                 }
@@ -239,5 +271,9 @@ public class SocketWrapper extends Observable {
 
     public String getMenuList() {
         return menuList;
+    }
+
+    public String getNewOrder() {
+        return newOrder;
     }
 }

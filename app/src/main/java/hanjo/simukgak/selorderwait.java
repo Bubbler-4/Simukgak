@@ -15,12 +15,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by jkj89 on 2016-12-01.
  */
 
-public class selorderwait extends AppCompatActivity implements selorder_ListViewAdapter.ListBtnClickListener  {
+public class selorderwait extends AppCompatActivity implements selorder_ListViewAdapter.ListBtnClickListener, Observer {
 
     static final int REQUEST_CODE = 1;
     final selorder_ListViewAdapter adapter = new selorder_ListViewAdapter(this, R.layout.selwait, this);
@@ -50,9 +52,6 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
 
 
         fileManager = new FileManager(getApplicationContext(), "selwait.txt");
-        fileManager.writeFile("010-1111-2222,공학관,0,2016.10.13.14.20,고추장불고기,5000,1,닭갈비,5000,2,초벌구이소,13000,3");
-        fileManager.writeFile("010-1111-2222,공학관,0,2016.10.13.14.20,보쌈대,20000,1,돼지고추장,6000,2");
-        fileManager.writeFile("010-1111-2222,공학관,0,2016.10.13.14.20,양념치킨,16000,1");
         ArrayList<String> fileValues;
         ArrayList<String> productList;
         String[] values;
@@ -73,11 +72,6 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
             adapter.addItem(values[0], values[1], values[2], values[3], productList, priceList, amountList); //
         }
 
-        //default 아이템 추가. price, name, date,phone
-        /*adapter.addItem("5000", "고추장 불고기", "2016.10.03.14:20","010-1111-2222","공학관","0") ;
-        adapter.addItem("5000", "참치마요", "2016.10.10.15:24","010-3333-4444","화학관","0") ;
-        adapter.addItem("5000", "참치마요", "2016.10.09.16:42","010-1111-3333","청암","0") ;
-        adapter.addItem("7000", "불고기", "2016.10.01.01:54","010-5555-4444","학생회관","0") ;*/
         adapter.sortItemByDate();
 
         Button wait = (Button)findViewById(R.id.waiting) ;
@@ -90,20 +84,6 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
                 startActivity(new Intent(selorderwait.this, selorderwait.class));
             }
         }) ;
-
-
-        /*
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // get item
-                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
-
-                String titleStr = item.getTitle() ;
-                //Drawable iconDrawable = item.getIcon() ;
-                Toast.makeText(getApplicationContext(), titleStr, Toast.LENGTH_SHORT).show();
-            }
-        }) ;*/
 
         GD.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -121,6 +101,8 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
             }
         });
 
+        SocketWrapper.object().deleteObservers();
+        SocketWrapper.object().addObserver(this);
     }
 
 
@@ -206,5 +188,40 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
                 });
         AlertDialog alert = alert_confirm.create();
         alert.show();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        SocketWrapper sw = (SocketWrapper) o;
+        String newOrder = sw.getNewOrder();
+
+        fileManager = new FileManager(getApplicationContext(), "selwait.txt");
+        ArrayList<String> productList;
+        String[] values;
+        productList = new ArrayList<>();
+        values = newOrder.split(",");
+        int[] priceList = new int[(values.length-4)/3];
+        int[] amountList = new int[(values.length-4)/3];
+        for(int j = 4; j < values.length; j = j + 3) {
+            productList.add(values[j]);
+            priceList[(j-4)/3] = Integer.parseInt(values[j+1]);
+            amountList[(j-4)/3] = Integer.parseInt(values[j+2]);
+        }
+
+        final String value0 = values[0];
+        final String value1 = values[1];
+        final String value2 = values[2];
+        final String value3 = values[3];
+        final ArrayList<String> prodList = productList;
+        final int[] priList = priceList;
+        final int[] amtList = amountList;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.addItem(value0, value1, value2, value3, prodList, priList, amtList);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }
