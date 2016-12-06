@@ -46,9 +46,6 @@
             android:name=".order_last"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".mami"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name=".DutchPay"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
