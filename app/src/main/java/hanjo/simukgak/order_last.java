@@ -287,6 +287,11 @@ public void send_order(View v) {
                 ActivityCompat.requestPermissions(this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);
                 return;
             }
+            if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.READ_PHONE_STATE") != PackageManager.PERMISSION_GRANTED) {
+                final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+                ActivityCompat.requestPermissions(this, new String[]{"android.permission.READ_PHONE_STATE"}, REQUEST_CODE_ASK_PERMISSIONS);
+                return;
+            }
             TelephonyManager mTelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             String myNumber = mTelephonyMgr.getLine1Number();
             dataJSON.put("phone", myNumber);
