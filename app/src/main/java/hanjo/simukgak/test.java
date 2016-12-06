@@ -79,7 +79,11 @@ public class test extends AppCompatActivity
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    adapter.deleteItem(position);
+                                    Review review = (Review) adapter.getItem(position);
+                                    if(review.getId().equals(UserID)) {
+                                        adapter.deleteItem(position);
+                                        SocketWrapper.object().deleteReview(position);
+                                    }
                                 }
                                 adapter.notifyDataSetChanged();
                             }
@@ -248,6 +252,13 @@ public class test extends AppCompatActivity
             e.printStackTrace();
             throw new RuntimeException();
         }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     /**

@@ -104,6 +104,7 @@ public class SocketWrapper extends Observable {
             }).on("reviewList", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
+                    Log.d(DEBUG_TAG, "Get reviews");
                     reviewList = ((JSONArray) args[0]).toString();
 
                     setChanged();
@@ -198,11 +199,16 @@ public class SocketWrapper extends Observable {
     }
 
     public void requestReviews() {
+        Log.d(DEBUG_TAG, "Request reviews");
         socket.emit("RequestReviews");
     }
 
     public String getReviewList() {
         return reviewList;
+    }
+
+    public void deleteReview(int index) {
+        socket.emit("DeleteReview", index);
     }
 
     public void sendDutch(String nameTo, String price) {
