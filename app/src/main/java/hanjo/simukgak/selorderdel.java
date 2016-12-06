@@ -149,7 +149,7 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
             case R.id.departButtonButton:
                 depart(position);
                 break;
-            case R.id.item:
+            case R.id.item_del:
                 item(position);
             default:
                 break;

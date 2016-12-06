@@ -83,6 +83,9 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
             Button cancleButton = (Button) convertView.findViewById(R.id.NOButton);
             cancleButton.setTag(position);
             cancleButton.setOnClickListener(this);
+            Button see = (Button) convertView.findViewById(R.id.item_wait);
+            see.setTag(position);
+            see.setOnClickListener(this);
         }
         if(listsel.getState()==1||listsel.getState()==2) {
             Button goButton = (Button) convertView.findViewById(R.id.startButton);
@@ -91,9 +94,15 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
             Button departButton = (Button) convertView.findViewById(R.id.departButtonButton);
             departButton.setTag(position);
             departButton.setOnClickListener(this);
+            Button see = (Button) convertView.findViewById(R.id.item_del);
+            see.setTag(position);
+            see.setOnClickListener(this);
         }
-        Button see = (Button) convertView.findViewById(R.id.item);
-        see.setTag(position);
+        if(listsel.getState()==3) {
+            Button see = (Button) convertView.findViewById(R.id.item_comp);
+            see.setTag(position);
+            see.setOnClickListener(this);
+        }
         return convertView;
     }
 
@@ -248,7 +257,8 @@ public class selorder_ListViewAdapter extends BaseAdapter implements View.OnClic
         String all;
         all=listViewItemList.get(position).getProductList().get(0)+"  "+listViewItemList.get(position).getAmount(0);
         int i;
-        for(i=1;i<getCount();i++)
+        int len = listViewItemList.get(position).getProductList().size();
+        for(i=1;i<len;i++)
             all=all+"\n"+listViewItemList.get(position).getProductList().get(i)+"  "+listViewItemList.get(position).getAmount(i);
         return all;
     }

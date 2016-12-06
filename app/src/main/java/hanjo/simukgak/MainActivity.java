@@ -64,10 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
-        String token = pref.getString("regId", null);
-        SocketWrapper.object().sendFBToken(token);
     }
 
     @Override
