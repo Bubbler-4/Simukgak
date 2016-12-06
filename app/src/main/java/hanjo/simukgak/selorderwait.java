@@ -138,8 +138,7 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
                 dialog.dismiss();
             }
         });
-        AlertDialog alert = alert_confirm.create();
-        alert.show();
+        alert_confirm.show();
     }
     public void itemDelete(final int position)
     {

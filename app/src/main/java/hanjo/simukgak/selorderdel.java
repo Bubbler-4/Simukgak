@@ -149,7 +149,12 @@ public class selorderdel extends AppCompatActivity implements selorder_ListViewA
     public void item(final int position)
     {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(selorderdel.this);
-        alert_confirm.setMessage(adapter.getlist(position));
+        alert_confirm.setMessage(adapter.getlist(position)).setPositiveButton("확인",new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        });
         AlertDialog alert = alert_confirm.create();
         alert.show();
     }
