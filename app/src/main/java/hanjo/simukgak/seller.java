@@ -47,5 +47,7 @@ public class seller extends Activity {
     public void onClickOrder(View view) {
         startActivity(new Intent(seller.this, selorderwait.class));
     }
-
+    public void onClickSettings(View view) {
+        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+    }
 }
