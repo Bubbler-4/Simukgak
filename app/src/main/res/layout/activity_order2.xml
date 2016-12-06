@@ -16,6 +16,16 @@
         android:textSize="30dp"
         android:textColor="#F5C30B"
         android:text="배달 업체"/>
+
+    <ProgressBar
+        android:id="@+id/login_progress2"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
