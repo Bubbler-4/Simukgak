@@ -4,12 +4,16 @@ package hanjo.simukgak;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URISyntaxException;
 import java.util.Observable;
 
@@ -26,6 +30,8 @@ public class SocketWrapper extends Observable {
     private boolean socketConnected;
     private MainActivity parent;
 
+    private String id, login;
+    private Bitmap profile;
     private String[] restaurantList;
     private String menuList;
 
@@ -50,6 +56,27 @@ public class SocketWrapper extends Observable {
                 public void call(Object... args) {
                     Log.d(DEBUG_TAG, "SocketIO disconnected");
                     socketConnected = false;
+                }
+            }).on("login", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    login = (String) args[0];
+                    if(login.equals("success")) {
+                        requestProfile(id);
+                    }
+                    else {
+                        setChanged();
+                        notifyObservers();
+                    }
+                }
+            }).on("profile", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    String profileString = (String) args[0];
+                    byte[] byteArray = Base64.decode(profileString, Base64.NO_WRAP | Base64.URL_SAFE);
+                    profile = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    setChanged();
+                    notifyObservers();
                 }
             }).on("restaurantList", new Emitter.Listener() {
                 @Override
@@ -127,6 +154,38 @@ public class SocketWrapper extends Observable {
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
         String user = pref.getString("username", null);
         socket.emit("FBToken", token, user);
+    }
+
+    public void sendLogin(String id, String password) {
+        Log.d(DEBUG_TAG, "Sending ID and password");
+        this.id = id;
+        socket.emit("login", id, password);
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void sendProfile(Bitmap profile) {
+        Log.d(DEBUG_TAG, "Sending profile");
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        profile.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        String imageDataString = Base64.encodeToString(byteArray, Base64.NO_WRAP | Base64.URL_SAFE);
+
+        SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        String id = pref.getString("userId", null);
+
+        socket.emit("registerProfile", id, imageDataString);
+    }
+
+    public void requestProfile(String id) {
+        socket.emit("requestProfile", id);
+    }
+
+    public Bitmap getProfile() {
+        return profile;
     }
 
     public void sendOrder(JSONObject order) {

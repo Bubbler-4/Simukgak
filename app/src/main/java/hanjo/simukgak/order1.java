@@ -29,7 +29,7 @@ public class order1 extends AppCompatActivity implements Observer {
 
         ArrayAdapter adapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,LIST_MENU);
 
-        ListView listview =(ListView)findViewById(R.id.store);
+        ListView listview =(ListView) findViewById(R.id.store);
         listview.setAdapter(adapter);
 
         SocketWrapper.object().deleteObservers();

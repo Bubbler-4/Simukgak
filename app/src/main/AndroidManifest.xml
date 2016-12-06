@@ -5,12 +5,20 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Simukgak"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -104,6 +112,16 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ManageMenuModifyItem"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="시먹각">
+        </activity>
+        <activity android:name=".Sign_up_photo"></activity>
+        <activity
+            android:name=".test"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:label="Board" />
+        <activity android:name=".Review_write" />
     </application>
 
 </manifest>
