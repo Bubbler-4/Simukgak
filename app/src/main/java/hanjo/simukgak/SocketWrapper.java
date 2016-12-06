@@ -32,8 +32,10 @@ public class SocketWrapper extends Observable {
 
     private String id, login;
     private Bitmap profile;
+    private String imageDataString;
     private String[] restaurantList;
     private String menuList;
+    private String reviewList;
 
     public static SocketWrapper object() {
         return thisObj;
@@ -72,8 +74,8 @@ public class SocketWrapper extends Observable {
             }).on("profile", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    String profileString = (String) args[0];
-                    byte[] byteArray = Base64.decode(profileString, Base64.NO_WRAP | Base64.URL_SAFE);
+                    imageDataString = (String) args[0];
+                    byte[] byteArray = Base64.decode(imageDataString, Base64.NO_WRAP | Base64.URL_SAFE);
                     profile = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                     setChanged();
                     notifyObservers();
@@ -99,6 +101,14 @@ public class SocketWrapper extends Observable {
                     setChanged();
                     notifyObservers();
                 }
+            }).on("reviewList", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    reviewList = ((JSONArray) args[0]).toString();
+
+                    setChanged();
+                    notifyObservers();
+                }
             }).on("DutchDismiss", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
@@ -112,34 +122,6 @@ public class SocketWrapper extends Observable {
                     notifyObservers();
                 }
             });
-                    /*.on("message", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    final JSONObject obj = (JSONObject) args[0];
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                tvMessageFrom.setText(String.format("Message from %s:", obj.getString("id")));
-                                tvMessage.setText(obj.getString("msg"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }).on("messageFail", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvMessageFrom.setText("No such user");
-                            tvMessage.setText("");
-                        }
-                    });
-                }
-            });*/
             socketAvailable = true;
 
             socket.connect();
@@ -169,10 +151,12 @@ public class SocketWrapper extends Observable {
     public void sendProfile(Bitmap profile) {
         Log.d(DEBUG_TAG, "Sending profile");
 
+        this.profile = profile;
+
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         profile.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        String imageDataString = Base64.encodeToString(byteArray, Base64.NO_WRAP | Base64.URL_SAFE);
+        imageDataString = Base64.encodeToString(byteArray, Base64.NO_WRAP | Base64.URL_SAFE);
 
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
         String id = pref.getString("userId", null);
@@ -193,17 +177,45 @@ public class SocketWrapper extends Observable {
         socket.emit("Order", order);
     }
 
+    public void sendReview(String job, String store, String food, String date, String grade, String comment) {
+        JSONObject obj = new JSONObject();
+        SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
+        String id = pref.getString("userId", null);
+        try {
+            obj.put("id", id);
+            obj.put("profile", imageDataString);
+            obj.put("job", job);
+            obj.put("store", store);
+            obj.put("food", food);
+            obj.put("date", date);
+            obj.put("grade", grade);
+            obj.put("comment", comment);
+            obj.put("like", 0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("Review", obj);
+    }
+
+    public void requestReviews() {
+        socket.emit("RequestReviews");
+    }
+
+    public String getReviewList() {
+        return reviewList;
+    }
+
     public void sendDutch(String nameTo, String price) {
         Log.d(DEBUG_TAG, "Sending dutch request");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
-        String nameFrom = pref.getString("username", null);
+        String nameFrom = pref.getString("userId", null);
         socket.emit("DutchRequest", nameFrom, nameTo, price);
     }
 
     public void sendDutchDismiss(String nameTo) {
         Log.d(DEBUG_TAG, "Sending dutch dismiss request");
         SharedPreferences pref = parent.getApplicationContext().getSharedPreferences(FBConfig.SHARED_PREF, 0);
-        String nameFrom = pref.getString("username", null);
+        String nameFrom = pref.getString("userId", null);
         socket.emit("DutchDismiss", nameFrom, nameTo);
     }
 

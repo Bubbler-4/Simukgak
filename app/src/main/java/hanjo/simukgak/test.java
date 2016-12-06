@@ -1,14 +1,20 @@
 package hanjo.simukgak;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,18 +28,26 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 public class test extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Observer {
 
-    static final int REQ_YES = 1;
-    String UserID;
-    Bitmap profile;
-    ListView listview ;
-    ReviewAdapter adapter;
-    String job;
+    private static final int REQ_YES = 1;
+    private String UserID;
+    private Bitmap profile;
+    private ListView listview ;
+    private ReviewAdapter adapter;
+    private String job;
+    private View mProgressView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +65,8 @@ public class test extends AppCompatActivity
         // 리스트뷰 참조 및 Adapter달기
         listview = (ListView) findViewById(R.id.listview1);
         listview.setAdapter(adapter);
+
+        mProgressView = findViewById(R.id.board_progress);
 
         SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(listview,
@@ -118,6 +134,12 @@ public class test extends AppCompatActivity
         ui.setText(UserID);
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        SocketWrapper.object().deleteObservers();
+        SocketWrapper.object().addObserver(this);
+
+        SocketWrapper.object().requestReviews();
+        showProgress(true);
     }
 
     @Override
@@ -185,7 +207,82 @@ public class test extends AppCompatActivity
                 //     adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_menu_camera),
                 adapter.addItem(job, new BitmapDrawable(profile),
                         UserID, store_name, food_name,"0" , strCurDate, grade_text, type_comment);
+                SocketWrapper.object().sendReview(job, store_name, food_name, strCurDate, grade_text, type_comment);
             }
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showProgress(false);
+            }
+        });
+
+        SocketWrapper sw = (SocketWrapper) o;
+        String reviewList = sw.getReviewList();
+
+        try {
+            JSONArray array = new JSONArray(reviewList);
+            int len = array.length();
+            for(int i = 0; i < len; i += 1) {
+                JSONObject obj = array.getJSONObject(i);
+                String id = obj.getString("id");
+                String profile = obj.getString("profile");
+                String job = obj.getString("job");
+                String store = obj.getString("store");
+                String food = obj.getString("food");
+                String date = obj.getString("date");
+                String grade = obj.getString("grade");
+                String comment = obj.getString("comment");
+                int like = obj.getInt("like");
+
+                byte[] byteArray = Base64.decode(profile, Base64.NO_WRAP | Base64.URL_SAFE);
+                Bitmap profileBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
+                adapter.addItem(job, new BitmapDrawable(profileBitmap), id, store, food, String.valueOf(like), date, grade, comment);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            listview.setVisibility(show ? View.GONE : View.VISIBLE);
+            listview.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    listview.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            listview.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 }
