@@ -101,7 +101,7 @@ public class selordercomp extends AppCompatActivity implements selorder_ListView
     }
     public void onListBtnClick(int position, View v){
         switch (v.getId()) {
-            case R.id.item:
+            case R.id.item_comp:
                 item(position);
                 break;
         }

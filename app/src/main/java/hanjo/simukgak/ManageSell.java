@@ -57,7 +57,7 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
                 amountList[(j-4)/3] = Integer.parseInt(values[j+2]);
             }
             Log.d("ddd", fileValues.get(i));
-            adapter.addItem(productList, priceList, amountList, values[2], values[1], values[0]); //
+            adapter.addItem(productList, priceList, amountList, values[3], values[1], values[0]); //
         }
         int n = checkDue();
         if(n > 0)

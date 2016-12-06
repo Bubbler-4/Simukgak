@@ -133,7 +133,7 @@ public class selorderwait extends AppCompatActivity implements selorder_ListView
             case R.id.OkButton:
                 submit(position);
                 break;
-            case R.id.item:
+            case R.id.item_wait:
                 item(position);
             default:
                 break;
