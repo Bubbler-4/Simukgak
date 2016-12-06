@@ -73,6 +73,8 @@ public class Sign_up_photo extends Activity implements View.OnClickListener {
 
     private String email_id;
     private String job;
+    private boolean imageSet = false;
+
     //private DB_Manger dbmanger;
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -167,6 +169,7 @@ public class Sign_up_photo extends Activity implements View.OnClickListener {
 
                 if(extras != null)
                 {
+                    imageSet = true;
                     Bitmap photo = extras.getParcelable("data"); // CROP된 BITMAP
                     iv_UserPhoto.setImageBitmap(photo); // 레이아웃의 이미지칸에 CROP된 BITMAP을 보여줌
                     storeCropImage(photo, filePath); // CROP된 이미지를 외부저장소, 앨범에 저장한다.
@@ -187,6 +190,10 @@ public class Sign_up_photo extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         id_view = v.getId();
         if(v.getId() == R.id.btn_signupfinish) {
+            if(!imageSet) {
+                Toast.makeText(this, "프로필 사진을 설정해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent mainIntent;
             if(job.equals("Customer")) {
                 mainIntent = new Intent(Sign_up_photo.this, CustomerActivity.class);
@@ -212,6 +219,7 @@ public class Sign_up_photo extends Activity implements View.OnClickListener {
             DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    imageSet = true;
                     doTakePhotoAction();
                 }
             };
@@ -219,6 +227,7 @@ public class Sign_up_photo extends Activity implements View.OnClickListener {
             DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    imageSet = true;
                     doTakeAlbumAction();
                 }
             };

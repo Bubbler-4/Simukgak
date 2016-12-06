@@ -19,8 +19,7 @@ import java.util.Iterator;
 
 import static hanjo.simukgak.R.id.listview;
 
-public class order3 extends AppCompatActivity /*implements CustomExpandableListViewAdapter.ListBtnClickListener*/{
-    static int REQUEST_ACT =1234;
+public class order3 extends AppCompatActivity {
     public CustomExpandableListViewAdapter adapter;
     public ExpandableListView expandableListView;
     public HashMap<String, ArrayList<ListViewItem>> category_itemList;
@@ -104,21 +103,7 @@ public class order3 extends AppCompatActivity /*implements CustomExpandableListV
         Intent intent = new Intent(order3.this, order_last.class);
         intent.putExtra("order", temp.getList());
         intent.putExtra("StoreName",adapter.getStoreName());
-        startActivityForResult(intent,REQUEST_ACT);
+        startActivity(intent);
+        finish();
     }
-   @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-   {
-       super.onActivityResult(requestCode, resultCode, data);
-       if(requestCode==REQUEST_ACT)
-       {
-           if(resultCode==RESULT_OK)
-           {
-               setResult(RESULT_OK);
-               finish();
-           }
-       }
-   }
-
-
 }

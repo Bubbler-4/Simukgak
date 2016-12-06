@@ -51,11 +51,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-
     // UI references.
     private AutoCompleteTextView mIDView;
     private EditText mPasswordView;
@@ -150,10 +145,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mIDView.setError(null);
         mPasswordView.setError(null);
@@ -192,8 +183,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            //mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.execute((Void) null);
 
             SocketWrapper.object().deleteObservers();
             SocketWrapper.object().addObserver(this);
@@ -314,9 +303,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             startActivity(intent); // 다음 화면으로 넘어간다
             finish();
         } else if (code.equals("success")) {
-            Intent intent = new Intent(
-                    LoginActivity.this, // 현재 화면의 제어권자
-                    CustomerActivity.class); // 다음 넘어갈 클래스 지정
+            Intent intent;
+            if (job.equals("Seller")) {
+                intent = new Intent(
+                        LoginActivity.this, // 현재 화면의 제어권자
+                        seller.class); // 다음 넘어갈 클래스 지정
+            }
+            else {
+                intent = new Intent(
+                        LoginActivity.this, // 현재 화면의 제어권자
+                        CustomerActivity.class); // 다음 넘어갈 클래스 지정
+            }
             intent.putExtra("email_id",id);
             intent.putExtra("Job",job);
             intent.putExtra("bm", SocketWrapper.object().getProfile());
@@ -353,61 +350,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
-    }
-
-    private final int LOGIN_SUCCESS = 0;
-    private final int NEW_USER = 1;
-    private final int WRONG_PASSWORD = 2;
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-
-            // TODO: register the new account here.
-            return LOGIN_SUCCESS;
-        }
-
-        @Override
-        protected void onPostExecute(final Integer code) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (code == NEW_USER) {
-                Intent intent = new Intent(
-                        LoginActivity.this, // 현재 화면의 제어권자
-                        Sign_up_photo.class); // 다음 넘어갈 클래스 지정
-                intent.putExtra("email_id",mEmail);
-                intent.putExtra("Job",job);
-                startActivity(intent); // 다음 화면으로 넘어간다
-                finish();
-            } else if (code == LOGIN_SUCCESS) {
-                // TODO: Go to CustomerActivity
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
     }
 }
 
