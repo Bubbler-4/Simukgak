@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class DutchListViewAdapter extends BaseAdapter implements View.OnClickListener {
 
@@ -65,7 +66,7 @@ public class DutchListViewAdapter extends BaseAdapter implements View.OnClickLis
         // 아이템 내 각 위젯에 데이터 반영
         //iconImageView.setImageDrawable(listViewItem.getIcon());
         titleTextView.setText(listViewItem.getTitle());
-        priceTextView.setText(Integer.toString(listViewItem.getPrice()) + "원");
+        priceTextView.setText(String.format(Locale.KOREA, "%d원", listViewItem.getPrice()));
         nameTextView.setText(listViewItem.getName());
         dateTextView.setText(listViewItem.getDate());
 

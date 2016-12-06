@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.Locale;
 
 public class ManageMenuModifyItem extends AppCompatActivity {
 
-    private int REQUEST_CODE = 1;
     private EditText productEditText;
     private EditText priceEditText;
     private int status;

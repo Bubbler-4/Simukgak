@@ -1,6 +1,5 @@
 package hanjo.simukgak;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,16 +96,6 @@ public class ManageSell extends AppCompatActivity implements ManageSellListViewA
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        //MainActivity에서 부여한 번호표를 비교
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == RESULT_OK) { //세컨드 액티비티에서 이 값을 반환하는 코드가 동작 됐을때
-
-            }
-        }
-    }
 
     private int checkDue() {
         int count = 0;

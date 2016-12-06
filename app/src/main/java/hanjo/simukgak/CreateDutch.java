@@ -78,24 +78,25 @@ public class CreateDutch extends AppCompatActivity implements CreateDutchListVie
 
         productText.setText(company);
         dateText.setText(date);
+        if(product != null) {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, product);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, product);
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            amountSpinner.setAdapter(arrayAdapter);
+            amountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (amount != null && amount.length > position)
+                        amountText.setText(String.format(Locale.KOREA, "%d개", amount[position]));
+                }
 
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        amountSpinner.setAdapter(arrayAdapter);
-        amountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                amountText.setText(String.format(Locale.KOREA, "%d개", amount[position]));
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            );
         }
-
-        );
 
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {

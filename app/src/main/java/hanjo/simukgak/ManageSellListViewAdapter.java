@@ -67,7 +67,7 @@ public class ManageSellListViewAdapter extends BaseAdapter implements View.OnCli
         dateTextView.setText(listViewItem.getDate());
         locationTextView.setText(listViewItem.getLocation());
         phoneNumTextView.setText(listViewItem.getPhoneNum());
-        priceTextView.setText(Integer.toString(listViewItem.getTotPrice()));
+        priceTextView.setText(String.format(Locale.KOREA, "%d", listViewItem.getTotPrice()));
 
 
         return convertView;

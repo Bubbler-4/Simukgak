@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ManageMenu extends AppCompatActivity implements ManageMenuAdapter.ListBtnClickListener {
 
@@ -43,7 +39,6 @@ public class ManageMenu extends AppCompatActivity implements ManageMenuAdapter.L
         });
 
         ArrayList<String> fileValues;
-        ArrayList<String> productList;
         String[] values;
 
         fileManager = new FileManager(getApplicationContext(), "menu_info.txt");

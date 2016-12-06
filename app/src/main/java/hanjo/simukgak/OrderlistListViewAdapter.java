@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
@@ -67,7 +68,7 @@ public class OrderlistListViewAdapter extends BaseAdapter implements View.OnClic
         companyTextView.setText(listViewItem.getCompany());
         String products = listViewItem.getProductList().get(0) + " 외 " + Integer.toString(listViewItem.getTotAmount()-1) + "개";
         productTextView.setText(products);
-        priceTextView.setText(Integer.toString(listViewItem.getTotPrice()) + "원");
+        priceTextView.setText(String.format(Locale.KOREA, "%d원", listViewItem.getTotPrice()));
         dateTextView.setText(listViewItem.getPrintDate());
 
         Button deleteButton = (Button) convertView.findViewById(R.id.dutchButton);

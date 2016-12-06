@@ -57,7 +57,6 @@ public class ManageSellItem {
     public int getAmount(int n) {
         return amountList[n];
     }
-    public int[] getAmountArr() {return amountList;}
     public int getTotAmount() {
         int total = 0;
         for(int i : amountList)

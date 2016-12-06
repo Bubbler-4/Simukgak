@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Kwon Ohhyun on 2016-12-04.
@@ -55,16 +56,15 @@ public class ManageMenuAdapter extends BaseAdapter implements View.OnClickListen
         TextView rankTextView = (TextView) convertView.findViewById(R.id.rankText);
         TextView productTextView = (TextView) convertView.findViewById(R.id.productText);
         TextView priceTextView = (TextView) convertView.findViewById(R.id.priceText);
-        TextView numTextView = (TextView) convertView.findViewById(R.id.numText);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ManageMenuItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
 
-        rankTextView.setText(Integer.toString(position + 1));
+        rankTextView.setText(String.format(Locale.KOREA, "%d", position + 1));
         productTextView.setText(listViewItem.getProduct());
-        priceTextView.setText(Integer.toString(listViewItem.getPrice()));
+        priceTextView.setText(String.format(Locale.KOREA, "%d", listViewItem.getPrice()));
 
         //delete button
         Button deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
@@ -113,68 +113,5 @@ public class ManageMenuAdapter extends BaseAdapter implements View.OnClickListen
     public void editItem(int position, String product, int price) {
         getItem(position).setProduct(product);
         getItem(position).setPrice(price);
-    }
-
-    /**
-     * @param savedDate 데이터가 저장된 시간
-     * @return 3개월이 지났을 경우 true, 지나지 않았을 경우 false를 반환
-     */
-
-    public boolean checkDate(String savedDate) {
-        // 현재시간을 msec 으로 구한다.
-        long now = System.currentTimeMillis();
-        // 현재시간을 date 변수에 저장한다.
-        Date date = new Date(now);
-        // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy.MM.dd");
-        // nowDate 변수에 값을 저장한다.
-        String formatDate = sdfNow.format(date);
-
-        String[] savedDates = savedDate.split("\\.");
-        String[] currentDates = formatDate.split("\\.");
-
-        if (Integer.parseInt(currentDates[0]) == Integer.parseInt(savedDates[0]))
-            if (Integer.parseInt(currentDates[1]) - Integer.parseInt(savedDates[1]) >= 3)
-                return true;
-            else if (Integer.parseInt(currentDates[0]) - Integer.parseInt(savedDates[0]) == 1)
-                if (Integer.parseInt(currentDates[1]) + 12 - Integer.parseInt(savedDates[1]) >= 3)
-                    return true;
-                else if (Integer.parseInt(currentDates[0]) - Integer.parseInt(savedDates[0]) > 1)
-                    return true;
-
-        return false;
-
-    }
-
-    public int checkProduct(String product) {
-        for (int i = 0; i < getCount(); i++) {
-            if (getItem(i).getProduct().equals(product))
-                return i;
-        }
-
-        return -1;
-    }
-
-    public void sortItemByPrice() {
-        Comparator<ManageMenuItem> noAsc = new Comparator<ManageMenuItem>() {
-            @Override
-            public int compare(ManageMenuItem item1, ManageMenuItem item2) {
-                int ret = 0;
-                {
-                    if (item1.getPrice() > item2.getPrice())
-                        ret = -1;
-                    else if (item1.getPrice() < item2.getPrice())
-                        ret = 0;
-                    else
-                        ret = 1;
-
-                    return ret;
-                }
-            }
-
-        };
-
-        Collections.sort(listViewItemList, noAsc);
-        notifyDataSetChanged();
     }
 }

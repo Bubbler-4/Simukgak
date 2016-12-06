@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Kwon Ohhyun on 2016-12-04.
@@ -60,10 +61,10 @@ public class ManageSellRankListViewAdapter extends BaseAdapter implements View.O
         ManageSellRankItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        rankTextView.setText(Integer.toString(position + 1));
+        rankTextView.setText(String.format(Locale.KOREA, "%d", position + 1));
         productTextView.setText(listViewItem.getProduct());
-        priceTextView.setText(Integer.toString(listViewItem.getTotPrice()));
-        numTextView.setText(Integer.toString(listViewItem.getNum()));
+        priceTextView.setText(String.format(Locale.KOREA, "%d", listViewItem.getTotPrice()));
+        numTextView.setText(String.format(Locale.KOREA, "%d", listViewItem.getNum()));
 
 
         return convertView;
@@ -88,13 +89,12 @@ public class ManageSellRankListViewAdapter extends BaseAdapter implements View.O
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String product, int price, int num, int rate) {
+    public void addItem(String product, int price, int num) {
         ManageSellRankItem item = new ManageSellRankItem();
 
         item.setProduct(product);
         item.setPrice(price);
         item.setNum(num);
-        item.setRate(rate);
 
         listViewItemList.add(item);
     }

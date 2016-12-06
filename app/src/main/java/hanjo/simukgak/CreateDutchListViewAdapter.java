@@ -223,9 +223,8 @@ public class CreateDutchListViewAdapter extends BaseAdapter implements View.OnCl
      * @return 모든 데이터가 입력되었으면 null 반환, 아니면 에러 메시지를 반환
      */
     public String AllDataSelected(ArrayList<String> product, int[] price, int[] amount) {
-        int count = 0;
-        int total = 0;
-        boolean name;
+        int count;
+        int total;
         for(int i = 0; i<product.size(); i++)
         {
             count = 0;
