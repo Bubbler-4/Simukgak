@@ -136,6 +136,8 @@ public class test extends AppCompatActivity
         pfImage.setImageBitmap(profile);
         TextView ui = (TextView) header.findViewById(R.id.UserId);
         ui.setText(UserID);
+        TextView uj = (TextView) header.findViewById(R.id.Job);
+        uj.setText(job);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -172,9 +174,10 @@ public class test extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(test.this,SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -186,11 +189,37 @@ public class test extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_seller) {
-            // Handle the camera action
+            ReviewAdapter s_adapter = new ReviewAdapter() ;
+            for (int pos = 0; pos < adapter.getCount(); pos++){
+                Review review = (Review) adapter.getItem(pos);
+                if(review.getJob().equals("Seller")){
+                s_adapter.addItem(review.getJob(),review.getProfile(),review.getId(),
+                        review.getStore_name(),review.getFood_name(), review.getName_like(),
+                        review.getTime(),review.getGrade(),review.getComment());}
+            }
+            listview.setAdapter(s_adapter);
         } else if (id == R.id.nav_customer) {
-
+            ReviewAdapter c_adapter = new ReviewAdapter() ;
+            for (int pos = 0; pos < adapter.getCount(); pos++){
+                Review review = (Review) adapter.getItem(pos);
+                if(review.getJob().equals("Customer")){
+                    c_adapter.addItem(review.getJob(),review.getProfile(),review.getId(),
+                            review.getStore_name(),review.getFood_name(), review.getName_like(),
+                            review.getTime(),review.getGrade(),review.getComment());}
+            }
+            listview.setAdapter(c_adapter);
         } else if (id == R.id.nav_myWrite) {
-
+            ReviewAdapter m_adapter = new ReviewAdapter() ;
+            for (int pos = 0; pos < adapter.getCount(); pos++){
+                Review review = (Review) adapter.getItem(pos);
+                if(review.getId().equals(UserID)){
+                    m_adapter.addItem(review.getJob(),review.getProfile(),review.getId(),
+                            review.getStore_name(),review.getFood_name(), review.getName_like(),
+                            review.getTime(),review.getGrade(),review.getComment());}
+            }
+            listview.setAdapter(m_adapter);
+        }else {
+            listview.setAdapter(adapter);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
